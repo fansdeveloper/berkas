@@ -1,11 +1,11 @@
 part of 'pages.dart';
 
-class AccountScreen extends StatefulWidget {
+class RIAccountScreen extends StatefulWidget {
   @override
-  _AccountScreenState createState() => _AccountScreenState();
+  _RIAccountScreenState createState() => _RIAccountScreenState();
 }
 
-class _AccountScreenState extends State<AccountScreen> {
+class _RIAccountScreenState extends State<RIAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +43,10 @@ class _AccountScreenState extends State<AccountScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 90,
+                              height: 80,
                             ),
                             Text(
-                              "Jane Doe",
+                              "Panti Asuhan Ibububunda",
                               style: TextStyle(
                                 fontSize: 24,
                               ),
@@ -54,7 +54,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text("janedoe@gmail.com"),
+                            Text("Jl. Babatan Sari Apple no 89"),
                             SizedBox(
                               height: 15,
                             ),
@@ -74,7 +74,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               ],
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 40,
                             ),
                           ],
                         ),
@@ -100,25 +100,6 @@ class _AccountScreenState extends State<AccountScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          DonasiSayaScreen()));
-                            },
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                "Status Donasi",
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: HexColor("7A7ADC"),
-                          ),
                           FlatButton(
                             onPressed: () {},
                             child: SizedBox(
@@ -153,14 +134,14 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             Align(
-              alignment: Alignment(0, -0.8),
+              alignment: Alignment(0, -0.75),
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 80,
                 child: CircleAvatar(
                   radius: 65,
                   backgroundImage: NetworkImage(
-                      "https://vgraphs.com/images/agents/sova-avatar.jpg"),
+                      "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg"),
                 ),
               ),
             ),

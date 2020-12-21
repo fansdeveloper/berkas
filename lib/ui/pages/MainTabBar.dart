@@ -13,7 +13,7 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = MotionTabController(initialIndex: 1, vsync: this);
+    _tabController = MotionTabController(initialIndex: 0, vsync: this);
   }
 
   @override
@@ -43,11 +43,7 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
           controller: _tabController,
           children: <Widget>[
             HomeScreenDonatur(),
-            Container(
-              child: Center(
-                child: Text("Riwayat"),
-              ),
-            ),
+            RiwayatDonaturScreen(),
             AccountScreen()
           ],
         ));
