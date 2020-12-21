@@ -184,7 +184,15 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                       ),
                     ),
                   ],
-                )
+                ),
+                RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChooseCategoryScreen()));
+                    },
+                    child: Text("Category"))
               ],
             ),
           ],

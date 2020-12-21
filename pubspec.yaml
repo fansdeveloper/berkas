@@ -45,6 +45,24 @@ flutter:
     - assets/slider/s1.jpg
     - assets/slider/s2.jpg
     - assets/slider/s3.jpg
+    - assets/category/putih/1.png
+    - assets/category/putih/2.png
+    - assets/category/putih/3.png
+    - assets/category/putih/4.png
+    - assets/category/putih/5.png
+    - assets/category/putih/6.png
+    - assets/category/putih/7.png
+    - assets/category/putih/8.png
+    - assets/category/putih/9.png
+    - assets/category/ungu/1.png
+    - assets/category/ungu/2.png
+    - assets/category/ungu/3.png
+    - assets/category/ungu/4.png
+    - assets/category/ungu/5.png
+    - assets/category/ungu/6.png
+    - assets/category/ungu/7.png
+    - assets/category/ungu/8.png
+    - assets/category/ungu/9.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

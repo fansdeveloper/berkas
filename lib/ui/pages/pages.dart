@@ -9,3 +9,4 @@ part 'AccountScreen.dart';
 part 'RiwayatDonaturScreen.dart';
 part 'MainTabBar.dart';
 part 'HomeScreenDonatur.dart';
+part 'ChooseCategoryScreen.dart';
