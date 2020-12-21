@@ -1,28 +1,11 @@
 part of 'pages.dart';
 
 class HomeScreenDonatur extends StatefulWidget {
-  final String title = "Donasi";
-
   @override
   _HomeScreenDonaturState createState() => _HomeScreenDonaturState();
 }
 
-class _HomeScreenDonaturState extends State<HomeScreenDonatur>
-    with TickerProviderStateMixin {
-  MotionTabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = MotionTabController(initialIndex: 1, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController.dispose();
-  }
-
+class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,37 +18,174 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur>
             color: Colors.white,
           ),
         ),
-        bottomNavigationBar: MotionTabBar(
-          labels: ["Donasi", "Riwayat", "Akun"],
-          initialSelectedTab: "Donasi",
-          tabIconColor: Colors.deepPurple[100],
-          tabSelectedColor: HexColor("7A7ADC"),
-          onTabItemSelected: (int value) {
-            print(value);
-            setState(() {
-              _tabController.index = value;
-            });
-          },
-          icons: [Icons.favorite, Icons.history, Icons.person],
-          textStyle: TextStyle(color: HexColor("7A7ADC")),
-        ),
-        body: MotionTabBarView(
-          controller: _tabController,
+        body: Stack(
           children: <Widget>[
-            Container(
-              child: Center(
-                child: Text("Donasi"),
-              ),
-            ),
-            Container(
-              child: Center(
-                child: Text("Riwayat"),
-              ),
-            ),
-            Container(
-              child: Center(
-                child: Text("Akun"),
-              ),
+            ListView(
+              children: <Widget>[
+                SizedBox(height: 15.0),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 180.0,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
+                  ),
+                  items: [
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/slider/s1.jpg'),
+                            fit: BoxFit.cover),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Tunggu apa lagi?",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.deepPurple,
+                                  offset: Offset(5.0, 5.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              "Donasikan barangmu bagi saudara kita!",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 10.0,
+                                    color: Colors.deepPurple,
+                                    offset: Offset(5.0, 5.0),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/slider/s2.jpg'),
+                            fit: BoxFit.cover),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Perjalanan hidup yang indah adalah",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.deepPurple,
+                                  offset: Offset(5.0, 5.0),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              "Ketika kita mampu berbagi, bukan menikmatinya sendiri",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 10.0,
+                                    color: Colors.deepPurple,
+                                    offset: Offset(5.0, 5.0),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/slider/s3.jpg'),
+                            fit: BoxFit.cover),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Hidup ini Indah",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.deepPurple,
+                                  offset: Offset(5.0, 5.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              "Seindah saat kita dapat berbagi dengan sesama",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 10.0,
+                                    color: Colors.deepPurple,
+                                    offset: Offset(5.0, 5.0),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ],
         ));
