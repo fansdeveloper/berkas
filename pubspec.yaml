@@ -63,6 +63,12 @@ flutter:
     - assets/category/ungu/7.png
     - assets/category/ungu/8.png
     - assets/category/ungu/9.png
+    - assets/backbutton.png
+    - assets/signupin/daftar.png
+    - assets/chooserole/donatur.png
+    - assets/signupin/masuk.png
+    - assets/chooserole/panti.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
