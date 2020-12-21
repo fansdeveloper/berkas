@@ -1,11 +1,11 @@
 part of 'pages.dart';
 
-class RiwayatDonaturScreen extends StatefulWidget {
+class RIRiwayatScreen extends StatefulWidget {
   @override
-  _RiwayatDonaturScreenState createState() => _RiwayatDonaturScreenState();
+  _RIRiwayatScreenState createState() => _RIRiwayatScreenState();
 }
 
-class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
+class _RIRiwayatScreenState extends State<RIRiwayatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,15 +25,15 @@ class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
           child: ListView(
             children: [
               RiwayatCard(
-                  name: "Panti Asuhan Ibububunda",
+                  name: "Siti Devina",
                   date: "22/09/00",
                   img:
-                      "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg"),
+                      "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1571042540-model-1.jpg"),
               RiwayatCard(
-                name: "Panti Asuhan Mimi Peri",
-                date: "16/09/29",
+                name: "Tiffany Zainul",
+                date: "20/09/19",
                 img:
-                    "https://image.cnbcfm.com/api/v1/image/104548349-Large_house_suburb.jpg?v=1532563813",
+                    "https://upload.wikimedia.org/wikipedia/commons/0/03/Diane_von_F%C3%BCrstenberg_Spring-Summer_2014_05_%28cropped%29.jpg",
               ),
             ],
           ),
