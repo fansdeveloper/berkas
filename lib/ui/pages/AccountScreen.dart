@@ -43,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 80,
+                              height: 90,
                             ),
                             Text(
                               "Jane Doe",
@@ -56,17 +56,23 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                             Text("janedoe@gmail.com"),
                             SizedBox(
-                              height: 10,
+                              height: 15,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.location_on),
-                                Text("Surabaya"),
+                                Icon(Icons.location_on,
+                                    color: HexColor("BEBEEA")),
+                                Text(
+                                  "Surabaya",
+                                  style: TextStyle(
+                                    color: HexColor("BEBEEA"),
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(
-                              height: 45,
+                              height: 30,
                             ),
                           ],
                         ),
@@ -93,7 +99,13 @@ class _AccountScreenState extends State<AccountScreen> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DonasiSayaScreen()));
+                            },
                             child: SizedBox(
                               width: double.infinity,
                               child: Text(
@@ -139,7 +151,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             Align(
-              alignment: Alignment(0, -0.75),
+              alignment: Alignment(0, -0.8),
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 80,
