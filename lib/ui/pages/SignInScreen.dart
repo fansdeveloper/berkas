@@ -6,7 +6,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
 
@@ -93,8 +92,7 @@ class _SignInState extends State<SignIn> {
                         height: 20,
                       ),
                       RichText(
-                          text: 
-                          TextSpan(
+                          text: TextSpan(
                               text: 'Belum punya akun? Daftar',
                               style: TextStyle(color: primary),
                               recognizer: TapGestureRecognizer()

@@ -14,8 +14,15 @@ part 'RIRiwayatScreen.dart';
 part 'DonasiSayaScreen.dart';
 part 'RIDonasiBaruScreen.dart';
 part 'MainTabBar.dart';
+part 'RIMainTabBar.dart';
 part 'HomeScreenDonatur.dart';
 part 'ChooseCategoryScreen.dart';
+
+part 'RIHomeScreen.dart';
+part 'RIEditGoodsScreen.dart';
+part 'RIEditProfileScreen.dart';
+part 'LacakBarangScreen.dart';
+
 part 'SignInScreen.dart';
-part 'SignUpScreen.dart';
 part 'SignUpChoose.dart';
+part 'SignUpScreen.dart';
