@@ -44,8 +44,8 @@ class _RIMainTabBarState extends State<RIMainTabBar>
           controller: _tabController,
           children: <Widget>[
             RIHomeScreen(),
-            RiwayatDonaturScreen(),
-            AccountScreen()
+            RIRiwayatScreen(),
+            RIAccountScreen()
           ],
         ));
   }

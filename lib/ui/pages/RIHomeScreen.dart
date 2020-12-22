@@ -13,9 +13,9 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
           centerTitle: true,
           title: Text("Dashboard"),
           backgroundColor: HexColor("7A7ADC"),
-          leading: Icon(
-            Icons.book,
-            color: Colors.white,
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('assets/logo/berkas 2.png'),
           ),
         ),
         body: Container(
@@ -47,39 +47,54 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                           height: 10,
                         ),
                         Container(
-                          height: 250,
-                          child: GridView.count(
-                            crossAxisCount: 3,
-                            children: List.generate(5, (index) {
-                              return Container(
+                            height: 250,
+                            child: GridView.count(crossAxisCount: 3, children: [
+                              CategoryGrid(
+                                title: "Alat Tulis",
+                                img: "assets/category/putih/1.png",
+                              ),
+                              CategoryGrid(
+                                title: "Mainan",
+                                img: "assets/category/putih/2.png",
+                              ),
+                              CategoryGrid(
+                                title: "Pakaian",
+                                img: "assets/category/putih/3.png",
+                              ),
+                              CategoryGrid(
+                                title: "Sembako",
+                                img: "assets/category/putih/8.png",
+                              ),
+                              Container(
                                 child: Card(
                                   elevation: 0,
                                   child: Column(
                                     children: [
                                       Container(
-                                        child: Icon(Icons.ac_unit),
+                                        child: Image(
+                                          image: AssetImage(
+                                              "assets/category/putih/edit.png"),
+                                        ),
                                         height: 80,
                                         width: 80,
                                         decoration: BoxDecoration(
-                                            color: HexColor("7a7adc"),
+                                            color: HexColor("bebeea"),
                                             borderRadius:
-                                                BorderRadius.circular(5)),
+                                                BorderRadius.circular(20)),
                                       ),
                                       SizedBox(
                                         height: 5,
                                       ),
                                       Text(
-                                        "Lalala",
+                                        "Ubah",
                                         style: TextStyle(
                                             color: HexColor("7a7adc")),
                                       )
                                     ],
                                   ),
                                 ),
-                              );
-                            }),
-                          ),
-                        ),
+                              )
+                            ]))
                       ],
                     ),
                   ),
@@ -133,5 +148,41 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
             )
           ]),
         ));
+  }
+}
+
+class CategoryGrid extends StatelessWidget {
+  final String title;
+  final String img;
+  const CategoryGrid({Key key, this.title, this.img}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        elevation: 0,
+        child: Column(
+          children: [
+            Container(
+              child: Image(
+                image: AssetImage(img),
+              ),
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                  color: HexColor("7a7adc"),
+                  borderRadius: BorderRadius.circular(20)),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: HexColor("7a7adc")),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
