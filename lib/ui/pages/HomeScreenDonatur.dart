@@ -195,21 +195,25 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                         color: HexColor("7A7ADC"),
                       )),
                 ),
-                Column(
-                  children: [
-                    PantiCard(
-                      namaPanti: "Coba",
-                      img:
-                          "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                      category: ["Mainan", "Alat Tulis", "Sembako"],
-                    ),
-                    PantiCard(
-                      namaPanti: "Coba",
-                      img:
-                          "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                      category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
-                    )
-                  ],
+                Container(
+                  height: 135,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      PantiCard(
+                        namaPanti: "Coba",
+                        img:
+                            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+                        category: ["Mainan", "Alat Tulis", "Sembako"],
+                      ),
+                      PantiCard(
+                        namaPanti: "Coba 2",
+                        img:
+                            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+                        category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
