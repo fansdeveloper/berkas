@@ -135,21 +135,20 @@ class _RIEditGoodsScreenState extends State<RIEditGoodsScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 20),
-                    child: TextFormField(
-                      initialValue:
-                          "Pakaian anak-anak, buku tulis kosong, panci, kompor",
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                      ),
-                    ),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: HexColor("7a7adc"))),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            initialValue:
+                                "Pakaian anak-anak, buku tulis kosong, panci, kompor",
+                            maxLines: 4,
+                            decoration: InputDecoration.collapsed(
+                                hintText: "Tambahkan keterangan"),
+                          ),
+                        )),
                   ),
                 ],
               ),
