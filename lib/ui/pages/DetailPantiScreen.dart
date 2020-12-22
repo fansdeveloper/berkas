@@ -15,6 +15,18 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
           "Detail Panti",
           style: TextStyle(color: HexColor("7A7ADC")),
         ),
+        backgroundColor: Colors.white,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: HexColor("7A7ADC"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
       ),
       body: Container(),
     );

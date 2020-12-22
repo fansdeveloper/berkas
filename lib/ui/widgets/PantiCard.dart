@@ -15,7 +15,10 @@ class PantiCard extends StatelessWidget {
         padding: EdgeInsets.all(8),
         child: ListTile(
             contentPadding: EdgeInsets.all(8),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DetailPantiScreen()));
+            },
             leading: CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,

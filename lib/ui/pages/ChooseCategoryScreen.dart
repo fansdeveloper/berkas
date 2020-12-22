@@ -82,9 +82,14 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
               child: Container(
                 width: double.infinity,
                 height: 60,
-                color: HexColor("7A7ADC"),
                 child: RaisedButton(
-                  onPressed: null,
+                  color: HexColor("7A7ADC"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChooseRIScreen()));
+                  },
                   child: Text(
                     "Selanjutnya >",
                     style: TextStyle(color: Colors.white, fontSize: 18),
