@@ -185,17 +185,112 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     ),
                   ],
                 ),
-                RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChooseCategoryScreen()));
-                    },
-                    child: Text("Category"))
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("Saudara yang baru tergabung",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("7A7ADC"),
+                      )),
+                ),
+                Column(
+                  children: [
+                    PantiCard(
+                      namaPanti: "Coba",
+                      img:
+                          "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+                      category: ["Mainan", "Alat Tulis", "Sembako"],
+                    ),
+                    PantiCard(
+                      namaPanti: "Coba",
+                      img:
+                          "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+                      category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("Pilih Kategori Barang",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("7A7ADC"),
+                      )),
+                ),
+                Padding(
+                    padding: EdgeInsets.all(8),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 5,
+                      primary: false,
+                      children: [
+                        CategoryCardMain(
+                          title: "Alat Tulis",
+                          img: "assets/category/putih/1.png",
+                        ),
+                        CategoryCardMain(
+                          title: "Mainan",
+                          img: "assets/category/putih/2.png",
+                        ),
+                        CategoryCardMain(
+                          title: "Pakaian",
+                          img: "assets/category/putih/3.png",
+                        ),
+                        CategoryCardMain(
+                          title: "Lainnya",
+                          img: "assets/category/putih/9.png",
+                        ),
+                      ],
+                    )),
               ],
             ),
           ],
         ));
+  }
+}
+
+class CategoryCardMain extends StatelessWidget {
+  final String title;
+  final String img;
+  const CategoryCardMain({Key key, this.title, this.img}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ChooseCategoryScreen()));
+      },
+      child: Card(
+        color: HexColor("7A7ADC"),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: [
+            Padding(padding: EdgeInsets.all(10)),
+            Image(
+              image: AssetImage(img),
+              height: 35,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor("E7E7E7")),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
