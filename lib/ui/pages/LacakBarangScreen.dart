@@ -8,6 +8,12 @@ class LacakBarangScreen extends StatefulWidget {
 class _LacakBarangScreenState extends State<LacakBarangScreen> {
   @override
   Widget build(BuildContext context) {
+    List<_TimelineStatus> data = [
+      _TimelineStatus.done,
+      _TimelineStatus.inProgress,
+      _TimelineStatus.inProgress,
+      _TimelineStatus.todo
+    ];
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -30,30 +36,81 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    Container(
-                      child: Text(
-                        "No Resi",
-                        style: TextStyle(color: HexColor("7A7ADC")),
-                      ),
+                    Text(
+                      "No Resi",
+                      style: TextStyle(color: HexColor("7A7ADC")),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      child: Text("JP0123893348219",
-                          style: TextStyle(
-                              color: HexColor("7A7ADC"), fontSize: 28)),
-                    )
+                    Text("JP0123893348219",
+                        style:
+                            TextStyle(color: HexColor("7A7ADC"), fontSize: 28)),
                   ],
                 ),
               ),
             ),
-            Container(
-              child: ListView.builder(),
-            )
+            SizedBox(
+              height: 50,
+            ),
+            LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return Padding(
+                padding: EdgeInsets.only(left: 50, right: 50),
+                child: FixedTimeline.tileBuilder(
+                  theme: TimelineThemeData(
+                    color: HexColor("7a7adc"),
+                    nodePosition: 0,
+                  ),
+                  builder: TimelineTileBuilder.connectedFromStyle(
+                    contentsAlign: ContentsAlign.basic,
+                    firstConnectorStyle: ConnectorStyle.transparent,
+                    lastConnectorStyle: ConnectorStyle.transparent,
+                    contentsBuilder: (context, index) => Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            '[SURABAYA] Paket telah sampai di drop center di SURABAYA',
+                            style: TextStyle(color: HexColor("7a7adc"))),
+                      ),
+                    ),
+                    connectorStyleBuilder: (context, index) =>
+                        ConnectorStyle.solidLine,
+                    indicatorStyleBuilder: (context, index) =>
+                        IndicatorStyle.dot,
+                    itemCount: 6,
+                  ),
+                ),
+              );
+            })
           ],
         ),
       ),
     );
   }
+}
+
+class _EmptyContents extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 10.0),
+      height: 10.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2.0),
+        color: Color(0xffe6e7e9),
+      ),
+    );
+  }
+}
+
+enum _TimelineStatus {
+  done,
+  sync,
+  inProgress,
+  todo,
+}
+
+extension on _TimelineStatus {
+  bool get isInProgress => this == _TimelineStatus.inProgress;
 }

@@ -28,6 +28,7 @@ dependencies:
   fluttertoast: ^7.1.6
   hexcolor: ^1.0.6
   motion_tab_bar: ^0.1.5
+  timelines: ^0.0.2+1
 
 dev_dependencies:
   flutter_test:
