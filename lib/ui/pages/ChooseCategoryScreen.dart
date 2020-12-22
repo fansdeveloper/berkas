@@ -92,7 +92,8 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                   },
                   child: Text(
                     "Selanjutnya >",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 20, wordSpacing: 5),
                   ),
                 ),
               ),
