@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   carousel_slider: ^2.3.1
   cupertino_icons: ^0.1.3
+  fluttertoast: ^7.1.6
   hexcolor: ^1.0.6
   motion_tab_bar: ^0.1.5
 
@@ -68,7 +69,6 @@ flutter:
     - assets/chooserole/donatur.png
     - assets/signupin/masuk.png
     - assets/chooserole/panti.png
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
