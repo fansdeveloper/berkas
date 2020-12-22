@@ -13,9 +13,9 @@ class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
         centerTitle: true,
         title: Text("Riwayat"),
         backgroundColor: HexColor("7A7ADC"),
-        leading: Icon(
-          Icons.book,
-          color: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/logo/berkas 2.png'),
         ),
       ),
       body: Container(

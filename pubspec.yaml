@@ -69,6 +69,8 @@ flutter:
     - assets/chooserole/donatur.png
     - assets/signupin/masuk.png
     - assets/chooserole/panti.png
+    - assets/logo/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
