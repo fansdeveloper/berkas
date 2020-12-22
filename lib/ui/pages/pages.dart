@@ -28,3 +28,6 @@ part 'LacakBarangScreen.dart';
 part 'SignInScreen.dart';
 part 'SignUpChoose.dart';
 part 'SignUpScreen.dart';
+
+part 'ChooseRIScreen.dart';
+part 'DetailPantiScreen.dart';
