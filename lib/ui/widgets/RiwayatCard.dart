@@ -13,7 +13,15 @@ class RiwayatCard extends StatelessWidget {
         padding: EdgeInsets.all(12),
         child: ListTile(
           contentPadding: EdgeInsets.all(8),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailDonasiScreen(
+                          name: name,
+                          img: img,
+                        )));
+          },
           title: Text(
             name,
             style: TextStyle(fontSize: 20),
