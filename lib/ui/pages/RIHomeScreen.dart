@@ -39,11 +39,10 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "Daftar Kebutuhan",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(color: HexColor("7A7ADC")),
-                        ),
+                        Text("Daftar Kebutuhan",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: HexColor("7A7ADC"), fontSize: 16)),
                         SizedBox(
                           height: 10,
                         ),
