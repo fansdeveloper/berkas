@@ -12,6 +12,8 @@ part 'RIAccountScreen.dart';
 part 'RiwayatDonaturScreen.dart';
 part 'RIRiwayatScreen.dart';
 part 'DonasiSayaScreen.dart';
+part 'DetailDonasiScreen.dart';
+part 'RIDetailDonasiScreen.dart';
 part 'RIDonasiBaruScreen.dart';
 part 'MainTabBar.dart';
 part 'RIMainTabBar.dart';

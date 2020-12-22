@@ -13,9 +13,9 @@ class _AccountScreenState extends State<AccountScreen> {
         centerTitle: true,
         title: Text("Akun"),
         backgroundColor: HexColor("7A7ADC"),
-        leading: Icon(
-          Icons.book,
-          color: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/logo/berkas 2.png'),
         ),
         actions: [
           IconButton(

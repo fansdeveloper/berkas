@@ -33,15 +33,18 @@ class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
           child: ListView(
             children: [
               DonasiCard(
-                  name: "Siti Devina",
-                  date: "22/09/00",
-                  img:
-                      "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1571042540-model-1.jpg"),
+                name: "Siti Devina",
+                date: "22/09/00",
+                img:
+                    "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1571042540-model-1.jpg",
+                tipeUser: 0,
+              ),
               DonasiCard(
                 name: "Tiffany Zainul",
                 date: "20/09/19",
                 img:
                     "https://upload.wikimedia.org/wikipedia/commons/0/03/Diane_von_F%C3%BCrstenberg_Spring-Summer_2014_05_%28cropped%29.jpg",
+                tipeUser: 0,
               ),
             ],
           ),

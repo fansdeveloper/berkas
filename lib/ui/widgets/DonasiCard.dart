@@ -2,7 +2,8 @@ part of 'widgets.dart';
 
 class DonasiCard extends StatelessWidget {
   final String name, date, img;
-  DonasiCard({this.name, this.date, this.img});
+  final int tipeUser;
+  DonasiCard({this.name, this.date, this.img, this.tipeUser});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,25 @@ class DonasiCard extends StatelessWidget {
         padding: EdgeInsets.all(12),
         child: ListTile(
           contentPadding: EdgeInsets.all(8),
-          onTap: () {},
+          onTap: () {
+            if (tipeUser == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailDonasiScreen(
+                            name: name,
+                            img: img,
+                          )));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RIDetailDonasiScreen(
+                            name: name,
+                            img: img,
+                          )));
+            }
+          },
           title: Text(
             name,
             style: TextStyle(fontSize: 20),
