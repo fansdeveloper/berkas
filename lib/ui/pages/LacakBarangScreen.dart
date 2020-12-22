@@ -9,10 +9,13 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
   @override
   Widget build(BuildContext context) {
     List<_TimelineStatus> data = [
+      _TimelineStatus.arrived,
       _TimelineStatus.done,
-      _TimelineStatus.inProgress,
-      _TimelineStatus.inProgress,
-      _TimelineStatus.todo
+      _TimelineStatus.done,
+      _TimelineStatus.done,
+      _TimelineStatus.done,
+      _TimelineStatus.done,
+      _TimelineStatus.done,
     ];
     return Scaffold(
       appBar: AppBar(
@@ -59,26 +62,35 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
                 padding: EdgeInsets.only(left: 50, right: 50),
                 child: FixedTimeline.tileBuilder(
                   theme: TimelineThemeData(
-                    color: HexColor("7a7adc"),
+                    color: HexColor("bebeea"),
                     nodePosition: 0,
                   ),
-                  builder: TimelineTileBuilder.connectedFromStyle(
-                    contentsAlign: ContentsAlign.basic,
-                    firstConnectorStyle: ConnectorStyle.transparent,
-                    lastConnectorStyle: ConnectorStyle.transparent,
-                    contentsBuilder: (context, index) => Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            '[SURABAYA] Paket telah sampai di drop center di SURABAYA',
-                            style: TextStyle(color: HexColor("7a7adc"))),
-                      ),
-                    ),
-                    connectorStyleBuilder: (context, index) =>
-                        ConnectorStyle.solidLine,
-                    indicatorStyleBuilder: (context, index) =>
-                        IndicatorStyle.dot,
-                    itemCount: 6,
+                  builder: TimelineTileBuilder.connected(
+                    indicatorBuilder: (context, index) {
+                      return DotIndicator(
+                        color:
+                            data[index].isArrived ? HexColor("7a7adc") : null,
+                      );
+                    },
+                    connectorBuilder: (_, index, connectorType) {
+                      var color;
+                      if (index + 1 < data.length - 1) {
+                        color =
+                            data[index].isArrived && data[index + 1].isArrived
+                                ? HexColor("7a7adc")
+                                : null;
+                      }
+                      return SolidLineConnector(
+                        indent: connectorType == ConnectorType.start ? 0 : 1.0,
+                        endIndent: connectorType == ConnectorType.end ? 0 : 1.0,
+                        color: color,
+                      );
+                    },
+                    contentsBuilder: (_, index) => _EmptyContents(),
+                    itemExtentBuilder: (_, __) {
+                      return 50;
+                    },
+                    itemCount: data.length,
                   ),
                 ),
               );
@@ -95,22 +107,20 @@ class _EmptyContents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 10.0),
-      height: 10.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
-        color: Color(0xffe6e7e9),
+      child: Text(
+        "[SURABAYA] Paket telah sampai di drop center di SURABAYA",
+        style: TextStyle(
+          color: HexColor(
+            "7a7adc",
+          ),
+        ),
       ),
     );
   }
 }
 
-enum _TimelineStatus {
-  done,
-  sync,
-  inProgress,
-  todo,
-}
+enum _TimelineStatus { done, arrived }
 
 extension on _TimelineStatus {
-  bool get isInProgress => this == _TimelineStatus.inProgress;
+  bool get isArrived => this == _TimelineStatus.arrived;
 }
