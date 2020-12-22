@@ -14,6 +14,23 @@ class _SignInState extends State<SignIn> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+         backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          // leading: IconButton(
+          //     icon: Icon(
+          //       Icons.arrow_back_ios,
+          //       color: HexColor("7A7ADC"),
+          //     ),
+          //     onPressed: () {
+          //       Navigator.pushReplacement(context,
+          //           MaterialPageRoute(builder: (context) {
+          //         return ;
+          //       }));
+          //     }),
+        ),
         body: Stack(
           children: [
             Container(
@@ -23,15 +40,12 @@ class _SignInState extends State<SignIn> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 50,
-                      ),
                       Container(
                         child: Image.asset('assets/signupin/masuk.png'),
-                        height: 200,
+                        height: 180,
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        margin: EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: TextFormField(
                           //controller: ,
                           //style: TextStyle(color: Colors.white),
@@ -55,7 +69,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
                         child: TextFormField(
                           //controller: ,
                           //style: TextStyle(color: Colors.white),
@@ -83,13 +97,18 @@ class _SignInState extends State<SignIn> {
                         textColor: Colors.white,
                         color: primary,
                         child: Text("Masuk"),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return MainTabBar();
+                          }));
+                        },
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       RichText(
                           text: TextSpan(
