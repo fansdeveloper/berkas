@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'AccountScreen.dart';
 part 'RIAccountScreen.dart';
@@ -20,6 +21,9 @@ part 'RIMainTabBar.dart';
 part 'HomeScreenDonatur.dart';
 part 'ChooseCategoryScreen.dart';
 
+part 'ChooseRIScreen.dart';
+part 'DetailPantiScreen.dart';
+
 part 'RIHomeScreen.dart';
 part 'RIEditGoodsScreen.dart';
 part 'RIEditProfileScreen.dart';
@@ -28,6 +32,3 @@ part 'LacakBarangScreen.dart';
 part 'SignInScreen.dart';
 part 'SignUpChoose.dart';
 part 'SignUpScreen.dart';
-
-part 'ChooseRIScreen.dart';
-part 'DetailPantiScreen.dart';

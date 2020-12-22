@@ -19,6 +19,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
           ),
         ),
         body: Container(
+          padding: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(color: HexColor("E7E7E7")),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -102,43 +103,113 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
             SizedBox(
               height: 20,
             ),
+            //
+            //
+            //
+            //
+            //
+            //
+            //STATISTIK DONASI
+            //
+            //
+            //
+            //
+            //
             Padding(
-              padding: EdgeInsets.only(left: 30),
+              padding: EdgeInsets.only(left: 30, right: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Statistik Donasi",
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 24, color: HexColor("7a7adc")),
+                    style: TextStyle(fontSize: 20, color: HexColor("7a7adc")),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Flexible(
                         flex: 1,
                         child: Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.all(10),
                           child: Container(
-                            height: 200,
-                            width: double.infinity,
-                            color: Colors.white,
-                            child: Text("hai"),
-                          ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              height: 150,
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "3",
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        color: HexColor("7a7adc")),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("Donasi Baru",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: HexColor("7a7adc")))
+                                ],
+                              )),
                         ),
                       ),
                       Flexible(
                         flex: 1,
                         child: Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: EdgeInsets.all(10),
                           child: Container(
-                            height: 200,
-                            width: double.infinity,
-                            color: Colors.white,
-                            child: Text("hai"),
-                          ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              height: 150,
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "14",
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        color: HexColor("7a7adc")),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("Donasi Selesai",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: HexColor("7a7adc")))
+                                ],
+                              )),
                         ),
                       ),
                     ],
