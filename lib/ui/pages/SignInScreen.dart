@@ -14,7 +14,7 @@ class _SignInState extends State<SignIn> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-         backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,

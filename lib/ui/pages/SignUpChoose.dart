@@ -15,7 +15,7 @@ class _SignUpChooseState extends State<SignUpChoose> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar( 
+        appBar: AppBar(
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -25,30 +25,35 @@ class _SignUpChooseState extends State<SignUpChoose> {
                 color: HexColor("7A7ADC"),
               ),
               onPressed: () {
-                 Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return SignIn();
-                                    }));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return SignIn();
+                }));
               }),
-          ),
-          
+        ),
         body: Container(
-         
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
-                height: 30,
-              ),
               Container(
                 child: GestureDetector(
-                    child: Container(
-                        height: 130,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/chooserole/donatur.png"),
-                              fit: BoxFit.fitHeight),
-                        )),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/chooserole/donatur.png"),
+                                  fit: BoxFit.fitHeight),
+                            )),
+                        RichText(
+                            text: TextSpan(
+                                text: 'Donatur',
+                                style: TextStyle(color: primary, fontSize: 20),
+                                recognizer: TapGestureRecognizer())),
+                      ],
+                    ),
                     onTap: () {
                       print("Donatur Clicked");
                       Navigator.pushReplacement(context,
@@ -59,42 +64,36 @@ class _SignUpChooseState extends State<SignUpChoose> {
               ),
               RichText(
                   text: TextSpan(
-                      text: 'Donatur',
-                      style: TextStyle(color: primary, fontSize: 20),
-                      recognizer: TapGestureRecognizer())),
-              SizedBox(
-                height: 80,
-              ),
-              RichText(
-                  text: TextSpan(
                       text: 'atau',
                       style: TextStyle(color: Colors.black, fontSize: 20),
                       recognizer: TapGestureRecognizer())),
-              SizedBox(
-                height: 80,
+              Column(
+                children: [
+                  Container(
+                    child: GestureDetector(
+                        child: Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage("assets/chooserole/panti.png"),
+                                  fit: BoxFit.fitHeight),
+                            )),
+                        onTap: () {
+                          print("Panti Clicked");
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return SignUp();
+                          }));
+                        }),
+                  ),
+                  RichText(
+                      text: TextSpan(
+                          text: 'Panti',
+                          style: TextStyle(color: primary, fontSize: 20),
+                          recognizer: TapGestureRecognizer())),
+                ],
               ),
-              Container(
-                child: GestureDetector(
-                    child: Container(
-                        height: 130,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/chooserole/panti.png"),
-                              fit: BoxFit.fitHeight),
-                        )),
-                    onTap: () {
-                      print("Panti Clicked");
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return SignUp();
-                      }));
-                    }),
-              ),
-              RichText(
-                  text: TextSpan(
-                      text: 'Panti',
-                      style: TextStyle(color: primary, fontSize: 20),
-                      recognizer: TapGestureRecognizer())),
             ],
           ),
         ),
