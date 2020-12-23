@@ -46,9 +46,10 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("JP0123893348219",
-                        style:
-                            TextStyle(color: HexColor("7A7ADC"), fontSize: 28)),
+                    Text(
+                      "JP0123893348219",
+                      style: TextStyle(color: HexColor("7A7ADC"), fontSize: 28),
+                    ),
                   ],
                 ),
               ),
@@ -86,7 +87,7 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
                         color: color,
                       );
                     },
-                    contentsBuilder: (_, index) => _EmptyContents(),
+                    contentsBuilder: (_, index) => _Contents(index),
                     itemExtentBuilder: (_, __) {
                       return 50;
                     },
@@ -102,20 +103,33 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
   }
 }
 
-class _EmptyContents extends StatelessWidget {
+class _Contents extends StatelessWidget {
+  _Contents(this.index);
+  final int index;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    var container = Container(
       margin: EdgeInsets.only(left: 10.0),
-      child: Text(
-        "[SURABAYA] Paket telah sampai di drop center di SURABAYA",
-        style: TextStyle(
-          color: HexColor(
-            "7a7adc",
-          ),
-        ),
-      ),
+      child: index == 0
+          ? Text(
+              "[SURABAYA] Paket telah diterima oleh Bu Ani.",
+              style: TextStyle(
+                color: HexColor(
+                  "7a7adc",
+                ),
+              ),
+            )
+          : Text(
+              "[SURABAYA] Paket telah sampai di drop center di SURABAYA",
+              style: TextStyle(
+                color: HexColor(
+                  "7a7adc",
+                ),
+              ),
+            ),
     );
+    return container;
   }
 }
 

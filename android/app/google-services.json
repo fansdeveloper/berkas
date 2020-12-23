@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "685293359148",
+    "project_id": "berkas-app",
+    "storage_bucket": "berkas-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685293359148:android:5130722fe33bdf61c40189",
+        "android_client_info": {
+          "package_name": "com.example.berkas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685293359148-khmto7ia9k3vchi6m827eqm66ckc7h15.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr_hkcMR6RJH7_FVmmj5TdVpGv-PdG-3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685293359148-khmto7ia9k3vchi6m827eqm66ckc7h15.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
