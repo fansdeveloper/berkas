@@ -22,10 +22,10 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
           children: <Widget>[
             ListView(
               children: <Widget>[
-                SizedBox(height: 15.0),
+                SizedBox(height: 20),
                 CarouselSlider(
                   options: CarouselOptions(
-                    height: 180.0,
+                    height: 200,
                     enlargeCenterPage: true,
                     autoPlay: true,
                     aspectRatio: 16 / 9,
@@ -185,41 +185,53 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Text("Saudara yang baru tergabung",
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: HexColor("7A7ADC"),
                       )),
                 ),
                 Container(
                   height: 135,
+                  padding: EdgeInsets.only(left: 8, right: 8),
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
                       PantiCard(
-                        namaPanti: "Coba",
+                        namaPanti: "Panti Asuhan Undaan",
                         img:
                             "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
                         category: ["Mainan", "Alat Tulis", "Sembako"],
                       ),
                       PantiCard(
-                        namaPanti: "Coba 2",
+                        namaPanti: "Panti Asuhan Yatim Piatu",
+                        img:
+                            "https://klikmu.co/wp-content/uploads/2012/07/panti-putri.jpg",
+                        category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+                      ),
+                      PantiCard(
+                        namaPanti: "Griya Yatim & Dhuafa Surabaya",
                         img:
                             "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                        category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+                        category: [
+                          "Pakaian",
+                          "Perlengkapan Bayi",
+                          "Perlengkapan Kesehatan"
+                        ],
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Text("Pilih Kategori Barang",
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: HexColor("7A7ADC"),
                       )),
