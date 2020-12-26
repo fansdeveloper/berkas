@@ -151,23 +151,33 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                               ),
                               height: 150,
                               width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "3",
-                                    style: TextStyle(
-                                        fontSize: 40,
-                                        color: HexColor("7a7adc")),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text("Donasi Baru",
+                              // Donasi Baru -> Donasi Baru
+                              child: FlatButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RIDonasiBaruScreen()));
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "3",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          color: HexColor("7a7adc")))
-                                ],
+                                          fontSize: 40,
+                                          color: HexColor("7a7adc")),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Donasi Baru",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: HexColor("7a7adc")))
+                                  ],
+                                ),
                               )),
                         ),
                       ),
@@ -191,23 +201,29 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                               ),
                               height: 150,
                               width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "14",
-                                    style: TextStyle(
-                                        fontSize: 40,
-                                        color: HexColor("7a7adc")),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text("Donasi Selesai",
+                              // Donasi Selesai -> Riwayat
+                              child: FlatButton(
+                                onPressed: () {
+                                  print("Ke History");
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "14",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          color: HexColor("7a7adc")))
-                                ],
+                                          fontSize: 40,
+                                          color: HexColor("7a7adc")),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("Donasi Selesai",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: HexColor("7a7adc")))
+                                  ],
+                                ),
                               )),
                         ),
                       ),
