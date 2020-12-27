@@ -2,10 +2,38 @@ part of 'pages.dart';
 
 class RIEditProfileScreen extends StatefulWidget {
   @override
+  RIEditProfileScreen({Key key, this.users}) : super(key: key);
+  final Users users;
+
   _RIEditProfileScreenState createState() => _RIEditProfileScreenState();
 }
 
 class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
+  Users users;
+  TextEditingController ctrlName,
+      ctrlAlamat,
+      ctrlKota,
+      ctrlDesc,
+      ctrlLaki,
+      ctrlPerempuan;
+
+  PickedFile imageFile;
+  final ImagePicker imagePicker = ImagePicker();
+
+  Future chooseImage() async {
+    final selectedImage = await imagePicker.getImage(
+        source: ImageSource.gallery, imageQuality: 50);
+    setState(() {
+      imageFile = selectedImage;
+    });
+  }
+
+  @override
+  void initState() {
+    users = widget.users;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,18 +59,41 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white),
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.network(
-                          "https://wallpaperaccess.com/full/259715.jpg"),
+                  child: Stack(overflow: Overflow.visible, children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white),
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Image.network(
+                            "https://wallpaperaccess.com/full/259715.jpg"),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: -20,
+                      right: 0,
+                      child: ButtonTheme(
+                        minWidth: 50,
+                        height: 50,
+                        child: RaisedButton.icon(
+                            onPressed: () {
+                              chooseImage();
+                            },
+                            elevation: 5,
+                            padding: EdgeInsets.only(left: 8),
+                            icon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.white,
+                            ),
+                            label: Text(""),
+                            shape: CircleBorder(),
+                            color: HexColor("7a7adc")),
+                      ),
+                    ),
+                  ]),
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: 20, right: 20),
@@ -50,19 +101,48 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Panti Asuhan Ibubunda",
-                            style: TextStyle(
-                                color: HexColor("7a7adc"),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
+                          TextFormField(
+                            controller: ctrlName,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                            ),
                           ),
                           SizedBox(height: 10),
                           TextFormField(
-                            initialValue: "Jl. Babatan Sari Apple no 89",
+                            controller: ctrlAlamat,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.location_on,
+                                  color: HexColor("7a7adc")),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextFormField(
+                            controller: ctrlKota,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.location_city,
                                   color: HexColor("7a7adc")),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
@@ -110,28 +190,9 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           TextFormField(
-                            initialValue: "60",
-                            decoration: InputDecoration(
-                              labelText: "Total Penghuni",
-                              labelStyle: TextStyle(color: HexColor("7a7adc")),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: HexColor("7a7adc")),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: HexColor("7a7adc")),
-                              ),
-                              border: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: HexColor("7a7adc")),
-                              ),
-                            ),
-                          ),
-                          TextFormField(
-                            initialValue: "40",
+                            controller: ctrlLaki,
                             decoration: InputDecoration(
                               labelText: "Laki-laki",
                               labelStyle: TextStyle(color: HexColor("7a7adc")),
@@ -150,7 +211,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                             ),
                           ),
                           TextFormField(
-                            initialValue: "20",
+                            controller: ctrlPerempuan,
                             decoration: InputDecoration(
                               labelText: "Perempuan",
                               labelStyle: TextStyle(color: HexColor("7a7adc")),

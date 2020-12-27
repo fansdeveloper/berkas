@@ -7,6 +7,52 @@ class RIAccountScreen extends StatefulWidget {
 
 class _RIAccountScreenState extends State<RIAccountScreen> {
   @override
+  Users users;
+  String name, alamat, email, kota, tipeUser, imgUrl;
+
+  PickedFile imageFile;
+  final ImagePicker imagePicker = ImagePicker();
+
+  void fetchUserData() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((value) {
+      name = value.data()['name'];
+      alamat = value.data()['alamat'];
+      kota = value.data()['kota'];
+      email = value.data()['email'];
+      tipeUser = value.data()['tipeUser'];
+    });
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots()
+        .listen((event) {
+      imgUrl = event.data()['imgUrl'];
+      if (imgUrl == "") {
+        imgUrl = null;
+      }
+      setState(() {});
+    });
+  }
+
+  Future chooseImage() async {
+    final selectedImage = await imagePicker.getImage(
+        source: ImageSource.gallery, imageQuality: 50);
+    setState(() {
+      imageFile = selectedImage;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchUserData();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +65,17 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.edit, color: Colors.white), onPressed: () {})
+            icon: Icon(Icons.edit, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RIEditProfileScreen(
+                            users: users,
+                          ),
+                      settings: RouteSettings(arguments: users)));
+            },
+          ),
         ],
       ),
       body: Container(
@@ -46,7 +102,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                               height: 80,
                             ),
                             Text(
-                              "Panti Asuhan Ibububunda",
+                              name,
                               style: TextStyle(
                                 fontSize: 24,
                               ),
@@ -54,7 +110,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text("Jl. Babatan Sari Apple no 89"),
+                            Text(alamat),
                             SizedBox(
                               height: 15,
                             ),
@@ -66,7 +122,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                                   color: HexColor("BEBEEA"),
                                 ),
                                 Text(
-                                  "Surabaya",
+                                  kota,
                                   style: TextStyle(
                                     color: HexColor("BEBEEA"),
                                   ),
