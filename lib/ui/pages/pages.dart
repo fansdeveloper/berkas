@@ -1,4 +1,3 @@
-import 'package:berkas/main.dart';
 import 'package:berkas/ui/widgets/widgets.dart';
 import 'package:berkas/models/models.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,7 +12,6 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:timelines/timelines.dart';
-import 'package:berkas/models/models.dart';
 
 part 'AccountScreen.dart';
 part 'RIAccountScreen.dart';
