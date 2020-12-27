@@ -6,8 +6,30 @@ class RIHomeScreen extends StatefulWidget {
 }
 
 class _RIHomeScreenState extends State<RIHomeScreen> {
+  var donationCollection = FirebaseFirestore.instance
+      .collection("donations")
+      .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
+  int donasiBaru, donasiSelesai;
+
+  //Ambil data buat Statistik
+  void getData() async {
+    await donationCollection
+        .where('isConfirmed', isEqualTo: false)
+        .get()
+        .then((value) => donasiBaru = value.size);
+
+    await donationCollection
+        .where('isConfirmed', isEqualTo: true)
+        .get()
+        .then((value) => donasiSelesai = value.size);
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Ambil data
+    getData();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -164,7 +186,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "3",
+                                      donasiBaru.toString() ?? "0",
                                       style: TextStyle(
                                           fontSize: 40,
                                           color: HexColor("7a7adc")),
@@ -210,7 +232,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "14",
+                                      donasiSelesai.toString() ?? "0",
                                       style: TextStyle(
                                           fontSize: 40,
                                           color: HexColor("7a7adc")),
