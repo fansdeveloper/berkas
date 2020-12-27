@@ -14,13 +14,13 @@ class RiwayatCard extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.all(8),
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailDonasiScreen(
-                          name: name,
-                          img: img,
-                        )));
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => DetailDonasiScreen(
+            //               name: name,
+            //               img: img,
+            //             )));
           },
           title: Text(
             name,

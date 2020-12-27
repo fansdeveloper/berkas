@@ -1,12 +1,35 @@
 part of 'widgets.dart';
 
-class DonasiCard extends StatelessWidget {
-  final String name, date, img;
+class DonasiCard extends StatefulWidget {
+  final Donasi donasi;
   final int tipeUser;
-  DonasiCard({this.name, this.date, this.img, this.tipeUser});
+  final String date;
+  DonasiCard({this.donasi, this.tipeUser, this.date});
+  @override
+  _DonasiCardState createState() => _DonasiCardState();
+}
+
+class _DonasiCardState extends State<DonasiCard> {
+  String name, img;
+
+  //Ambil Data
+  void getData() async {
+    if (this.widget.tipeUser == 0) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.donaturID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+      });
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: EdgeInsets.all(8),
@@ -15,33 +38,34 @@ class DonasiCard extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.all(8),
           onTap: () {
-            if (tipeUser == 1) {
+            if (this.widget.tipeUser == 1) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => DetailDonasiScreen(
-                            name: name,
-                            img: img,
+                            donasi: this.widget.donasi,
                           )));
             } else {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => RIDetailDonasiScreen(
-                            name: name,
-                            img: img,
+                            donasi: this.widget.donasi,
                           )));
             }
           },
           title: Text(
-            name,
+            name ?? "Users",
             style: TextStyle(fontSize: 20),
           ),
-          subtitle: Text(date),
+          subtitle: Text(this.widget.date),
           leading: CircleAvatar(
             radius: 30,
             backgroundColor: Colors.white,
-            backgroundImage: NetworkImage(img, scale: 30),
+            backgroundImage: NetworkImage(
+                img ??
+                    "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png",
+                scale: 30),
           ),
         ),
       ),

@@ -1,8 +1,8 @@
 part of 'pages.dart';
 
 class RIDetailDonasiScreen extends StatefulWidget {
-  final String name, img;
-  RIDetailDonasiScreen({this.name, this.img});
+  final Donasi donasi;
+  RIDetailDonasiScreen({this.donasi});
 
   @override
   _RIDetailDonasiScreenState createState() => _RIDetailDonasiScreenState();
@@ -55,10 +55,10 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(this.widget.img ??
+                        backgroundImage: NetworkImage(
                             "https://miro.medium.com/max/6144/1*SN4G3KhX_foP7Yci023DJg.jpeg"),
                       ),
-                      title: Text(this.widget.name ?? "User"),
+                      title: Text("User"),
                       subtitle: Text("Alamat"),
                     ),
                   ),

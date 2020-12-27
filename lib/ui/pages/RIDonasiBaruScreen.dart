@@ -6,6 +6,10 @@ class RIDonasiBaruScreen extends StatefulWidget {
 }
 
 class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
+  CollectionReference donasiBaruCollection =
+      FirebaseFirestore.instance.collection("donations");
+  var usersCollection = FirebaseFirestore.instance.collection("users");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,23 +34,46 @@ class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
         decoration: BoxDecoration(color: HexColor("E7E7E7")),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
-          child: ListView(
-            children: [
-              DonasiCard(
-                name: "Siti Devina",
-                date: "22/09/00",
-                img:
-                    "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1571042540-model-1.jpg",
-                tipeUser: 0,
-              ),
-              DonasiCard(
-                name: "Tiffany Zainul",
-                date: "20/09/19",
-                img:
-                    "https://upload.wikimedia.org/wikipedia/commons/0/03/Diane_von_F%C3%BCrstenberg_Spring-Summer_2014_05_%28cropped%29.jpg",
-                tipeUser: 0,
-              ),
-            ],
+          child: StreamBuilder<QuerySnapshot>(
+            stream: donasiBaruCollection.snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text("Failed to get products data!");
+              }
+
+              // if (snapshot.connectionState == ConnectionState.waiting) {
+              //   return SpinKitFadingCircle(
+              //     size: 50,
+              //     color: Colors.red,
+              //   );
+              // }
+
+              return ListView(
+                children: snapshot.data.docs.map((DocumentSnapshot doc) {
+                  //Tanggal
+                  Timestamp t = doc.data()['date'];
+                  String stringDate = t.toDate().toString();
+
+                  return DonasiCard(
+                    donasi: Donasi(
+                        doc.data()['id'],
+                        doc.data()['pantiID'],
+                        doc.data()['donaturID'],
+                        doc.data()['keterangan'],
+                        doc.data()['lokasi'],
+                        doc.data()['tujuan'],
+                        doc.data()['fee'],
+                        doc.data()['weight'],
+                        doc.data()['date'],
+                        doc.data()['kategori'],
+                        doc.data()['isConfirmed']),
+                    date: stringDate,
+                    tipeUser: 0,
+                  );
+                }).toList(),
+              );
+            },
           ),
         ),
       ),

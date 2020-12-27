@@ -1,5 +1,6 @@
 import 'package:berkas/main.dart';
 import 'package:berkas/ui/widgets/widgets.dart';
+import 'package:berkas/models/models.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,7 @@ part 'MainTabBar.dart';
 part 'RIMainTabBar.dart';
 part 'HomeScreenDonatur.dart';
 part 'ChooseCategoryScreen.dart';
+part 'DetailPembayaranScreen.dart';
 
 part 'ChooseRIScreen.dart';
 part 'DetailPantiScreen.dart';
