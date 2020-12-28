@@ -38,3 +38,5 @@ part 'LacakBarangScreen.dart';
 part 'SignInScreen.dart';
 part 'SignUpChoose.dart';
 part 'SignUpScreen.dart';
+
+part 'EditGoodsNeeded.dart';

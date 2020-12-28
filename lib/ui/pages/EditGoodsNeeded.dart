@@ -1,11 +1,11 @@
 part of 'pages.dart';
 
-class ChooseCategoryScreen extends StatefulWidget {
+class EditGoodsNeeded extends StatefulWidget {
   @override
-  _ChooseCategoryScreenState createState() => _ChooseCategoryScreenState();
+  _EditGoodsNeededState createState() => _EditGoodsNeededState();
 }
 
-class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
+class _EditGoodsNeededState extends State<EditGoodsNeeded> {
   bool s1 = false,
       s2 = false,
       s3 = false,
@@ -22,7 +22,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Pilih Kategori Barang",
+            "Edit Kebutuhan Panti",
             style: TextStyle(color: HexColor("7A7ADC")),
           ),
           backgroundColor: Colors.white,
@@ -306,10 +306,10 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChooseRIScreen()));
+                            builder: (context) => RIHomeScreen()));
                   },
                   child: Text(
-                    "Selanjutnya >",
+                    "Simpan Perubahan",
                     style: TextStyle(
                         color: Colors.white, fontSize: 20, wordSpacing: 5),
                   ),
@@ -318,81 +318,5 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
             )
           ],
         ));
-  }
-}
-
-class CategoryCard extends StatelessWidget {
-  final String title;
-  final String img;
-  const CategoryCard({Key key, this.title, this.img}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: HexColor("E7E7E7"),
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.all(10)),
-          Image(
-            image: AssetImage(img),
-            height: 40,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: HexColor("7A7ADC")),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class SelectedCategory extends StatelessWidget {
-  final String title;
-
-  final String img;
-  const SelectedCategory({Key key, this.title, this.img}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: HexColor("7A7ADC"),
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: HexColor("E7E7E7"), width: 5),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.all(10)),
-          Image(
-            image: AssetImage(img),
-            height: 40,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: HexColor("E7E7E7")),
-            ),
-          )
-        ],
-      ),
-    );
   }
 }

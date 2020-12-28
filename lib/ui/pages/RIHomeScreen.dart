@@ -11,6 +11,8 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
   int donasiBaru, donasiSelesai;
 
+  var pantiCollection = FirebaseFirestore.instance.collection("panti");
+
   //Ambil data buat Statistik
   void getData() async {
     await donationCollection
@@ -26,10 +28,26 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
     setState(() {});
   }
 
+  DocumentSnapshot snapshot;
+  void getPanti() async {
+    //use a Async-await function to get the data
+    final data = await FirebaseFirestore.instance
+        .collection("panti")
+        .doc('CdM3SJPkXE3IUEnQRovm')
+        .get(); //get the data
+    snapshot = data;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     //Ambil data
     getData();
+    getPanti();
+    // String kategori = snapshot.data()['neededGoods'].toString();
+
+    List<dynamic> kategori = snapshot.data()['neededGoods'];
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -61,10 +79,14 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                         SizedBox(
                           height: 10,
                         ),
+                        Text(kategori.toString()),
+                        Text(kategori[0]),
                         Text("Daftar Kebutuhan",
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                color: HexColor("7A7ADC"), fontSize: 16)),
+                                color: HexColor("7A7ADC"),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                         SizedBox(
                           height: 10,
                         ),
@@ -97,8 +119,8 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                           image: AssetImage(
                                               "assets/category/putih/edit.png"),
                                         ),
-                                        height: 80,
-                                        width: 80,
+                                        height: 70,
+                                        width: 70,
                                         decoration: BoxDecoration(
                                             color: HexColor("bebeea"),
                                             borderRadius:
@@ -141,11 +163,13 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Statistik Donasi",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 20, color: HexColor("7a7adc")),
-                  ),
+                  Text("Statistik Donasi",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: HexColor("7a7adc"),
+                        fontWeight: FontWeight.bold,
+                      )),
                   SizedBox(
                     height: 20,
                   ),
@@ -275,8 +299,8 @@ class CategoryGrid extends StatelessWidget {
               child: Image(
                 image: AssetImage(img),
               ),
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               decoration: BoxDecoration(
                   color: HexColor("7a7adc"),
                   borderRadius: BorderRadius.circular(20)),
