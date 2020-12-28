@@ -17,6 +17,8 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
       ctrlLaki,
       ctrlPerempuan;
 
+  // String uid = FirebaseAuth.instance.currentUser.uid;
+
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
 
@@ -28,9 +30,34 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
     });
   }
 
+  void fetchUserData() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc("CdM3SJPkXE3IUEnQRovm")
+        .get()
+        .then((value) {
+      ctrlName = TextEditingController(text: value.data()['name']);
+      ctrlAlamat = TextEditingController(text: value.data()['alamat']);
+      ctrlKota = TextEditingController(text: value.data()['kota']);
+    });
+
+    FirebaseFirestore.instance
+        .collection('panti')
+        .doc("CdM3SJPkXE3IUEnQRovm")
+        .get()
+        .then((value) {
+      ctrlDesc = TextEditingController(text: value.data()['keterangan']);
+      ctrlLaki = TextEditingController(text: value.data()['laki'].toString());
+      ctrlPerempuan =
+          TextEditingController(text: value.data()['perempuan'].toString());
+    });
+  }
+
   @override
   void initState() {
     users = widget.users;
+    fetchUserData();
+
     super.initState();
   }
 
@@ -104,6 +131,8 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                           TextFormField(
                             controller: ctrlName,
                             decoration: InputDecoration(
+                              prefixIcon:
+                                  Icon(Icons.home, color: HexColor("7a7adc")),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
                                     BorderSide(color: HexColor("7a7adc")),
@@ -176,6 +205,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: TextField(
+                                  controller: ctrlDesc,
                                   maxLines: 4,
                                   decoration: InputDecoration.collapsed(
                                       hintText: "Enter your text here"),

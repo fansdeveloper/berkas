@@ -16,7 +16,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   void fetchUserData() {
     FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc("CdM3SJPkXE3IUEnQRovm")
         .get()
         .then((value) {
       name = value.data()['name'];
@@ -26,17 +26,17 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
       tipeUser = value.data()['tipeUser'];
     });
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
-        .snapshots()
-        .listen((event) {
-      imgUrl = event.data()['imgUrl'];
-      if (imgUrl == "") {
-        imgUrl = null;
-      }
-      setState(() {});
-    });
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc("CdM3SJPkXE3IUEnQRovm")
+    //     .snapshots()
+    //     .listen((event) {
+    //   imgUrl = event.data()['imgUrl'];
+    //   if (imgUrl == "") {
+    //     imgUrl = null;
+    //   }
+    //   setState(() {});
+    // });
   }
 
   Future chooseImage() async {
@@ -119,12 +119,12 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                               children: [
                                 Icon(
                                   Icons.location_on,
-                                  color: HexColor("BEBEEA"),
+                                  color: HexColor("7a7adc"),
                                 ),
                                 Text(
                                   kota,
                                   style: TextStyle(
-                                    color: HexColor("BEBEEA"),
+                                    color: HexColor("7a7adc"),
                                   ),
                                 ),
                               ],
