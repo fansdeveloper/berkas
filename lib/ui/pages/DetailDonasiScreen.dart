@@ -9,8 +9,24 @@ class DetailDonasiScreen extends StatefulWidget {
 }
 
 class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
+  String name, img;
+  void getData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(this.widget.donasi.donaturID)
+        .get()
+        .then((value) {
+      name = value.data()['name'];
+      img = value.data()['imgUrl'];
+    });
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -55,11 +71,11 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage("" ??
+                        backgroundImage: NetworkImage(img ??
                             "https://miro.medium.com/max/6144/1*SN4G3KhX_foP7Yci023DJg.jpeg"),
                       ),
-                      title: Text("" ?? "User"),
-                      subtitle: Text(this.widget.donasi.lokasi),
+                      title: Text(name ?? "User"),
+                      subtitle: Text(this.widget.donasi.lokasi ?? "Alamat"),
                     ),
                   ),
                   //Daftar Barang Text
@@ -78,6 +94,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                     padding: const EdgeInsets.fromLTRB(15, 8, 15, 0),
                     child: Container(
                       height: 150,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(color: HexColor("7A7ADC")),
                       ),
@@ -86,7 +103,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Text(
-                              "Seragam SD, baju anak, buku tulis, mainan bayi layak pakai"),
+                              this.widget.donasi.keterangan ?? "Keterangan"),
                         ),
                       ),
                     ),
@@ -97,22 +114,13 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                     child: Container(
                       height: 50,
                       child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          KategoriContainer(
-                            kategori: "Pakaian",
-                          ),
-                          KategoriContainer(
-                            kategori: "Mainan Bayi",
-                          ),
-                          KategoriContainer(
-                            kategori: "Alat Tulis",
-                          ),
-                          KategoriContainer(
-                            kategori: "Lain-lain",
-                          ),
-                        ],
-                      ),
+                          scrollDirection: Axis.horizontal,
+                          children: this
+                              .widget
+                              .donasi
+                              .kategori
+                              .map((e) => KategoriContainer(kategori: e))
+                              .toList()),
                     ),
                   ),
                   //Lacak Barang (Database)
@@ -144,6 +152,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                       ),
                     ),
                   ),
+                  //Tombol Konfirmasi
                 ],
               ),
             ),

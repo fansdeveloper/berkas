@@ -23,7 +23,9 @@ class _DonasiCardState extends State<DonasiCard> {
         name = value.data()['name'];
         img = value.data()['imgUrl'];
       });
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 

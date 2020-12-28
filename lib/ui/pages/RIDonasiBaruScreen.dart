@@ -6,8 +6,9 @@ class RIDonasiBaruScreen extends StatefulWidget {
 }
 
 class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
-  CollectionReference donasiBaruCollection =
-      FirebaseFirestore.instance.collection("donations");
+  var donasiBaruCollection = FirebaseFirestore.instance
+      .collection("donations")
+      .where('isConfirmed', isEqualTo: false);
   var usersCollection = FirebaseFirestore.instance.collection("users");
 
   @override
@@ -49,30 +50,34 @@ class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
               //   );
               // }
 
-              return ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot doc) {
-                  //Tanggal
-                  Timestamp t = doc.data()['date'];
-                  String stringDate = t.toDate().toString();
+              if (snapshot.hasData) {
+                return ListView(
+                  children: snapshot.data.docs.map((DocumentSnapshot doc) {
+                    //Tanggal
+                    Timestamp t = doc.data()['date'];
+                    String stringDate = t.toDate().toString();
 
-                  return DonasiCard(
-                    donasi: Donasi(
-                        doc.data()['id'],
-                        doc.data()['pantiID'],
-                        doc.data()['donaturID'],
-                        doc.data()['keterangan'],
-                        doc.data()['lokasi'],
-                        doc.data()['tujuan'],
-                        doc.data()['fee'],
-                        doc.data()['weight'],
-                        doc.data()['date'],
-                        doc.data()['kategori'],
-                        doc.data()['isConfirmed']),
-                    date: stringDate,
-                    tipeUser: 0,
-                  );
-                }).toList(),
-              );
+                    return DonasiCard(
+                      donasi: Donasi(
+                          doc.data()['id'],
+                          doc.data()['pantiID'],
+                          doc.data()['donaturID'],
+                          doc.data()['keterangan'],
+                          doc.data()['lokasi'],
+                          doc.data()['tujuan'],
+                          doc.data()['fee'],
+                          doc.data()['weight'],
+                          doc.data()['date'],
+                          doc.data()['kategori'],
+                          doc.data()['isConfirmed']),
+                      date: stringDate,
+                      tipeUser: 0,
+                    );
+                  }).toList(),
+                );
+              } else {
+                return Container();
+              }
             },
           ),
         ),

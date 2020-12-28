@@ -24,8 +24,9 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
         .where('isConfirmed', isEqualTo: true)
         .get()
         .then((value) => donasiSelesai = value.size);
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   DocumentSnapshot snapshot;
@@ -36,7 +37,9 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
         .doc('CdM3SJPkXE3IUEnQRovm')
         .get(); //get the data
     snapshot = data;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -250,7 +253,11 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                               // Donasi Selesai -> Riwayat
                               child: FlatButton(
                                 onPressed: () {
-                                  print("Ke History");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RIDonasiSelesaiScreen()));
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
