@@ -47,9 +47,47 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
     //Ambil data
     getData();
     getPanti();
-    // String kategori = snapshot.data()['neededGoods'].toString();
 
+    bool s1 = false,
+        s2 = false,
+        s3 = false,
+        s4 = false,
+        s5 = false,
+        s6 = false,
+        s7 = false,
+        s8 = false,
+        s9 = false;
     List<dynamic> kategori = snapshot.data()['neededGoods'];
+
+    if (kategori.contains("Alat Tulis")) {
+      s1 = true;
+    }
+    if (kategori.contains("Mainan")) {
+      s2 = true;
+    }
+    if (kategori.contains("Pakaian")) {
+      s3 = true;
+    }
+    if (kategori.contains("Buku")) {
+      s4 = true;
+    }
+    if (kategori.contains("Perlengkapan Kesehatan")) {
+      s5 = true;
+    }
+    if (kategori.contains("Perlengkapan Sekolah")) {
+      s6 = true;
+    }
+    if (kategori.contains("Perlengkapan Bayi")) {
+      s7 = true;
+    }
+    if (kategori.contains("Sembako")) {
+      s8 = true;
+    }
+    if (kategori.contains("Lainnya")) {
+      s9 = true;
+
+      print(s2);
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -82,8 +120,6 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(kategori.toString()),
-                        Text(kategori[0]),
                         Text("Daftar Kebutuhan",
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -96,59 +132,96 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                         Container(
                             height: 250,
                             child: GridView.count(crossAxisCount: 3, children: [
-                              CategoryGrid(
-                                title: "Alat Tulis",
-                                img: "assets/category/putih/1.png",
-                              ),
-                              CategoryGrid(
-                                title: "Mainan",
-                                img: "assets/category/putih/2.png",
-                              ),
-                              CategoryGrid(
-                                title: "Pakaian",
-                                img: "assets/category/putih/3.png",
-                              ),
-                              CategoryGrid(
-                                title: "Sembako",
-                                img: "assets/category/putih/8.png",
-                              ),
-                              Container(
-                                child: Card(
-                                  elevation: 0,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        child: Image(
-                                          image: AssetImage(
-                                              "assets/category/putih/edit.png"),
+                              if (s1)
+                                CategoryGrid(
+                                  title: "Alat Tulis",
+                                  img: "assets/category/putih/1.png",
+                                ),
+                              if (s2)
+                                CategoryGrid(
+                                  title: "Mainan",
+                                  img: "assets/category/putih/2.png",
+                                ),
+                              if (s3)
+                                CategoryGrid(
+                                  title: "Pakaian",
+                                  img: "assets/category/putih/3.png",
+                                ),
+                              if (s4)
+                                CategoryGrid(
+                                  title: "Buku",
+                                  img: "assets/category/putih/4.png",
+                                ),
+                              if (s5)
+                                CategoryGrid(
+                                  title: "Perlengkapan Kesehatan",
+                                  img: "assets/category/putih/5.png",
+                                ),
+                              if (s6)
+                                CategoryGrid(
+                                  title: "Perlengkapan Sekolah",
+                                  img: "assets/category/putih/6.png",
+                                ),
+                              if (s7)
+                                CategoryGrid(
+                                  title: "Perlengkapan Bayi",
+                                  img: "assets/category/putih/7.png",
+                                ),
+                              if (s8)
+                                CategoryGrid(
+                                  title: "Sembako",
+                                  img: "assets/category/putih/8.png",
+                                ),
+                              if (s9)
+                                CategoryGrid(
+                                  title: "Lainnya",
+                                  img: "assets/category/putih/9.png",
+                                ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditGoodsNeeded()));
+                                },
+                                child: Container(
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/category/putih/edit.png"),
+                                          ),
+                                          height: 70,
+                                          width: 70,
+                                          decoration: BoxDecoration(
+                                              color: HexColor("bebeea"),
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
                                         ),
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                            color: HexColor("bebeea"),
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "Ubah",
-                                        style: TextStyle(
-                                            color: HexColor("7a7adc")),
-                                      )
-                                    ],
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Ubah",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor("7a7adc")),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              )
+                              ),
                             ]))
                       ],
                     ),
                   ),
                 )),
-            SizedBox(
-              height: 20,
-            ),
+
             //
             //
             //
@@ -305,8 +378,9 @@ class CategoryGrid extends StatelessWidget {
             Container(
               child: Image(
                 image: AssetImage(img),
+                height: 20,
               ),
-              height: 70,
+              height: 62,
               width: 70,
               decoration: BoxDecoration(
                   color: HexColor("7a7adc"),
@@ -317,7 +391,12 @@ class CategoryGrid extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(color: HexColor("7a7adc")),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: HexColor(
+                    "7a7adc",
+                  )),
             )
           ],
         ),

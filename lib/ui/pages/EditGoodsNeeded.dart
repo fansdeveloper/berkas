@@ -32,7 +32,8 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                 icon: const Icon(Icons.arrow_back_ios),
                 color: HexColor("7A7ADC"),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RIHomeScreen()));
                 },
               );
             },
@@ -302,7 +303,6 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
 
                     s9 ? kategori.add("Lainnya") : "";
 
-                    print(kategori);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
