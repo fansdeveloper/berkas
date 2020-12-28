@@ -11,3 +11,4 @@ import 'package:image_picker/image_picker.dart';
 part 'DonasiServices.dart';
 part 'AuthServices.dart';
 part 'UsersServices.dart';
+part 'RIServices.dart';

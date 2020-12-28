@@ -11,8 +11,6 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
   int donasiBaru, donasiSelesai;
 
-  var pantiCollection = FirebaseFirestore.instance.collection("panti");
-
   //Ambil data buat Statistik
   void getData() async {
     await donationCollection
@@ -57,6 +55,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
         s7 = false,
         s8 = false,
         s9 = false;
+
     List<dynamic> kategori = snapshot.data()['neededGoods'];
 
     if (kategori.contains("Alat Tulis")) {
@@ -85,8 +84,6 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
     }
     if (kategori.contains("Lainnya")) {
       s9 = true;
-
-      print(s2);
     }
 
     return Scaffold(

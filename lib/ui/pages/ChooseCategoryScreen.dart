@@ -284,23 +284,15 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                   color: HexColor("7A7ADC"),
                   onPressed: () {
                     //save selected categories
-                    s1 ? kategori.add("Alat Tulis") : "";
-
-                    s2 ? kategori.add("Mainan") : "";
-
-                    s3 ? kategori.add("Pakaian") : "";
-
-                    s4 ? kategori.add("Buku") : "";
-
-                    s5 ? kategori.add("Perlengkapan Kesehatan") : "";
-
-                    s6 ? kategori.add("Perlengkapan Sekolah") : "";
-
-                    s7 ? kategori.add("Perlengkapan Bayi") : "";
-
-                    s8 ? kategori.add("Sembako") : "";
-
-                    s9 ? kategori.add("Lainnya") : "";
+                    if (s1) kategori.add("Alat Tulis");
+                    if (s2) kategori.add("Mainan");
+                    if (s3) kategori.add("Pakaian");
+                    if (s4) kategori.add("Buku");
+                    if (s5) kategori.add("Perlengkapan Kesehatan");
+                    if (s6) kategori.add("Perlengkapan Sekolah");
+                    if (s7) kategori.add("Perlengkapan Bayi");
+                    if (s8) kategori.add("Sembako");
+                    if (s9) kategori.add("Lainnya");
 
                     print(kategori);
                     Navigator.push(

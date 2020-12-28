@@ -1,11 +1,15 @@
 part of 'pages.dart';
 
 class EditGoodsNeeded extends StatefulWidget {
+  // final List<dynamic> kategori;
+  // EditGoodsNeeded({Key key, this.kategori}) : super(key: key);
+
   @override
   _EditGoodsNeededState createState() => _EditGoodsNeededState();
 }
 
 class _EditGoodsNeededState extends State<EditGoodsNeeded> {
+  DocumentSnapshot panti;
   bool s1 = false,
       s2 = false,
       s3 = false,
@@ -15,9 +19,51 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
       s7 = false,
       s8 = false,
       s9 = false;
-  List<String> kategori = List<String>();
+
+  DocumentSnapshot snapshot;
+  void getPanti() async {
+    //use a Async-await function to get the data
+    final data = await FirebaseFirestore.instance
+        .collection("panti")
+        .doc('CdM3SJPkXE3IUEnQRovm')
+        .get(); //get the data
+    snapshot = data;
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getPanti();
+    List<dynamic> kategori = snapshot.data()['neededGoods'];
+    if (kategori.contains("Alat Tulis")) {
+      s1 = true;
+    }
+    if (kategori.contains("Mainan")) {
+      s2 = true;
+    }
+    if (kategori.contains("Pakaian")) {
+      s3 = true;
+    }
+    if (kategori.contains("Buku")) {
+      s4 = true;
+    }
+    if (kategori.contains("Perlengkapan Kesehatan")) {
+      s5 = true;
+    }
+    if (kategori.contains("Perlengkapan Sekolah")) {
+      s6 = true;
+    }
+    if (kategori.contains("Perlengkapan Bayi")) {
+      s7 = true;
+    }
+    if (kategori.contains("Sembako")) {
+      s8 = true;
+    }
+    if (kategori.contains("Lainnya")) {
+      s9 = true;
+    }
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -283,30 +329,33 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                 height: 60,
                 child: RaisedButton(
                   color: HexColor("7A7ADC"),
-                  onPressed: () {
+                  onPressed: () async {
                     //save selected categories
-                    s1 ? kategori.add("Alat Tulis") : "";
+                    if (s1) kategori.add("Alat Tulis");
+                    if (s2) kategori.add("Mainan");
+                    if (s3) kategori.add("Pakaian");
+                    if (s4) kategori.add("Buku");
+                    if (s5) kategori.add("Perlengkapan Kesehatan");
+                    if (s6) kategori.add("Perlengkapan Sekolah");
+                    if (s7) kategori.add("Perlengkapan Bayi");
+                    if (s8) kategori.add("Sembako");
+                    if (s9) kategori.add("Lainnya");
 
-                    s2 ? kategori.add("Mainan") : "";
-
-                    s3 ? kategori.add("Pakaian") : "";
-
-                    s4 ? kategori.add("Buku") : "";
-
-                    s5 ? kategori.add("Perlengkapan Kesehatan") : "";
-
-                    s6 ? kategori.add("Perlengkapan Sekolah") : "";
-
-                    s7 ? kategori.add("Perlengkapan Bayi") : "";
-
-                    s8 ? kategori.add("Sembako") : "";
-
-                    s9 ? kategori.add("Lainnya") : "";
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RIHomeScreen()));
+                    ResidentialInstitutions panti =
+                        ResidentialInstitutions("", "", 0, 0, kategori);
+                    bool result = await RIServices.updateGoodsNeeded(panti);
+                    if (result) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RIHomeScreen()));
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "Failed to Update Needed Goods",
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          toastLength: Toast.LENGTH_LONG);
+                    }
                   },
                   child: Text(
                     "Simpan Perubahan",
