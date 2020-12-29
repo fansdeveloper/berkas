@@ -1,9 +1,9 @@
 part of 'pages.dart';
 
 class SignIn extends StatefulWidget {
-  // final String tipeUser;
+  final String tipeUser;
 
-  // SignIn({Key key, this.tipeUser}) : super(key: key);
+  SignIn({Key key, this.tipeUser}) : super(key: key);
   @override
   _SignInState createState() => _SignInState();
 }
@@ -14,7 +14,7 @@ class _SignInState extends State<SignIn> {
 
   final email = TextEditingController();
   final password = TextEditingController();
-  String tipeUser;
+  // String tipeUser;
 
   bool isLoading = false;
 
@@ -128,7 +128,7 @@ class _SignInState extends State<SignIn> {
                               isLoading = true;
                             });
                             String result = await AuthServices.signIn(
-                                email.text, password.text, tipeUser);
+                                email.text, password.text);
                             if (result == "success") {
                               Fluttertoast.showToast(
                                 msg: "Sukses",
@@ -141,13 +141,16 @@ class _SignInState extends State<SignIn> {
                               setState(() {
                                 isLoading = false;
                               });
-                              if (tipeUser == 'Panti') {
+
+                              print(">>>>>>>>>>>>>>>>>" + widget.tipeUser);
+
+                              if (widget.tipeUser == 'Panti') {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return RIMainTabBar();
                                 }));
                               } else
-                              // if(tipeUser == 'Donatur') 
+                              if(widget.tipeUser == 'Donatur') 
                                {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {

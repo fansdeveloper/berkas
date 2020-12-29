@@ -26,7 +26,7 @@ class AuthServices {
     return msg;
   }
 
-  static Future<String> signIn(String email, String password, String tipeUser) async {
+  static Future<String> signIn(String email, String password) async {
     await Firebase.initializeApp();
     String msg = "";
     try {
@@ -49,6 +49,8 @@ class AuthServices {
 
   static Future<String> currentUser(String email, String password, String name,
       String alamat, String kota, String tipeUser) async {
+        await Firebase.initializeApp();
+        
 
   }
 }

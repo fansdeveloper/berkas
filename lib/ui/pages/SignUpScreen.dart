@@ -240,6 +240,7 @@ class _SignUpState extends State<SignUp> {
                                   widget.tipeUser
                                   );
                               if (result == "success") {
+                                print(">>>>>>>>>>>>>>>>> " + widget.tipeUser);
                                 Fluttertoast.showToast(
                                   msg: "Sukses",
                                   toastLength: Toast.LENGTH_SHORT,
