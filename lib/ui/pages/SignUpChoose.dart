@@ -60,7 +60,7 @@ class _SignUpChooseState extends State<SignUpChoose> {
                       print("Donatur Clicked");
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return SignUp(tipeUser: 'donatur',);
+                        return SignUp(tipeUser: 'Donatur',);
                       }));
                     }),
               ),
@@ -86,7 +86,7 @@ class _SignUpChooseState extends State<SignUpChoose> {
 
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return SignUp(tipeUser: 'panti');
+                            return SignUp(tipeUser: 'Panti');
                           }));
                         }),
                   ),

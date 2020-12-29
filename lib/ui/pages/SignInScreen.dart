@@ -1,6 +1,9 @@
 part of 'pages.dart';
 
 class SignIn extends StatefulWidget {
+  // final String tipeUser;
+
+  // SignIn({Key key, this.tipeUser}) : super(key: key);
   @override
   _SignInState createState() => _SignInState();
 }
@@ -8,9 +11,10 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
-  
+
   final email = TextEditingController();
   final password = TextEditingController();
+  String tipeUser;
 
   bool isLoading = false;
 
@@ -124,7 +128,7 @@ class _SignInState extends State<SignIn> {
                               isLoading = true;
                             });
                             String result = await AuthServices.signIn(
-                                email.text, password.text);
+                                email.text, password.text, tipeUser);
                             if (result == "success") {
                               Fluttertoast.showToast(
                                 msg: "Sukses",
@@ -137,13 +141,20 @@ class _SignInState extends State<SignIn> {
                               setState(() {
                                 isLoading = false;
                               });
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return MainTabBar();
-                              }));
+                              if (tipeUser == 'Panti') {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return RIMainTabBar();
+                                }));
+                              } else if(tipeUser == 'Donatur') {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return MainTabBar();
+                                }));
+                              }
                             } else {
                               Fluttertoast.showToast(
-                                msg: result,
+                                msg: "Periksa kembali Email/Kata Kunci Anda",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 backgroundColor: Colors.blue,

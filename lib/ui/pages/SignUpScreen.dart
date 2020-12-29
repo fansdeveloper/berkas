@@ -248,17 +248,25 @@ class _SignUpState extends State<SignUp> {
                                   textColor: Colors.white,
                                   fontSize: 16.0,
                                 );
+                                if (widget.tipeUser == 'panti') {
+                                  Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return RIMainTabBar();
+                                }));
+                                } else {
+                                  Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return MainTabBar();
+                                }));
+                                };
+                                
                                 setState(() {
                                   isLoading = false;
                                   clearForm();
                                 });
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return MainTabBar();
-                                }));
                               } else {
                                 Fluttertoast.showToast(
-                                  msg: result,
+                                  msg: "Akun sudah dimiliki orang lain",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   backgroundColor: Colors.red,

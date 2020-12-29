@@ -26,7 +26,7 @@ class AuthServices {
     return msg;
   }
 
-  static Future<String> signIn(String email, String password) async {
+  static Future<String> signIn(String email, String password, String tipeUser) async {
     await Firebase.initializeApp();
     String msg = "";
     try {
