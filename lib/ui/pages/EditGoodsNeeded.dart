@@ -1,15 +1,14 @@
 part of 'pages.dart';
 
 class EditGoodsNeeded extends StatefulWidget {
-  // final List<dynamic> kategori;
-  // EditGoodsNeeded({Key key, this.kategori}) : super(key: key);
+  final List<dynamic> kategori;
+  EditGoodsNeeded({Key key, this.kategori}) : super(key: key);
 
   @override
   _EditGoodsNeededState createState() => _EditGoodsNeededState();
 }
 
 class _EditGoodsNeededState extends State<EditGoodsNeeded> {
-  DocumentSnapshot panti;
   bool s1 = false,
       s2 = false,
       s3 = false,
@@ -20,48 +19,35 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
       s8 = false,
       s9 = false;
 
-  DocumentSnapshot snapshot;
-  void getPanti() async {
-    //use a Async-await function to get the data
-    final data = await FirebaseFirestore.instance
-        .collection("panti")
-        .doc('CdM3SJPkXE3IUEnQRovm')
-        .get(); //get the data
-    snapshot = data;
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  int tipeUser;
 
   @override
   Widget build(BuildContext context) {
-    getPanti();
-    List<dynamic> kategori = snapshot.data()['neededGoods'];
-    if (kategori.contains("Alat Tulis")) {
+    if (widget.kategori.contains("Alat Tulis")) {
       s1 = true;
     }
-    if (kategori.contains("Mainan")) {
+    if (widget.kategori.contains("Mainan")) {
       s2 = true;
     }
-    if (kategori.contains("Pakaian")) {
+    if (widget.kategori.contains("Pakaian")) {
       s3 = true;
     }
-    if (kategori.contains("Buku")) {
+    if (widget.kategori.contains("Buku")) {
       s4 = true;
     }
-    if (kategori.contains("Perlengkapan Kesehatan")) {
+    if (widget.kategori.contains("Perlengkapan Kesehatan")) {
       s5 = true;
     }
-    if (kategori.contains("Perlengkapan Sekolah")) {
+    if (widget.kategori.contains("Perlengkapan Sekolah")) {
       s6 = true;
     }
-    if (kategori.contains("Perlengkapan Bayi")) {
+    if (widget.kategori.contains("Perlengkapan Bayi")) {
       s7 = true;
     }
-    if (kategori.contains("Sembako")) {
+    if (widget.kategori.contains("Sembako")) {
       s8 = true;
     }
-    if (kategori.contains("Lainnya")) {
+    if (widget.kategori.contains("Lainnya")) {
       s9 = true;
     }
     return Scaffold(
@@ -331,18 +317,18 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                   color: HexColor("7A7ADC"),
                   onPressed: () async {
                     //save selected categories
-                    if (s1) kategori.add("Alat Tulis");
-                    if (s2) kategori.add("Mainan");
-                    if (s3) kategori.add("Pakaian");
-                    if (s4) kategori.add("Buku");
-                    if (s5) kategori.add("Perlengkapan Kesehatan");
-                    if (s6) kategori.add("Perlengkapan Sekolah");
-                    if (s7) kategori.add("Perlengkapan Bayi");
-                    if (s8) kategori.add("Sembako");
-                    if (s9) kategori.add("Lainnya");
+                    if (s1) widget.kategori.add("Alat Tulis");
+                    if (s2) widget.kategori.add("Mainan");
+                    if (s3) widget.kategori.add("Pakaian");
+                    if (s4) widget.kategori.add("Buku");
+                    if (s5) widget.kategori.add("Perlengkapan Kesehatan");
+                    if (s6) widget.kategori.add("Perlengkapan Sekolah");
+                    if (s7) widget.kategori.add("Perlengkapan Bayi");
+                    if (s8) widget.kategori.add("Sembako");
+                    if (s9) widget.kategori.add("Lainnya");
 
                     ResidentialInstitutions panti =
-                        ResidentialInstitutions("", "", 0, 0, kategori);
+                        ResidentialInstitutions("", "", 0, 0, widget.kategori);
                     bool result = await RIServices.updateGoodsNeeded(panti);
                     if (result) {
                       Navigator.push(

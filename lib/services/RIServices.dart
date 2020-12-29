@@ -7,9 +7,9 @@ class RIServices {
   static Future<bool> updateGoodsNeeded(ResidentialInstitutions panti) async {
     await Firebase.initializeApp();
 
-    pantiReference.doc("CdM3SJPkXE3IUEnQRovm").update({
-      'neededGoods': panti.neededGoods,
-    });
+    pantiReference
+        .doc("CdM3SJPkXE3IUEnQRovm")
+        .update({'neededGoods': FieldValue.arrayUnion(panti.neededGoods)});
     return true;
   }
 }
