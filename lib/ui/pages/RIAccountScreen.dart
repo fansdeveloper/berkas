@@ -9,6 +9,9 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   @override
   Users users;
   String name, alamat, email, kota, tipeUser, imgUrl;
+  Color secondary = const Color(0xffBEBEEA);
+  Color primary = const Color(0xff7A7ADC);
+  bool isLoading = false;
 
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
@@ -170,7 +173,54 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                             color: HexColor("7A7ADC"),
                           ),
                           FlatButton(
-                            onPressed: () {},
+                           onPressed: () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Konfirmasi Keluar"),
+                                      content: Text(
+                                          "Apakah anda yakin untuk keluar?"),
+                                      actions: [
+                                        FlatButton(
+                                          onPressed: () async {
+                                            setState(() {
+                                              isLoading = true;
+                                            });
+                                            await AuthServices.signOut()
+                                                .then((value) {
+                                              if (value) {
+                                                Navigator.pushReplacement(
+                                                    context, MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return SignIn();
+                                                }));
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                              }
+                                            });
+                                          },
+                                          child: Text("Yes"),
+                                          textColor: primary,
+                                        ),
+                                        FlatButton(
+                                            child: Text("No"),
+                                            textColor: primary,
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            })
+                                      ],
+                                    );
+                                  });
+                            },
                             child: SizedBox(
                               width: double.infinity,
                               child: Text(

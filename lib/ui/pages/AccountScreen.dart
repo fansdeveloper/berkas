@@ -10,6 +10,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Color primary = const Color(0xff7A7ADC);
   bool isLoading = false;
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

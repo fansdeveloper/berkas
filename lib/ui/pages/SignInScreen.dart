@@ -1,20 +1,23 @@
 part of 'pages.dart';
 
 class SignIn extends StatefulWidget {
-  final String tipeUser;
+  // final String tipeUser;
 
-  SignIn({Key key, this.tipeUser}) : super(key: key);
+  // SignIn({Key key, this.tipeUser}) : super(key: key);
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
 
   final email = TextEditingController();
   final password = TextEditingController();
-  // String tipeUser;
+  
+
+  String tipeUser;
 
   bool isLoading = false;
 
@@ -23,6 +26,11 @@ class _SignInState extends State<SignIn> {
     email.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  void clearForm() {
+    email.clear();
+    password.clear();
   }
 
   @override
@@ -114,64 +122,69 @@ class _SignInState extends State<SignIn> {
                         color: primary,
                         child: Text("Masuk"),
                         onPressed: () async {
-                          if (email.text == "" || password.text == "") {
-                            Fluttertoast.showToast(
-                              msg: "Mohon untuk mengisi seluruh kolomnya",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
-                          } else {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            String result = await AuthServices.signIn(
-                                email.text, password.text);
-                            if (result == "success") {
+                            if (email.text == "" ||
+                                password.text == "") {
                               Fluttertoast.showToast(
-                                msg: "Sukses",
+                                msg: "Mohon untuk mengisi seluruh kolomnya",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.green,
+                                backgroundColor: Colors.red,
                                 textColor: Colors.white,
                                 fontSize: 16.0,
                               );
+                            } else {
                               setState(() {
-                                isLoading = false;
+                                isLoading = true;
                               });
+                              String result = await AuthServices.signIn(
+                                  email.text,
+                                  password.text,
+                                  );
+                              if (result == "success") {
+                                Fluttertoast.showToast(
+                                  msg: "Sukses",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
 
-                              print(">>>>>>>>>>>>>>>>>" + widget.tipeUser);
-
-                              if (widget.tipeUser == 'Panti') {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return RIMainTabBar();
-                                }));
-                              } else
-                              if(widget.tipeUser == 'Donatur') 
-                               {
-                                Navigator.pushReplacement(context,
+                                // print(tipeUser);
+                                if (tipeUser == 'Donatur') {
+                                  Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return MainTabBar();
                                 }));
+                                } 
+                                else {
+                                  Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return RIMainTabBar();
+                                }));
+                                };
+                                
+
+                                setState(() {
+                                  isLoading = false;
+                                  clearForm();
+                                });
+
+                              } else {
+                                Fluttertoast.showToast(
+                                  msg: "Periksa kembali Email/Kata kunci Anda",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
                               }
-                            } else {
-                              Fluttertoast.showToast(
-                                msg: "Periksa kembali Email/Kata Kunci Anda",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.blue,
-                                textColor: Colors.white,
-                                fontSize: 16.0,
-                              );
-                              setState(() {
-                                isLoading = false;
-                              });
                             }
-                          }
-                        },
+                          },
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
                         ),
