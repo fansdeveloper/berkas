@@ -52,6 +52,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s1 = !s1;
                         setState(() {
+                          if (s1) {
+                            kategori.add("Alat Tulis");
+                          } else {
+                            kategori.remove("Alat Tulis");
+                          }
                           s1
                               ? SelectedCategory(
                                   title: "Alat Tulis",

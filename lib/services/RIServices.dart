@@ -12,13 +12,4 @@ class RIServices {
         .update({'neededGoods': FieldValue.arrayUnion(panti.neededGoods)});
     return true;
   }
-
-  static Future<bool> deleteGoodsNeeded(ResidentialInstitutions panti) async {
-    await Firebase.initializeApp();
-
-    pantiReference
-        .doc("CdM3SJPkXE3IUEnQRovm")
-        .update({'neededGoods': FieldValue.arrayRemove(panti.neededGoods)});
-    return true;
-  }
 }

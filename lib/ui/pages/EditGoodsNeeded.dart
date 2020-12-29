@@ -19,6 +19,10 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
       s8 = false,
       s9 = false;
 
+  DocumentReference documentReference = FirebaseFirestore.instance
+      .collection('panti')
+      .doc('CdM3SJPkXE3IUEnQRovm');
+
   void checkCategory() {
     if (widget.kategori.contains("Alat Tulis")) {
       s1 = true;
@@ -91,11 +95,21 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s1 = !s1;
                         setState(() {
-                          if (s1)
+                          if (s1) {
+                            documentReference.update({
+                              'neededGoods':
+                                  FieldValue.arrayUnion(["Alat Tulis"])
+                            });
                             SelectedCategory(
                               title: "Alat Tulis",
                               img: "assets/category/putih/1.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods':
+                                  FieldValue.arrayRemove(["Alat Tulis"])
+                            });
+                          }
                         });
                       },
                       child: s1
@@ -112,11 +126,19 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s2 = !s2;
                         setState(() {
-                          if (s2)
+                          if (s2) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(["Mainan"])
+                            });
                             SelectedCategory(
                               title: "Mainan",
                               img: "assets/category/putih/2.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(["Mainan"])
+                            });
+                          }
                         });
                       },
                       child: s2
@@ -133,11 +155,19 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s3 = !s3;
                         setState(() {
-                          if (s3)
+                          if (s3) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(["Pakaian"])
+                            });
                             SelectedCategory(
                               title: "Pakaian",
                               img: "assets/category/putih/3.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(["Pakaian"])
+                            });
+                          }
                         });
                       },
                       child: s3
@@ -154,11 +184,19 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s4 = !s4;
                         setState(() {
-                          if (s4)
+                          if (s4) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(["Buku"])
+                            });
                             SelectedCategory(
                               title: "Buku",
                               img: "assets/category/putih/4.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(["Buku"])
+                            });
+                          }
                         });
                       },
                       child: s4
@@ -175,11 +213,21 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s5 = !s5;
                         setState(() {
-                          if (s5)
+                          if (s5) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(
+                                  ["Perlengkapan Kesehatan"])
+                            });
                             SelectedCategory(
                               title: "Perlengkapan Kesehatan",
                               img: "assets/category/putih/5.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(
+                                  ["Perlengkapan Kesehatan"])
+                            });
+                          }
                         });
                       },
                       child: s5
@@ -196,11 +244,21 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s6 = !s6;
                         setState(() {
-                          if (s6)
+                          if (s6) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(
+                                  ["Perlengkapan Sekolah"])
+                            });
                             SelectedCategory(
                               title: "Perlengkapan Sekolah",
                               img: "assets/category/putih/6.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(
+                                  ["Perlengkapan Sekolah"])
+                            });
+                          }
                         });
                       },
                       child: s6
@@ -217,11 +275,21 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s7 = !s7;
                         setState(() {
-                          if (s7)
+                          if (s7) {
+                            documentReference.update({
+                              'neededGoods':
+                                  FieldValue.arrayUnion(["Perlengkapan Bayi"])
+                            });
                             SelectedCategory(
                               title: "Perlengkapan Bayi",
                               img: "assets/category/putih/7.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods':
+                                  FieldValue.arrayRemove(["Perlengkapan Bayi"])
+                            });
+                          }
                         });
                       },
                       child: s7
@@ -238,11 +306,19 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s8 = !s8;
                         setState(() {
-                          if (s8)
+                          if (s8) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(["Sembako"])
+                            });
                             SelectedCategory(
-                              title: "Perlengkapan Bayi",
+                              title: "Sembako",
                               img: "assets/category/putih/8.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(["Sembako"])
+                            });
+                          }
                         });
                       },
                       child: s8
@@ -259,11 +335,19 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s9 = !s9;
                         setState(() {
-                          if (s9)
+                          if (s9) {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayUnion(["Lainnya"])
+                            });
                             SelectedCategory(
-                              title: "Perlengkapan Bayi",
-                              img: "assets/category/putih/8.png",
+                              title: "Lainnya",
+                              img: "assets/category/putih/9.png",
                             );
+                          } else {
+                            documentReference.update({
+                              'neededGoods': FieldValue.arrayRemove(["Lainnya"])
+                            });
+                          }
                         });
                       },
                       child: s9
@@ -286,33 +370,10 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                 child: RaisedButton(
                   color: HexColor("7A7ADC"),
                   onPressed: () async {
-                    //save selected categories
-                    if (s1) widget.kategori.add("Alat Tulis");
-                    if (s2) widget.kategori.add("Mainan");
-                    if (s3) widget.kategori.add("Pakaian");
-                    if (s4) widget.kategori.add("Buku");
-                    if (s5) widget.kategori.add("Perlengkapan Kesehatan");
-                    if (s6) widget.kategori.add("Perlengkapan Sekolah");
-                    if (s7) widget.kategori.add("Perlengkapan Bayi");
-                    if (s8) widget.kategori.add("Sembako");
-                    if (s9) widget.kategori.add("Lainnya");
-
-                    ResidentialInstitutions panti =
-                        ResidentialInstitutions("", "", 0, 0, widget.kategori);
-                    bool result = await RIServices.updateGoodsNeeded(panti);
-
-                    if (result) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RIHomeScreen()));
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Failed to Update Needed Goods",
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          toastLength: Toast.LENGTH_LONG);
-                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RIHomeScreen()));
                   },
                   child: Text(
                     "Simpan Perubahan",
