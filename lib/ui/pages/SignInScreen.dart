@@ -146,7 +146,9 @@ class _SignInState extends State<SignIn> {
                                     MaterialPageRoute(builder: (context) {
                                   return RIMainTabBar();
                                 }));
-                              } else if(tipeUser == 'Donatur') {
+                              } else
+                              // if(tipeUser == 'Donatur') 
+                               {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return MainTabBar();

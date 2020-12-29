@@ -248,12 +248,12 @@ class _SignUpState extends State<SignUp> {
                                   textColor: Colors.white,
                                   fontSize: 16.0,
                                 );
-                                if (widget.tipeUser == 'panti') {
+                                if (widget.tipeUser == 'Panti') {
                                   Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return RIMainTabBar();
                                 }));
-                                } else {
+                                } else if (widget.tipeUser == 'Donatur') {
                                   Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return MainTabBar();

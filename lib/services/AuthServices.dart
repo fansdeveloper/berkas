@@ -46,4 +46,9 @@ class AuthServices {
     await auth.signOut().whenComplete(() => result = true);
     return result;
   }
+
+  static Future<String> currentUser(String email, String password, String name,
+      String alamat, String kota, String tipeUser) async {
+
+  }
 }
