@@ -4,14 +4,18 @@ class AuthServices {
   static FirebaseAuth auth = FirebaseAuth.instance;
 
   // <void> jika tidak mengembalikan nilai
-  static Future<String> signUp(
-      String email, String password, String name) async {
+  static Future<String> signUp(String email, String password, String name,
+      String alamat, String kota, String tipeUser) async {
     await Firebase.initializeApp();
     String msg = "";
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      Users users = result.user.convertToUser(name: name, imgUrl: "");
+      Users users = result.user.convertToUser(name: name, 
+      alamat: alamat, 
+      kota: kota, 
+      tipeUser: tipeUser , 
+      imgUrl: "");
       auth.signOut();
       await UserServices.updateUser(users);
       msg = "success";

@@ -14,7 +14,11 @@ class UserServices {
     userCollection.doc(users.uid).set({
       'uid': users.uid,
       'email': users.email,
+      // 'password': users.password,
       'name': users.name,
+      'kota' : users.kota,
+      'alamat' : users.alamat,
+      'tipeUser' : users.tipeUser,
       'profilePicture': users.imgUrl ?? ""
     });
   }

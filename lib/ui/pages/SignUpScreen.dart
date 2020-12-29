@@ -1,6 +1,9 @@
 part of 'pages.dart';
 
 class SignUp extends StatefulWidget {
+  final String tipeUser;
+
+  SignUp({Key key, this.tipeUser}) : super(key: key);
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -8,6 +11,32 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
+
+  final name = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final alamat = TextEditingController();
+  final kota = TextEditingController();
+
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    password.dispose();
+    alamat.dispose();
+    kota.dispose();
+    super.dispose();
+  }
+
+  void clearForm() {
+    name.clear();
+    email.clear();
+    password.clear();
+    alamat.clear();
+    kota.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +74,24 @@ class _SignUpState extends State<SignUp> {
                           child: Image.asset('assets/signupin/daftar.png'),
                           height: 200,
                         ),
+                        RichText(
+                          text: TextSpan(
+                            text: '',
+                            style: TextStyle(color: primary),
+                            recognizer: TapGestureRecognizer(),
+
+                            // ..onTap = () {
+                            //   Navigator.pushReplacement(context,
+                            //       MaterialPageRoute(builder: (context) {
+                            //     return SignIn();
+                            //   }));
+                            // }
+                          ),
+                        ),
                         Container(
                           margin: EdgeInsets.fromLTRB(40, 10, 40, 5),
                           child: TextFormField(
-                            //controller: ,
+                            controller: name,
                             //style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               prefixText: '     ',
@@ -72,7 +115,55 @@ class _SignUpState extends State<SignUp> {
                         Container(
                           margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
                           child: TextFormField(
-                            //controller: ,
+                            controller: alamat,
+                            //style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              prefixText: '     ',
+                              fillColor: secondary,
+                              labelText: '     Alamat',
+                              labelStyle:
+                                  TextStyle(color: Colors.white), //spasi 5 kali
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  //width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  const Radius.circular(50.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
+                          child: TextFormField(
+                            controller: kota,
+                            //style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              prefixText: '     ',
+                              fillColor: secondary,
+                              labelText: '     Kota',
+                              labelStyle:
+                                  TextStyle(color: Colors.white), //spasi 5 kali
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.white,
+                                  //width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  const Radius.circular(50.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
+                          child: TextFormField(
+                            controller: email,
                             //style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               prefixText: '     ',
@@ -96,7 +187,7 @@ class _SignUpState extends State<SignUp> {
                         Container(
                           margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
                           child: TextFormField(
-                            //controller: ,
+                            controller: password,
                             //style: TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -118,39 +209,67 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
-                          child: TextFormField(
-                            //controller: ,
-                            //style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              prefixText: '     ',
-                              fillColor: secondary,
-                              labelText: '     Lokasi',
-                              labelStyle:
-                                  TextStyle(color: Colors.white), //spasi 5 kali
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  //width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  const Radius.circular(50.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                         RaisedButton(
                           textColor: Colors.white,
                           color: primary,
                           child: Text("Masuk"),
-                          onPressed: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return MainTabBar();
-                            }));
+                          onPressed: () async {
+                            if (name.text == "" ||
+                                email.text == "" ||
+                                password.text == "" ||
+                                alamat.text == "" ||
+                                kota.text == "") {
+                              Fluttertoast.showToast(
+                                msg: "Mohon untuk mengisi seluruh kolomnya",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
+                            } else {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              String result = await AuthServices.signUp(
+                                  email.text,
+                                  password.text,
+                                  name.text,
+                                  alamat.text,
+                                  kota.text,
+                                  widget.tipeUser
+                                  );
+                              if (result == "success") {
+                                Fluttertoast.showToast(
+                                  msg: "Sukses",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                  clearForm();
+                                });
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return MainTabBar();
+                                }));
+                              } else {
+                                Fluttertoast.showToast(
+                                  msg: result,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }
                           },
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0),
@@ -169,12 +288,21 @@ class _SignUpState extends State<SignUp> {
                                         MaterialPageRoute(builder: (context) {
                                       return SignIn();
                                     }));
-                                  }))
+                                  })),
                       ],
                     ),
                   ],
                 ),
               ),
+              isLoading == true
+                  ? Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: SpinKitFadingCircle(
+                        size: 50,
+                        color: primary,
+                      ))
+                  : Container()
             ],
           ),
         ),
