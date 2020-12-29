@@ -19,10 +19,7 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
       s8 = false,
       s9 = false;
 
-  int tipeUser;
-
-  @override
-  Widget build(BuildContext context) {
+  void checkCategory() {
     if (widget.kategori.contains("Alat Tulis")) {
       s1 = true;
     }
@@ -50,6 +47,15 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
     if (widget.kategori.contains("Lainnya")) {
       s9 = true;
     }
+  }
+
+  void initState() {
+    super.initState();
+    checkCategory();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -85,15 +91,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s1 = !s1;
                         setState(() {
-                          s1
-                              ? SelectedCategory(
-                                  title: "Alat Tulis",
-                                  img: "assets/category/putih/1.png",
-                                )
-                              : CategoryCard(
-                                  title: "Alat Tulis",
-                                  img: "assets/category/ungu/1.png",
-                                );
+                          if (s1)
+                            SelectedCategory(
+                              title: "Alat Tulis",
+                              img: "assets/category/putih/1.png",
+                            );
                         });
                       },
                       child: s1
@@ -110,15 +112,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s2 = !s2;
                         setState(() {
-                          s2
-                              ? SelectedCategory(
-                                  title: "Mainan",
-                                  img: "assets/category/putih/2.png",
-                                )
-                              : CategoryCard(
-                                  title: "Mainan",
-                                  img: "assets/category/ungu/2.png",
-                                );
+                          if (s2)
+                            SelectedCategory(
+                              title: "Mainan",
+                              img: "assets/category/putih/2.png",
+                            );
                         });
                       },
                       child: s2
@@ -135,15 +133,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s3 = !s3;
                         setState(() {
-                          s3
-                              ? SelectedCategory(
-                                  title: "Pakaian",
-                                  img: "assets/category/putih/3.png",
-                                )
-                              : CategoryCard(
-                                  title: "Pakaian",
-                                  img: "assets/category/ungu/3.png",
-                                );
+                          if (s3)
+                            SelectedCategory(
+                              title: "Pakaian",
+                              img: "assets/category/putih/3.png",
+                            );
                         });
                       },
                       child: s3
@@ -160,15 +154,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s4 = !s4;
                         setState(() {
-                          s4
-                              ? SelectedCategory(
-                                  title: "Buku",
-                                  img: "assets/category/putih/4.png",
-                                )
-                              : CategoryCard(
-                                  title: "Buku",
-                                  img: "assets/category/ungu/4.png",
-                                );
+                          if (s4)
+                            SelectedCategory(
+                              title: "Buku",
+                              img: "assets/category/putih/4.png",
+                            );
                         });
                       },
                       child: s4
@@ -185,15 +175,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s5 = !s5;
                         setState(() {
-                          s5
-                              ? SelectedCategory(
-                                  title: "Perlengkapan Kesehatan",
-                                  img: "assets/category/putih/5.png",
-                                )
-                              : CategoryCard(
-                                  title: "Perlengkapan Kesehatan",
-                                  img: "assets/category/ungu/5.png",
-                                );
+                          if (s5)
+                            SelectedCategory(
+                              title: "Perlengkapan Kesehatan",
+                              img: "assets/category/putih/5.png",
+                            );
                         });
                       },
                       child: s5
@@ -210,15 +196,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s6 = !s6;
                         setState(() {
-                          s6
-                              ? SelectedCategory(
-                                  title: "Perlengkapan Sekolah",
-                                  img: "assets/category/putih/6.png",
-                                )
-                              : CategoryCard(
-                                  title: "Perlengkapan Sekolah",
-                                  img: "assets/category/ungu/6.png",
-                                );
+                          if (s6)
+                            SelectedCategory(
+                              title: "Perlengkapan Sekolah",
+                              img: "assets/category/putih/6.png",
+                            );
                         });
                       },
                       child: s6
@@ -235,15 +217,11 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                       onTap: () {
                         s7 = !s7;
                         setState(() {
-                          s7
-                              ? SelectedCategory(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/putih/7.png",
-                                )
-                              : CategoryCard(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/ungu/7.png",
-                                );
+                          if (s7)
+                            SelectedCategory(
+                              title: "Perlengkapan Bayi",
+                              img: "assets/category/putih/7.png",
+                            );
                         });
                       },
                       child: s7
@@ -256,19 +234,15 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                               img: "assets/category/ungu/7.png",
                             ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         s8 = !s8;
                         setState(() {
-                          s8
-                              ? SelectedCategory(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/putih/8.png",
-                                )
-                              : CategoryCard(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/ungu/8.png",
-                                );
+                          if (s8)
+                            SelectedCategory(
+                              title: "Perlengkapan Bayi",
+                              img: "assets/category/putih/8.png",
+                            );
                         });
                       },
                       child: s8
@@ -281,19 +255,15 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                               img: "assets/category/ungu/8.png",
                             ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         s9 = !s9;
                         setState(() {
-                          s9
-                              ? SelectedCategory(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/putih/9.png",
-                                )
-                              : CategoryCard(
-                                  title: "Perlengkapan Bayi",
-                                  img: "assets/category/ungu/9.png",
-                                );
+                          if (s9)
+                            SelectedCategory(
+                              title: "Perlengkapan Bayi",
+                              img: "assets/category/putih/8.png",
+                            );
                         });
                       },
                       child: s9
@@ -330,6 +300,7 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                     ResidentialInstitutions panti =
                         ResidentialInstitutions("", "", 0, 0, widget.kategori);
                     bool result = await RIServices.updateGoodsNeeded(panti);
+
                     if (result) {
                       Navigator.push(
                           context,
