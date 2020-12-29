@@ -1,6 +1,7 @@
 part of 'pages.dart';
 
 class SignUpChoose extends StatefulWidget {
+  
   @override
   _SignUpChooseState createState() => _SignUpChooseState();
 }
@@ -8,6 +9,7 @@ class SignUpChoose extends StatefulWidget {
 class _SignUpChooseState extends State<SignUpChoose> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
+  String tipeUser;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _SignUpChooseState extends State<SignUpChoose> {
                       print("Donatur Clicked");
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return SignUp();
+                        return SignUp(tipeUser: 'donatur',);
                       }));
                     }),
               ),
@@ -81,9 +83,10 @@ class _SignUpChooseState extends State<SignUpChoose> {
                             )),
                         onTap: () {
                           print("Panti Clicked");
+
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return SignUp();
+                            return SignUp(tipeUser: 'panti');
                           }));
                         }),
                   ),

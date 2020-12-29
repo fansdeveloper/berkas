@@ -8,6 +8,18 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
+  
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +59,7 @@ class _SignInState extends State<SignIn> {
                       Container(
                         margin: EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: TextFormField(
-                          //controller: ,
+                          controller: email,
                           //style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             prefixText: '     ',
@@ -71,7 +83,7 @@ class _SignInState extends State<SignIn> {
                       Container(
                         margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
                         child: TextFormField(
-                          //controller: ,
+                          controller: password,
                           //style: TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: InputDecoration(
@@ -97,11 +109,52 @@ class _SignInState extends State<SignIn> {
                         textColor: Colors.white,
                         color: primary,
                         child: Text("Masuk"),
-                        onPressed: () {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return MainTabBar();
-                          }));
+                        onPressed: () async {
+                          if (email.text == "" || password.text == "") {
+                            Fluttertoast.showToast(
+                              msg: "Mohon untuk mengisi seluruh kolomnya",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          } else {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            String result = await AuthServices.signIn(
+                                email.text, password.text);
+                            if (result == "success") {
+                              Fluttertoast.showToast(
+                                msg: "Sukses",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return MainTabBar();
+                              }));
+                            } else {
+                              Fluttertoast.showToast(
+                                msg: result,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.blue,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
                         },
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
@@ -126,6 +179,15 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
+            isLoading == true
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: SpinKitFadingCircle(
+                      size: 50,
+                      color: primary,
+                    ))
+                : Container()
           ],
         ),
       ),
