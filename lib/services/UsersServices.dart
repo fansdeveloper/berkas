@@ -16,9 +16,9 @@ class UserServices {
       'email': users.email,
       // 'password': users.password,
       'name': users.name,
-      'kota' : users.kota,
-      'alamat' : users.alamat,
-      'tipeUser' : users.tipeUser,
+      'kota': users.kota,
+      'alamat': users.alamat,
+      'tipeUser': users.tipeUser,
       'profilePicture': users.imgUrl ?? ""
     });
   }
@@ -48,5 +48,12 @@ class UserServices {
     DocumentSnapshot snapshot = await userCollection.doc(uid).get();
 
     return user;
+  }
+
+  static Future<bool> updateProfile(Users users) async {
+    await userCollection.doc(users.uid).update(
+      {'name': users.name, 'alamat': users.alamat, 'kota': users.kota},
+    );
+    return true;
   }
 }

@@ -10,7 +10,8 @@ class RIEditProfileScreen extends StatefulWidget {
 
 class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
   Users users;
-  String imgUrl;
+  String uid = FirebaseAuth.instance.currentUser.uid;
+  String nama, email, alamat, kota, desc, laki, perempuan, imgUrl;
   TextEditingController ctrlName,
       ctrlAlamat,
       ctrlKota,
@@ -18,6 +19,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
       ctrlLaki,
       ctrlPerempuan;
   bool chooseImagePressed = false;
+  bool isLoading = false;
 
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
@@ -33,7 +35,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
   void fetchUserData() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .snapshots()
         .listen((event) {
       imgUrl = event.data()['imgUrl'];
@@ -45,27 +47,31 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .get()
         .then((value) {
-      ctrlName = TextEditingController(text: value.data()['name']);
-      ctrlAlamat = TextEditingController(text: value.data()['alamat']);
-      ctrlKota = TextEditingController(text: value.data()['kota']);
+      nama = value.data()['name'];
+      email = value.data()['email'];
+      alamat = value.data()['alamat'];
+      kota = value.data()['kota'];
+      ctrlName = TextEditingController(text: nama);
+      ctrlAlamat = TextEditingController(text: alamat);
+      ctrlKota = TextEditingController(text: kota);
     });
-    if (mounted) {
-      setState(() {});
-    }
 
     await FirebaseFirestore.instance
         .collection('panti')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .get()
         .then((value) {
-      ctrlDesc = TextEditingController(text: value.data()['keterangan']);
-      ctrlLaki = TextEditingController(text: value.data()['laki'].toString());
-      ctrlPerempuan =
-          TextEditingController(text: value.data()['perempuan'].toString());
+      desc = value.data()['keterangan'];
+      laki = value.data()['laki'].toString();
+      perempuan = value.data()['perempuan'].toString();
+      ctrlDesc = TextEditingController(text: desc);
+      ctrlLaki = TextEditingController(text: laki);
+      ctrlPerempuan = TextEditingController(text: perempuan);
     });
+
     if (mounted) {
       setState(() {});
     }
@@ -75,7 +81,6 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
   void initState() {
     users = widget.users;
     fetchUserData();
-
     super.initState();
   }
 
@@ -292,10 +297,52 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
               height: 60,
               color: HexColor("7A7ADC"),
               child: RaisedButton(
-                onPressed: () {
-                  Users user = Users(users.uid, users.name);
-                  //update users
-                  //update panti
+                onPressed: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  Users user = Users(uid, email,
+                      name: ctrlName.text,
+                      alamat: ctrlAlamat.text,
+                      kota: ctrlKota.text);
+                  ResidentialInstitutions panti = ResidentialInstitutions(
+                      uid,
+                      ctrlDesc.text,
+                      int.parse(ctrlLaki.text),
+                      int.parse(ctrlPerempuan.text),
+                      null);
+
+                  bool result = await UserServices.updateProfile(user);
+                  bool result2 = await RIServices.updateProfile(panti);
+
+                  if (result == true && result2 == true) {
+                    Fluttertoast.showToast(
+                        msg: "Update profile successful.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return RIAccountScreen();
+                      }),
+                    );
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "Update profile failed. Please try again.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
                 },
                 child: Text(
                   "Simpan Perubahan",
@@ -303,7 +350,18 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                 ),
               ),
             ),
-          )
+          ),
+          isLoading == true
+              ? Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.transparent,
+                  child: SpinKitFadingCircle(
+                    size: 50,
+                    color: HexColor("7a7adc"),
+                  ),
+                )
+              : Container()
         ],
       ),
     );
