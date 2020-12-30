@@ -37,7 +37,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
         .doc(FirebaseAuth.instance.currentUser.uid)
         .snapshots()
         .listen((event) {
-      imgUrl = event.data()['imgUrl'];
+      imgUrl = event.data()['profilePicture'];
       if (imgUrl == "") {
         imgUrl = null;
       }

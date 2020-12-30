@@ -35,7 +35,7 @@ class UserServices {
             (value) => imgUrl = value,
           ));
 
-      userCollection.doc(uid).update({'imgUrl': imgUrl});
+      userCollection.doc(uid).update({'profilePicture': imgUrl});
 
       return true;
     } else {

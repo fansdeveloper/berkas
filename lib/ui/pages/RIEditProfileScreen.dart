@@ -38,7 +38,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
         .doc(uid)
         .snapshots()
         .listen((event) {
-      imgUrl = event.data()['imgUrl'];
+      imgUrl = event.data()['profilePicture'];
       if (imgUrl == "") {
         imgUrl = null;
       }
@@ -118,11 +118,12 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                           color: Colors.white),
                       child: FittedBox(
                         fit: BoxFit.cover,
-                        child: chooseImagePressed == false
+                        child: imageFile == null
                             ? Image.network(imgUrl ??
                                 "https://wallpaperaccess.com/full/259715.jpg")
-                            : Image.network(imgUrl ??
-                                "https://wallpaperaccess.com/full/259715.jpg"),
+                            : Image.file(
+                                File(imageFile.path),
+                              ),
                       ),
                     ),
                     Positioned(
@@ -314,6 +315,10 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
 
                   bool result = await UserServices.updateProfile(user);
                   bool result2 = await RIServices.updateProfile(panti);
+                  if (imageFile != null) {
+                    bool result3 =
+                        await UserServices.updateProfilePic(uid, imageFile);
+                  }
 
                   if (result == true && result2 == true) {
                     Fluttertoast.showToast(
