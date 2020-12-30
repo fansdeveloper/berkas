@@ -11,13 +11,17 @@ class AuthServices {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      Users users = result.user.convertToUser(name: name, 
-      alamat: alamat, 
-      kota: kota, 
-      tipeUser: tipeUser , 
-      imgUrl: "");
+      Users users = result.user.convertToUser(
+          name: name,
+          alamat: alamat,
+          kota: kota,
+          tipeUser: tipeUser,
+          imgUrl: "");
+      ResidentialInstitutions panti = ResidentialInstitutions(
+          FirebaseAuth.instance.currentUser.uid, "", null, null, null);
       auth.signOut();
       await UserServices.updateUser(users);
+      await RIServices.updatePanti(panti);
       msg = "success";
     } catch (e) {
       msg = e.toString();
@@ -26,18 +30,16 @@ class AuthServices {
     return msg;
   }
 
-  static Future<String> signIn(String email,String password) async {
+  static Future<String> signIn(String email, String password) async {
     await Firebase.initializeApp();
-    String msg= "";
-    try{
-      await auth.signInWithEmailAndPassword(email: email, password: password
-      ).whenComplete(() => 
-      
-      msg = "success",
-
-      );
-    }
-    catch(e){
+    String msg = "";
+    try {
+      await auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .whenComplete(
+            () => msg = "success",
+          );
+    } catch (e) {
       msg = e.toString();
     }
     return msg;
@@ -51,8 +53,6 @@ class AuthServices {
 
   static Future<String> currentUser(String email, String password, String name,
       String alamat, String kota, String tipeUser) async {
-        await Firebase.initializeApp();
-        
-
+    await Firebase.initializeApp();
   }
 }
