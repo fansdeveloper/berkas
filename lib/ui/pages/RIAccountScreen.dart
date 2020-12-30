@@ -173,7 +173,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                             color: HexColor("7A7ADC"),
                           ),
                           FlatButton(
-                           onPressed: () async {
+                            onPressed: () async {
                               setState(() {
                                 isLoading = true;
                               });

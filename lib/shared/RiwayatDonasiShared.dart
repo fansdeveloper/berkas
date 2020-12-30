@@ -6,9 +6,22 @@ class RiwayatDonasiShared extends StatefulWidget {
 }
 
 class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
-  var donasiBaruCollection = FirebaseFirestore.instance
-      .collection("donations")
-      .where('isConfirmed', isEqualTo: true);
+  // var donasiBaruCollection = FirebaseFirestore.instance
+  //     .collection("donations")
+  //     .where('isConfirmed', isEqualTo: true)
+  //     .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
+
+  var id = FirebaseAuth.instance.currentUser.uid;
+  var donasiBaruCollection;
+
+  initState() {
+    super.initState();
+
+    donasiBaruCollection = FirebaseFirestore.instance
+        .collection("donations")
+        .where('isConfirmed', isEqualTo: false)
+        .where('pantiID', isEqualTo: id);
+  }
 
   @override
   Widget build(BuildContext context) {

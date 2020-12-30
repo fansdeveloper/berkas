@@ -6,9 +6,7 @@ class RIHomeScreen extends StatefulWidget {
 }
 
 class _RIHomeScreenState extends State<RIHomeScreen> {
-  var donationCollection = FirebaseFirestore.instance
-      .collection("donations")
-      .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
+  var id = FirebaseAuth.instance.currentUser.uid;
   int donasiBaru, donasiSelesai;
 
   List<dynamic> kategori;
@@ -24,6 +22,10 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       s9 = false;
   //Ambil data buat Statistik
   void getData() async {
+    var donationCollection = FirebaseFirestore.instance
+        .collection("donations")
+        .where('pantiID', isEqualTo: id);
+
     await donationCollection
         .where('isConfirmed', isEqualTo: false)
         .get()
@@ -83,14 +85,13 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
 
   void initState() {
     super.initState();
+    //Ambil data
+    getData();
     getPanti();
   }
 
   @override
   Widget build(BuildContext context) {
-    //Ambil data
-    getData();
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

@@ -131,23 +131,31 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
                         color: HexColor("BEBEEA"),
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            //Lacak Barang Text
-                            Text(
-                              "Lacak Barang",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "[SURABAYA] Paket akan dikirim ke alamat penerima",
-                            )
-                          ],
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LacakBarangScreen()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              //Lacak Barang Text
+                              Text(
+                                "Lacak Barang",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "[SURABAYA] Paket akan dikirim ke alamat penerima",
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

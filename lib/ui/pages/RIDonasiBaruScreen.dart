@@ -6,10 +6,24 @@ class RIDonasiBaruScreen extends StatefulWidget {
 }
 
 class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
-  var donasiBaruCollection = FirebaseFirestore.instance
-      .collection("donations")
-      .where('isConfirmed', isEqualTo: false);
+  // var donasiBaruCollection = FirebaseFirestore.instance
+  //     .collection("donations")
+  //     .where('isConfirmed', isEqualTo: false)
+  //     .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
+  // var usersCollection = FirebaseFirestore.instance.collection("users");
+
+  var id = FirebaseAuth.instance.currentUser.uid;
+  var donasiBaruCollection;
   var usersCollection = FirebaseFirestore.instance.collection("users");
+
+  initState() {
+    super.initState();
+
+    donasiBaruCollection = FirebaseFirestore.instance
+        .collection("donations")
+        .where('isConfirmed', isEqualTo: false)
+        .where('pantiID', isEqualTo: id);
+  }
 
   @override
   Widget build(BuildContext context) {
