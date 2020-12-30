@@ -21,6 +21,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:timelines/timelines.dart';
 
 part 'AccountScreen.dart';
+part 'EditAccountScreen.dart';
 part 'RIAccountScreen.dart';
 part 'RiwayatDonaturScreen.dart';
 part 'RIRiwayatScreen.dart';

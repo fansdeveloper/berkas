@@ -9,8 +9,42 @@ class _AccountScreenState extends State<AccountScreen> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
   bool isLoading = false;
+  String name, email, alamat, kota, imgUrl;
 
-  
+  void fetchUserData() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots()
+        .listen((event) {
+      imgUrl = event.data()['profilePicture'];
+      if (imgUrl == "") {
+        imgUrl = null;
+      }
+      setState(() {});
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((value) {
+      name = value.data()['name'];
+      kota = value.data()['kota'];
+      alamat = value.data()['alamat'];
+      email = value.data()['email'];
+    });
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    fetchUserData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +58,14 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.edit, color: Colors.white), onPressed: () {})
+              icon: Icon(Icons.edit, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditAccountScreen(),
+                    ));
+              })
         ],
       ),
       body: Container(
@@ -51,7 +92,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               height: 90,
                             ),
                             Text(
-                              "Jane Doe",
+                              name == null ? "" : name,
                               style: TextStyle(
                                 fontSize: 24,
                               ),
@@ -59,7 +100,11 @@ class _AccountScreenState extends State<AccountScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text("janedoe@gmail.com"),
+                            Text(email == null ? "" : email),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(alamat == null ? "" : alamat),
                             SizedBox(
                               height: 15,
                             ),
@@ -69,7 +114,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 Icon(Icons.location_on,
                                     color: HexColor("7A7ADC")),
                                 Text(
-                                  "Surabaya",
+                                  kota == null ? "" : kota,
                                   style: TextStyle(
                                     color: HexColor("7A7ADC"),
                                   ),
@@ -210,7 +255,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: CircleAvatar(
                   radius: 65,
                   backgroundImage: NetworkImage(
-                      "https://vgraphs.com/images/agents/sova-avatar.jpg"),
+                      "https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"),
                 ),
               ),
             ),
