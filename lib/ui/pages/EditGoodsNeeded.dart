@@ -373,7 +373,7 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RIHomeScreen()));
+                            builder: (context) => RIMainTabBar()));
                   },
                   child: Text(
                     "Simpan Perubahan",

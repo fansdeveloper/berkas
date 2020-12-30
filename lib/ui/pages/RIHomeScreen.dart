@@ -11,6 +11,17 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       .where('pantiID', isEqualTo: "CdM3SJPkXE3IUEnQRovm");
   int donasiBaru, donasiSelesai;
 
+  List<dynamic> kategori;
+
+  bool s1 = false,
+      s2 = false,
+      s3 = false,
+      s4 = false,
+      s5 = false,
+      s6 = false,
+      s7 = false,
+      s8 = false,
+      s9 = false;
   //Ambil data buat Statistik
   void getData() async {
     await donationCollection
@@ -28,6 +39,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
   }
 
   DocumentSnapshot snapshot;
+
   void getPanti() async {
     //use a Async-await function to get the data
     final data = await FirebaseFirestore.instance
@@ -35,28 +47,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
         .doc('CdM3SJPkXE3IUEnQRovm')
         .get(); //get the data
     snapshot = data;
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    //Ambil data
-    getData();
-    getPanti();
-
-    bool s1 = false,
-        s2 = false,
-        s3 = false,
-        s4 = false,
-        s5 = false,
-        s6 = false,
-        s7 = false,
-        s8 = false,
-        s9 = false;
-
-    List<dynamic> kategori = snapshot.data()['neededGoods'];
+    kategori = await snapshot.data()['neededGoods'];
 
     if (kategori.contains("Alat Tulis")) {
       s1 = true;
@@ -85,6 +76,20 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
     if (kategori.contains("Lainnya")) {
       s9 = true;
     }
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void initState() {
+    super.initState();
+    getPanti();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //Ambil data
+    getData();
 
     return Scaffold(
         appBar: AppBar(
@@ -126,6 +131,24 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                         SizedBox(
                           height: 10,
                         ),
+                        if (s1 == false &&
+                            s2 == false &&
+                            s3 == false &&
+                            s4 == false &&
+                            s5 == false &&
+                            s6 == false &&
+                            s7 == false &&
+                            s8 == false &&
+                            s9 == false)
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text("Maaf, Kebutuhan Belum Diatur",
+                                style: TextStyle(
+                                    color: HexColor("7A7ADC"),
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.normal)),
+                          ),
                         Container(
                             height: 250,
                             child: GridView.count(crossAxisCount: 3, children: [
