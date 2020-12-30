@@ -10,14 +10,14 @@ class RIEditProfileScreen extends StatefulWidget {
 
 class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
   Users users;
+  String imgUrl;
   TextEditingController ctrlName,
       ctrlAlamat,
       ctrlKota,
       ctrlDesc,
       ctrlLaki,
       ctrlPerempuan;
-
-  // String uid = FirebaseAuth.instance.currentUser.uid;
+  bool chooseImagePressed = false;
 
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
@@ -30,20 +30,35 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
     });
   }
 
-  void fetchUserData() {
-    FirebaseFirestore.instance
+  void fetchUserData() async {
+    await FirebaseFirestore.instance
         .collection('users')
-        .doc("CdM3SJPkXE3IUEnQRovm")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots()
+        .listen((event) {
+      imgUrl = event.data()['imgUrl'];
+      if (imgUrl == "") {
+        imgUrl = null;
+      }
+      setState(() {});
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
         .get()
         .then((value) {
       ctrlName = TextEditingController(text: value.data()['name']);
       ctrlAlamat = TextEditingController(text: value.data()['alamat']);
       ctrlKota = TextEditingController(text: value.data()['kota']);
     });
+    if (mounted) {
+      setState(() {});
+    }
 
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('panti')
-        .doc("CdM3SJPkXE3IUEnQRovm")
+        .doc(FirebaseAuth.instance.currentUser.uid)
         .get()
         .then((value) {
       ctrlDesc = TextEditingController(text: value.data()['keterangan']);
@@ -51,6 +66,9 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
       ctrlPerempuan =
           TextEditingController(text: value.data()['perempuan'].toString());
     });
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -95,8 +113,11 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                           color: Colors.white),
                       child: FittedBox(
                         fit: BoxFit.cover,
-                        child: Image.network(
-                            "https://wallpaperaccess.com/full/259715.jpg"),
+                        child: chooseImagePressed == false
+                            ? Image.network(imgUrl ??
+                                "https://wallpaperaccess.com/full/259715.jpg")
+                            : Image.network(imgUrl ??
+                                "https://wallpaperaccess.com/full/259715.jpg"),
                       ),
                     ),
                     Positioned(
@@ -260,35 +281,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                             ),
                           ),
                         ])),
-
                 SizedBox(height: 100),
-
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Icon(
-                //       Icons.location_on,
-                //       color: HexColor("BEBEEA"),
-                //     ),
-                //     Padding(
-                //       padding: EdgeInsets.only(left: 10, right: 20),
-                //       child: TextFormField(
-                //         initialValue: "Jl. Babatan Sari Apple no 89",
-                //         decoration: InputDecoration(
-                //           enabledBorder: UnderlineInputBorder(
-                //             borderSide: BorderSide(color: HexColor("7a7adc")),
-                //           ),
-                //           focusedBorder: UnderlineInputBorder(
-                //             borderSide: BorderSide(color: HexColor("7a7adc")),
-                //           ),
-                //           border: UnderlineInputBorder(
-                //             borderSide: BorderSide(color: HexColor("7a7adc")),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           )),
@@ -299,7 +292,11 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
               height: 60,
               color: HexColor("7A7ADC"),
               child: RaisedButton(
-                onPressed: null,
+                onPressed: () {
+                  Users user = Users(users.uid, users.name);
+                  //update users
+                  //update panti
+                },
                 child: Text(
                   "Simpan Perubahan",
                   style: TextStyle(color: Colors.white, fontSize: 18),

@@ -16,10 +16,10 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
 
-  void fetchUserData() {
-    FirebaseFirestore.instance
+  void fetchUserData() async {
+    await FirebaseFirestore.instance
         .collection('users')
-        .doc("CdM3SJPkXE3IUEnQRovm")
+        .doc(FirebaseAuth.instance.currentUser.uid)
         .get()
         .then((value) {
       name = value.data()['name'];
@@ -27,19 +27,22 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
       kota = value.data()['kota'];
       email = value.data()['email'];
       tipeUser = value.data()['tipeUser'];
+      if (mounted) {
+        setState(() {});
+      }
     });
 
-    // FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc("CdM3SJPkXE3IUEnQRovm")
-    //     .snapshots()
-    //     .listen((event) {
-    //   imgUrl = event.data()['imgUrl'];
-    //   if (imgUrl == "") {
-    //     imgUrl = null;
-    //   }
-    //   setState(() {});
-    // });
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots()
+        .listen((event) {
+      imgUrl = event.data()['imgUrl'];
+      if (imgUrl == "") {
+        imgUrl = null;
+      }
+      setState(() {});
+    });
   }
 
   Future chooseImage() async {
@@ -53,6 +56,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   @override
   void initState() {
     fetchUserData();
+
     super.initState();
   }
 
@@ -105,7 +109,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                               height: 80,
                             ),
                             Text(
-                              name,
+                              name == null ? "" : name,
                               style: TextStyle(
                                 fontSize: 24,
                               ),
@@ -113,7 +117,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text(alamat),
+                            Text(alamat == null ? "" : alamat),
                             SizedBox(
                               height: 15,
                             ),
@@ -125,7 +129,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                                   color: HexColor("7a7adc"),
                                 ),
                                 Text(
-                                  kota,
+                                  kota == null ? "" : kota,
                                   style: TextStyle(
                                     color: HexColor("7a7adc"),
                                   ),
@@ -246,11 +250,19 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                 radius: 80,
                 child: CircleAvatar(
                   radius: 65,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: NetworkImage(imgUrl ??
                       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg"),
                 ),
               ),
             ),
+            isLoading == true
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.transparent,
+                    child: SpinKitFadingCircle(size: 50, color: Colors.blue),
+                  )
+                : Container()
           ],
         ),
       ),
