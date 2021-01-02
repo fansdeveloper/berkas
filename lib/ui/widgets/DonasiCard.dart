@@ -26,6 +26,18 @@ class _DonasiCardState extends State<DonasiCard> {
       if (mounted) {
         setState(() {});
       }
+    } else {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.pantiID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+      });
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -46,6 +58,7 @@ class _DonasiCardState extends State<DonasiCard> {
                   MaterialPageRoute(
                       builder: (context) => DetailDonasiScreen(
                             donasi: this.widget.donasi,
+                            tipeUser: 1,
                           )));
             } else {
               Navigator.push(

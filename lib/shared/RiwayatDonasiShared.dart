@@ -19,7 +19,7 @@ class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
 
     donasiBaruCollection = FirebaseFirestore.instance
         .collection("donations")
-        .where('isConfirmed', isEqualTo: false)
+        .where('isConfirmed', isEqualTo: true)
         .where('pantiID', isEqualTo: id);
   }
 
@@ -32,12 +32,12 @@ class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
           return Text("Failed to get products data!");
         }
 
-        // if (snapshot.connectionState == ConnectionState.waiting) {
-        //   return SpinKitFadingCircle(
-        //     size: 50,
-        //     color: Colors.red,
-        //   );
-        // }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SpinKitFadingCircle(
+            size: 50,
+            color: Colors.red,
+          );
+        }
 
         if (snapshot.hasData) {
           return ListView(
@@ -60,6 +60,7 @@ class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
                     doc.data()['kategori'],
                     doc.data()['isConfirmed']),
                 date: stringDate,
+                tipeUser: 0,
               );
             }).toList(),
           );

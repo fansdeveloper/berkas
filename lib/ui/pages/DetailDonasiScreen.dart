@@ -2,31 +2,54 @@ part of 'pages.dart';
 
 class DetailDonasiScreen extends StatefulWidget {
   final Donasi donasi;
-  DetailDonasiScreen({this.donasi});
+  final int tipeUser;
+  DetailDonasiScreen({this.donasi, this.tipeUser});
 
   @override
   _DetailDonasiScreenState createState() => _DetailDonasiScreenState();
 }
 
 class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
-  String name, img;
+  String name, img, textUser;
   void getData() async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(this.widget.donasi.donaturID)
-        .get()
-        .then((value) {
-      name = value.data()['name'];
-      img = value.data()['imgUrl'];
-    });
-    if (mounted) {
-      setState(() {});
+    //Panti
+    if (this.widget.tipeUser == 0) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.donaturID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+        textUser = "Pengirim";
+      });
+      if (mounted) {
+        setState(() {});
+      }
+      //Donatur
+    } else {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.pantiID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+        textUser = "Penerima";
+      });
+      if (mounted) {
+        setState(() {});
+      }
     }
+  }
+
+  initState() {
+    super.initState();
+    getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -57,7 +80,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 0, 5),
                     child: Text(
-                      "Pengirim",
+                      textUser,
                       style: TextStyle(
                         color: HexColor("7A7ADC"),
                         fontSize: 16,

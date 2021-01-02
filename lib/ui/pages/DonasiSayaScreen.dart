@@ -6,6 +6,19 @@ class DonasiSayaScreen extends StatefulWidget {
 }
 
 class _DonasiSayaScreenState extends State<DonasiSayaScreen> {
+  var id = FirebaseAuth.instance.currentUser.uid;
+  var donasiSayaCollection;
+  var usersCollection = FirebaseFirestore.instance.collection("users");
+
+  initState() {
+    super.initState();
+
+    donasiSayaCollection = FirebaseFirestore.instance
+        .collection("donations")
+        .where('isConfirmed', isEqualTo: false)
+        .where('donaturID', isEqualTo: id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,23 +43,50 @@ class _DonasiSayaScreenState extends State<DonasiSayaScreen> {
         decoration: BoxDecoration(color: HexColor("E7E7E7")),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
-          child: ListView(
-            children: [
-              // DonasiCard(
-              //   name: "Panti Asuhan Ibububunda",
-              //   date: "22/09/00",
-              //   img:
-              //       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-              //   tipeUser: 1,
-              // ),
-              // DonasiCard(
-              //   name: "Panti Asuhan Mimi Peri",
-              //   date: "16/09/29",
-              //   img:
-              //       "https://image.cnbcfm.com/api/v1/image/104548349-Large_house_suburb.jpg?v=1532563813",
-              //   tipeUser: 1,
-              // ),
-            ],
+          child: StreamBuilder<QuerySnapshot>(
+            stream: donasiSayaCollection.snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text("Failed to get products data!");
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SpinKitFadingCircle(
+                  size: 50,
+                  color: Colors.red,
+                );
+              }
+
+              if (snapshot.hasData) {
+                return ListView(
+                  children: snapshot.data.docs.map((DocumentSnapshot doc) {
+                    //Tanggal
+                    Timestamp t = doc.data()['date'];
+                    String stringDate = t.toDate().toString();
+
+                    return DonasiCard(
+                      donasi: Donasi(
+                          doc.data()['id'],
+                          doc.data()['pantiID'],
+                          doc.data()['donaturID'],
+                          doc.data()['keterangan'],
+                          doc.data()['lokasi'],
+                          doc.data()['tujuan'],
+                          doc.data()['fee'],
+                          doc.data()['weight'],
+                          doc.data()['date'],
+                          doc.data()['kategori'],
+                          doc.data()['isConfirmed']),
+                      date: stringDate,
+                      tipeUser: 1,
+                    );
+                  }).toList(),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
         ),
       ),

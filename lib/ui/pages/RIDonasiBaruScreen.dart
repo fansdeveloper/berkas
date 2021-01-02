@@ -57,12 +57,12 @@ class _RIDonasiBaruScreenState extends State<RIDonasiBaruScreen> {
                 return Text("Failed to get products data!");
               }
 
-              // if (snapshot.connectionState == ConnectionState.waiting) {
-              //   return SpinKitFadingCircle(
-              //     size: 50,
-              //     color: Colors.red,
-              //   );
-              // }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SpinKitFadingCircle(
+                  size: 50,
+                  color: Colors.red,
+                );
+              }
 
               if (snapshot.hasData) {
                 return ListView(

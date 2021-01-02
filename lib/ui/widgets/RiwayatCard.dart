@@ -3,7 +3,8 @@ part of 'widgets.dart';
 class RiwayatCard extends StatefulWidget {
   final Donasi donasi;
   final String date;
-  RiwayatCard({this.donasi, this.date});
+  final int tipeUser;
+  RiwayatCard({this.donasi, this.date, this.tipeUser});
 
   @override
   _RiwayatCardState createState() => _RiwayatCardState();
@@ -14,16 +15,30 @@ class _RiwayatCardState extends State<RiwayatCard> {
 
   //Ambil Data
   void getData() async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(this.widget.donasi.donaturID)
-        .get()
-        .then((value) {
-      name = value.data()['name'];
-      img = value.data()['imgUrl'];
-    });
-    if (mounted) {
-      setState(() {});
+    if (this.widget.tipeUser == 0) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.donaturID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+      });
+      if (mounted) {
+        setState(() {});
+      }
+    } else {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(this.widget.donasi.pantiID)
+          .get()
+          .then((value) {
+        name = value.data()['name'];
+        img = value.data()['imgUrl'];
+      });
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -43,6 +58,7 @@ class _RiwayatCardState extends State<RiwayatCard> {
                 MaterialPageRoute(
                     builder: (context) => DetailDonasiScreen(
                           donasi: this.widget.donasi,
+                          tipeUser: this.widget.tipeUser,
                         )));
           },
           title: Text(

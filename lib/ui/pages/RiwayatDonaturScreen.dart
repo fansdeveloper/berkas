@@ -6,6 +6,18 @@ class RiwayatDonaturScreen extends StatefulWidget {
 }
 
 class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
+  var id = FirebaseAuth.instance.currentUser.uid;
+  var riwayatDonasiCollection;
+
+  initState() {
+    super.initState();
+
+    riwayatDonasiCollection = FirebaseFirestore.instance
+        .collection("donations")
+        .where('isConfirmed', isEqualTo: false)
+        .where('donaturID', isEqualTo: id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +34,50 @@ class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
         decoration: BoxDecoration(color: HexColor("E7E7E7")),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
-          child: ListView(
-            children: [],
+          child: StreamBuilder<QuerySnapshot>(
+            stream: riwayatDonasiCollection.snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text("Failed to get products data!");
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SpinKitFadingCircle(
+                  size: 50,
+                  color: Colors.red,
+                );
+              }
+
+              if (snapshot.hasData) {
+                return ListView(
+                  children: snapshot.data.docs.map((DocumentSnapshot doc) {
+                    //Tanggal
+                    Timestamp t = doc.data()['date'];
+                    String stringDate = t.toDate().toString();
+
+                    return RiwayatCard(
+                      donasi: Donasi(
+                          doc.data()['id'],
+                          doc.data()['pantiID'],
+                          doc.data()['donaturID'],
+                          doc.data()['keterangan'],
+                          doc.data()['lokasi'],
+                          doc.data()['tujuan'],
+                          doc.data()['fee'],
+                          doc.data()['weight'],
+                          doc.data()['date'],
+                          doc.data()['kategori'],
+                          doc.data()['isConfirmed']),
+                      date: stringDate,
+                      tipeUser: 1,
+                    );
+                  }).toList(),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
         ),
       ),
