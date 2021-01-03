@@ -6,8 +6,60 @@ class HomeScreenDonatur extends StatefulWidget {
 }
 
 class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
+  List<String> pantiList = [];
+  var list;
+  var a, p1, p2, p3;
+  String name1, name2, name3;
+  List<dynamic> kategori1, kategori2, kategori3;
+
+  DocumentSnapshot snapshot1, snapshot2, snapshot3;
+  Future getDocs() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("panti").get();
+
+    Set<int> l = Set();
+    while (l.length < 3) {
+      l.add(Random().nextInt(querySnapshot.docs.length));
+    }
+    var list = l.toList();
+    for (int i = 0; i < 3; i++) {
+      a = querySnapshot.docs[list[i]];
+
+      pantiList.add(a.id);
+      print(a.id);
+    }
+    p1 = await FirebaseFirestore.instance
+        .collection("panti")
+        .where('id', isEqualTo: pantiList[0])
+        .get();
+    snapshot1 = p1;
+    kategori1 = await snapshot1.data()['neededGoods'];
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(pantiList[0])
+        .get()
+        .then((value) {
+      name1 = value.data()['name'];
+    });
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void initState() {
+    super.initState();
+    //Ambil data
+    getDocs();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(pantiList);
+    print(name1);
+    print(kategori1);
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

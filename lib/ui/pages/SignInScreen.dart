@@ -74,6 +74,7 @@ class _SignInState extends State<SignIn> {
                           decoration: InputDecoration(
                             prefixText: '     ',
                             fillColor: secondary,
+
                             labelText: '     Email',
                             labelStyle:
                                 TextStyle(color: Colors.white), //spasi 5 kali
@@ -81,6 +82,7 @@ class _SignInState extends State<SignIn> {
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: Colors.white,
+
                                 //width: 2.0,
                               ),
                               borderRadius: BorderRadius.all(
