@@ -2,6 +2,7 @@ part of 'pages.dart';
 
 class EditGoodsNeeded extends StatefulWidget {
   final List<dynamic> kategori;
+
   EditGoodsNeeded({Key key, this.kategori}) : super(key: key);
 
   @override
@@ -18,12 +19,16 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
       s7 = false,
       s8 = false,
       s9 = false;
+  var id;
+  DocumentReference documentReference;
 
-  DocumentReference documentReference = FirebaseFirestore.instance
-      .collection('panti')
-      .doc('CdM3SJPkXE3IUEnQRovm');
+  void getData() async {
+    id = await FirebaseAuth.instance.currentUser.uid;
+    documentReference =
+        await FirebaseFirestore.instance.collection('panti').doc(id);
+  }
 
-  void checkCategory() {
+  void checkCategory() async {
     if (widget.kategori.contains("Alat Tulis")) {
       s1 = true;
     }
@@ -60,6 +65,7 @@ class _EditGoodsNeededState extends State<EditGoodsNeeded> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
