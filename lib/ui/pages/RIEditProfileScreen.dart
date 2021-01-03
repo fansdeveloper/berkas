@@ -65,11 +65,13 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
         .get()
         .then((value) {
       desc = value.data()['keterangan'];
-      laki = value.data()['laki'].toString();
-      perempuan = value.data()['perempuan'].toString();
+      laki = value.data()['laki'];
+      perempuan = value.data()['perempuan'];
       ctrlDesc = TextEditingController(text: desc);
-      ctrlLaki = TextEditingController(text: laki);
-      ctrlPerempuan = TextEditingController(text: perempuan);
+      ctrlLaki =
+          TextEditingController(text: laki == null ? "" : laki.toString());
+      ctrlPerempuan = TextEditingController(
+          text: perempuan == null ? "" : perempuan.toString());
     });
 
     if (mounted) {
@@ -331,9 +333,10 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.of(context).push(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) {
-                        return RIAccountScreen();
+                        return RIMainTabBar(index: 2);
                       }),
                     );
                   } else {

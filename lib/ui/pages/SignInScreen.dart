@@ -156,7 +156,7 @@ class _SignInState extends State<SignIn> {
                               } else {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return RIMainTabBar();
+                                  return RIMainTabBar(index: 0);
                                 }));
                               }
                               ;

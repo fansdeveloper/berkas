@@ -237,8 +237,7 @@ class _SignUpState extends State<SignUp> {
                                   name.text,
                                   alamat.text,
                                   kota.text,
-                                  widget.tipeUser
-                                  );
+                                  widget.tipeUser);
                               if (result == "success") {
                                 print(">>>>>>>>>>>>>>>>> " + widget.tipeUser);
                                 Fluttertoast.showToast(
@@ -251,16 +250,19 @@ class _SignUpState extends State<SignUp> {
                                 );
                                 if (widget.tipeUser == 'Panti') {
                                   Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return RIMainTabBar();
-                                }));
+                                      MaterialPageRoute(builder: (context) {
+                                    return RIMainTabBar(
+                                      index: 0,
+                                    );
+                                  }));
                                 } else if (widget.tipeUser == 'Donatur') {
                                   Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return MainTabBar();
-                                }));
-                                };
-                                
+                                      MaterialPageRoute(builder: (context) {
+                                    return MainTabBar();
+                                  }));
+                                }
+                                ;
+
                                 setState(() {
                                   isLoading = false;
                                   clearForm();

@@ -21,7 +21,10 @@ class AuthServices {
           FirebaseAuth.instance.currentUser.uid, "", null, null, null);
       auth.signOut();
       await UserServices.updateUser(users);
-      await RIServices.updatePanti(panti);
+      if (tipeUser == "Panti") {
+        await RIServices.updatePanti(panti);
+      }
+
       msg = "success";
     } catch (e) {
       msg = e.toString();

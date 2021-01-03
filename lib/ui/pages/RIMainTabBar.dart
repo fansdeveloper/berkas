@@ -2,6 +2,8 @@ part of 'pages.dart';
 
 class RIMainTabBar extends StatefulWidget {
   final String title = "Dashboard";
+  final int index;
+  RIMainTabBar({this.index});
 
   @override
   _RIMainTabBarState createState() => _RIMainTabBarState();
@@ -14,7 +16,8 @@ class _RIMainTabBarState extends State<RIMainTabBar>
   @override
   void initState() {
     super.initState();
-    _tabController = MotionTabController(initialIndex: 0, vsync: this);
+    _tabController =
+        MotionTabController(initialIndex: widget.index, vsync: this);
   }
 
   @override
