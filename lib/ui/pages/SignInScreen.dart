@@ -148,10 +148,10 @@ class _SignInState extends State<SignIn> {
                               );
 
                               // print(tipeUser);
-                              if (tipeUser == 'Donatur') {
+                              if (tipeUser == "Donatur") {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return MainTabBar();
+                                  return MainTabBar(index: 0);
                                 }));
                               } else {
                                 Navigator.pushReplacement(context,

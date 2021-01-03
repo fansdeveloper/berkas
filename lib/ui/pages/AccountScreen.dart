@@ -9,12 +9,12 @@ class _AccountScreenState extends State<AccountScreen> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
   bool isLoading = false;
-  String name, email, alamat, kota, imgUrl;
+  String name, alamat, kota, imgUrl;
 
   void fetchUserData() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc("c0xiDGNeCmPeokd4HvWSDfSKNhI3")
         .snapshots()
         .listen((event) {
       imgUrl = event.data()['profilePicture'];
@@ -26,13 +26,12 @@ class _AccountScreenState extends State<AccountScreen> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc("c0xiDGNeCmPeokd4HvWSDfSKNhI3")
         .get()
         .then((value) {
       name = value.data()['name'];
       kota = value.data()['kota'];
       alamat = value.data()['alamat'];
-      email = value.data()['email'];
     });
     if (mounted) {
       setState(() {});
@@ -97,10 +96,6 @@ class _AccountScreenState extends State<AccountScreen> {
                                 fontSize: 24,
                               ),
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(email == null ? "" : email),
                             SizedBox(
                               height: 15,
                             ),
@@ -254,7 +249,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 radius: 80,
                 child: CircleAvatar(
                   radius: 65,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: NetworkImage(imgUrl ??
                       "https://image.freepik.com/free-vector/businessman-character-avatar-icon-vector-illustration-design_24877-18271.jpg"),
                 ),
               ),

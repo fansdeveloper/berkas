@@ -7,9 +7,10 @@ class EditAccountScreen extends StatefulWidget {
 
 class _EditAccountScreenState extends State<EditAccountScreen> {
   Users users;
-  String uid = FirebaseAuth.instance.currentUser.uid;
+//  String uid = FirebaseAuth.instance.currentUser.uid;
+  String uid = "c0xiDGNeCmPeokd4HvWSDfSKNhI3";
   String nama, email, kota, alamat, imgUrl;
-  TextEditingController ctrlName, ctrlKota;
+  TextEditingController ctrlName, ctrlAlamat, ctrlKota;
   bool isLoading = false;
 
   PickedFile imageFile;
@@ -42,10 +43,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         .get()
         .then((value) {
       nama = value.data()['name'];
-      alamat = value.data()['alamat'];
       email = value.data()['email'];
+      alamat = value.data()['alamat'];
       kota = value.data()['kota'];
       ctrlName = TextEditingController(text: nama);
+      ctrlAlamat = TextEditingController(text: alamat);
       ctrlKota = TextEditingController(text: kota);
     });
 
@@ -135,6 +137,26 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             controller: ctrlName,
                             decoration: InputDecoration(
                               prefixIcon:
+                                  Icon(Icons.person, color: HexColor("7a7adc")),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("7a7adc")),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: ctrlAlamat,
+                            decoration: InputDecoration(
+                              prefixIcon:
                                   Icon(Icons.home, color: HexColor("7a7adc")),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide:
@@ -170,18 +192,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
-                          Text(
-                            "Deskripsi",
-                            style: TextStyle(
-                                color: HexColor("7a7adc"),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(height: 20),
                         ])),
-                SizedBox(height: 100),
               ],
             ),
           )),
@@ -197,7 +208,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     isLoading = true;
                   });
                   Users user = Users(uid, email,
-                      name: ctrlName.text, kota: ctrlKota.text);
+                      name: ctrlName.text,
+                      alamat: ctrlAlamat.text,
+                      kota: ctrlKota.text);
 
                   bool result = await UserServices.updateProfile(user);
                   if (imageFile != null) {
@@ -216,9 +229,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.of(context).push(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) {
-                        return RIAccountScreen();
+                        return MainTabBar(index: 2);
                       }),
                     );
                   } else {

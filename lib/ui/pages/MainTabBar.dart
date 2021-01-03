@@ -2,7 +2,8 @@ part of 'pages.dart';
 
 class MainTabBar extends StatefulWidget {
   final String title = "Donasi";
-
+  final int index;
+  MainTabBar({this.index});
   @override
   _MainTabBarState createState() => _MainTabBarState();
 }
@@ -13,7 +14,8 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = MotionTabController(initialIndex: 0, vsync: this);
+    _tabController =
+        MotionTabController(initialIndex: widget.index, vsync: this);
   }
 
   @override

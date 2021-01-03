@@ -258,10 +258,9 @@ class _SignUpState extends State<SignUp> {
                                 } else if (widget.tipeUser == 'Donatur') {
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return MainTabBar();
+                                    return MainTabBar(index: 0);
                                   }));
                                 }
-                                ;
 
                                 setState(() {
                                   isLoading = false;
