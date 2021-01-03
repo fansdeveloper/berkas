@@ -65,13 +65,11 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
         .get()
         .then((value) {
       desc = value.data()['keterangan'];
-      laki = value.data()['laki'];
-      perempuan = value.data()['perempuan'];
+      laki = value.data()['laki'].toString();
+      perempuan = value.data()['perempuan'].toString();
       ctrlDesc = TextEditingController(text: desc);
-      ctrlLaki =
-          TextEditingController(text: laki == null ? "" : laki.toString());
-      ctrlPerempuan = TextEditingController(
-          text: perempuan == null ? "" : perempuan.toString());
+      ctrlLaki = TextEditingController(text: laki);
+      ctrlPerempuan = TextEditingController(text: perempuan);
     });
 
     if (mounted) {

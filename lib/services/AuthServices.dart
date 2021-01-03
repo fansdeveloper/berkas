@@ -18,7 +18,7 @@ class AuthServices {
           tipeUser: tipeUser,
           imgUrl: "");
       ResidentialInstitutions panti = ResidentialInstitutions(
-          FirebaseAuth.instance.currentUser.uid, "", null, null, null);
+          FirebaseAuth.instance.currentUser.uid, "", 0, 0, null);
       auth.signOut();
       await UserServices.updateUser(users);
       if (tipeUser == "Panti") {
