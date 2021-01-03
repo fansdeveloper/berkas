@@ -46,7 +46,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
     //use a Async-await function to get the data
     final data = await FirebaseFirestore.instance
         .collection("panti")
-        .doc('CdM3SJPkXE3IUEnQRovm')
+        .doc(id)
         .get(); //get the data
     snapshot = data;
     kategori = await snapshot.data()['neededGoods'];
@@ -204,8 +204,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => EditGoodsNeeded(
-                                                kategori: kategori,
-                                              )));
+                                              kategori: kategori)));
                                 },
                                 child: Container(
                                   child: Card(

@@ -18,6 +18,7 @@ class _RIMainTabBarState extends State<RIMainTabBar>
     super.initState();
     _tabController =
         MotionTabController(initialIndex: widget.index, vsync: this);
+    _tabController.index = widget.index;
   }
 
   @override
@@ -28,10 +29,11 @@ class _RIMainTabBarState extends State<RIMainTabBar>
 
   @override
   Widget build(BuildContext context) {
+    var labels = ["Dashboard", "Riwayat", "Akun"];
     return Scaffold(
         bottomNavigationBar: MotionTabBar(
-          labels: ["Dashboard", "Riwayat", "Akun"],
-          initialSelectedTab: "Dashboard",
+          labels: labels,
+          initialSelectedTab: labels[widget.index],
           tabIconColor: Colors.deepPurple[100],
           tabSelectedColor: HexColor("7A7ADC"),
           onTabItemSelected: (int value) {
