@@ -85,13 +85,13 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
 
   void initState() {
     super.initState();
-    //Ambil data
-    getData();
     getPanti();
   }
 
   @override
   Widget build(BuildContext context) {
+    //Ambil data
+    getData();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -203,8 +203,9 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => RIEditGoodsNeeded(
-                                              kategori: kategori)));
+                                          builder: (context) =>
+                                              RIEditGoodsNeeded(
+                                                  kategori: kategori)));
                                 },
                                 child: Container(
                                   child: Card(

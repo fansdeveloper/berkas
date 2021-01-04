@@ -9,7 +9,9 @@ class DetailPembayaranScreen extends StatefulWidget {
 }
 
 class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
-  TextEditingController ctrlLokasi, ctrlKeterangan, ctrlBerat;
+  var ctrlLokasi = TextEditingController();
+  var ctrlKeterangan = TextEditingController();
+  var ctrlBerat = TextEditingController();
   List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
   String _selectedLocation;
   @override
@@ -265,7 +267,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         double.parse(ctrlBerat.text),
                         Timestamp.now(),
                         widget.kategori,
-                        false);
+                        false,
+                        "JP1418934566");
 
                     bool result = await DonasiServices.addDonasi(donasi);
                     if (result == true) {

@@ -1,7 +1,7 @@
 part of 'models.dart';
 
 class Donasi extends Equatable {
-  final String id, pantiID, donaturID, keterangan, status, lokasi, tujuan;
+  final String id, pantiID, donaturID, keterangan, noResi, lokasi, tujuan;
   final int fee;
   final double weight;
   final Timestamp date;
@@ -20,7 +20,7 @@ class Donasi extends Equatable {
       this.date,
       this.kategori,
       this.isConfirmed,
-      {this.status});
+      this.noResi);
 
   @override
   List<Object> get props => [
@@ -35,6 +35,6 @@ class Donasi extends Equatable {
         date,
         kategori,
         isConfirmed,
-        status,
+        noResi,
       ];
 }

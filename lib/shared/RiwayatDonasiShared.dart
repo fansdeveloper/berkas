@@ -58,7 +58,8 @@ class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
                     doc.data()['weight'],
                     doc.data()['date'],
                     doc.data()['kategori'],
-                    doc.data()['isConfirmed']),
+                    doc.data()['isConfirmed'],
+                    doc.data()['noResi']),
                 date: stringDate,
                 tipeUser: 0,
               );

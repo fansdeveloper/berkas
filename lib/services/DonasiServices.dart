@@ -30,14 +30,15 @@ class DonasiServices {
       'weight': donasi.weight,
       'date': donasi.date,
       'kategori': donasi.kategori,
-      'isConfirmed': donasi.isConfirmed
+      'isConfirmed': donasi.isConfirmed,
+      'noResi': donasi.noResi,
     });
 
-    // if (donasiDoc.id != null) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return true;
+    if (donasiDoc.id != null) {
+      donasiReference.doc(donasiDoc.id).update({'id': donasiDoc.id});
+      return true;
+    } else {
+      return false;
+    }
   }
 }
