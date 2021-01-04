@@ -203,7 +203,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => EditGoodsNeeded(
+                                          builder: (context) => RIEditGoodsNeeded(
                                               kategori: kategori)));
                                 },
                                 child: Container(

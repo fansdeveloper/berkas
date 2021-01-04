@@ -1,6 +1,10 @@
 part of 'pages.dart';
 
 class ChooseRIScreen extends StatefulWidget {
+//get selected category from ChooseCategoryScreen
+  final List<dynamic> kategori;
+  ChooseRIScreen({Key key, this.kategori}) : super(key: key);
+
   @override
   _ChooseRIScreenState createState() => _ChooseRIScreenState();
 }

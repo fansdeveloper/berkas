@@ -1,15 +1,15 @@
 part of 'pages.dart';
 
-class EditGoodsNeeded extends StatefulWidget {
+class RIEditGoodsNeeded extends StatefulWidget {
   final List<dynamic> kategori;
 
-  EditGoodsNeeded({Key key, this.kategori}) : super(key: key);
+  RIEditGoodsNeeded({Key key, this.kategori}) : super(key: key);
 
   @override
-  _EditGoodsNeededState createState() => _EditGoodsNeededState();
+  _RIEditGoodsNeededState createState() => _RIEditGoodsNeededState();
 }
 
-class _EditGoodsNeededState extends State<EditGoodsNeeded> {
+class _RIEditGoodsNeededState extends State<RIEditGoodsNeeded> {
   bool s1 = false,
       s2 = false,
       s3 = false,

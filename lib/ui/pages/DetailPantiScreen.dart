@@ -120,7 +120,7 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
               child: RaisedButton(
                 color: HexColor("7A7ADC"),
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MainTabBar(index: 0)));

@@ -48,6 +48,7 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                   crossAxisSpacing: 5,
                   primary: false,
                   children: [
+                    //categories grid
                     GestureDetector(
                       onTap: () {
                         s1 = !s1;
@@ -82,6 +83,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s2 = !s2;
                         setState(() {
+                          if (s2) {
+                            kategori.add("Mainan");
+                          } else {
+                            kategori.remove("Mainan");
+                          }
                           s2
                               ? SelectedCategory(
                                   title: "Mainan",
@@ -107,6 +113,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s3 = !s3;
                         setState(() {
+                          if (s3) {
+                            kategori.add("Pakaian");
+                          } else {
+                            kategori.remove("Pakaian");
+                          }
                           s3
                               ? SelectedCategory(
                                   title: "Pakaian",
@@ -132,6 +143,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s4 = !s4;
                         setState(() {
+                          if (s4) {
+                            kategori.add("Buku");
+                          } else {
+                            kategori.remove("Buku");
+                          }
                           s4
                               ? SelectedCategory(
                                   title: "Buku",
@@ -157,6 +173,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s5 = !s5;
                         setState(() {
+                          if (s5) {
+                            kategori.add("Perlengkapan Kesehatan");
+                          } else {
+                            kategori.remove("Perlengkapan Kesehatan");
+                          }
                           s5
                               ? SelectedCategory(
                                   title: "Perlengkapan Kesehatan",
@@ -182,6 +203,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s6 = !s6;
                         setState(() {
+                          if (s6) {
+                            kategori.add("Perlengkapan Sekolah");
+                          } else {
+                            kategori.remove("Perlengkapan Sekolah");
+                          }
                           s6
                               ? SelectedCategory(
                                   title: "Perlengkapan Sekolah",
@@ -207,6 +233,11 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s7 = !s7;
                         setState(() {
+                          if (s7) {
+                            kategori.add("Perlengkapan Bayi");
+                          } else {
+                            kategori.remove("Perlengkapan Bayi");
+                          }
                           s7
                               ? SelectedCategory(
                                   title: "Perlengkapan Bayi",
@@ -232,13 +263,18 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s8 = !s8;
                         setState(() {
+                          if (s8) {
+                            kategori.add("Sembako");
+                          } else {
+                            kategori.remove("Sembako");
+                          }
                           s8
                               ? SelectedCategory(
-                                  title: "Perlengkapan Bayi",
+                                  title: "Sembako",
                                   img: "assets/category/putih/8.png",
                                 )
                               : CategoryCard(
-                                  title: "Perlengkapan Bayi",
+                                  title: "Sembako",
                                   img: "assets/category/ungu/8.png",
                                 );
                         });
@@ -257,13 +293,18 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                       onTap: () {
                         s9 = !s9;
                         setState(() {
+                          if (s9) {
+                            kategori.add("Lainnya");
+                          } else {
+                            kategori.remove("Lainnya");
+                          }
                           s9
                               ? SelectedCategory(
-                                  title: "Perlengkapan Bayi",
+                                  title: "Lainnya",
                                   img: "assets/category/putih/9.png",
                                 )
                               : CategoryCard(
-                                  title: "Perlengkapan Bayi",
+                                  title: "Lainnya",
                                   img: "assets/category/ungu/9.png",
                                 );
                         });
@@ -288,22 +329,25 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                 child: RaisedButton(
                   color: HexColor("7A7ADC"),
                   onPressed: () {
-                    //save selected categories
-                    if (s1) kategori.add("Alat Tulis");
-                    if (s2) kategori.add("Mainan");
-                    if (s3) kategori.add("Pakaian");
-                    if (s4) kategori.add("Buku");
-                    if (s5) kategori.add("Perlengkapan Kesehatan");
-                    if (s6) kategori.add("Perlengkapan Sekolah");
-                    if (s7) kategori.add("Perlengkapan Bayi");
-                    if (s8) kategori.add("Sembako");
-                    if (s9) kategori.add("Lainnya");
-
                     print(kategori);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChooseRIScreen()));
+
+                    if (kategori.isNotEmpty) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ChooseRIScreen(kategori: kategori)));
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Pilih setidaknya satu kategori yang tersedia",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                      setState(() {});
+                    }
                   },
                   child: Text(
                     "Selanjutnya >",

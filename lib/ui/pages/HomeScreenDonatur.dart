@@ -75,6 +75,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
             ListView(
               children: <Widget>[
                 SizedBox(height: 20),
+                //main slider
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 200,
@@ -247,6 +248,8 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                         color: HexColor("7A7ADC"),
                       )),
                 ),
+
+                //random 3 panti
                 Container(
                   height: 135,
                   padding: EdgeInsets.only(left: 8, right: 8),
@@ -279,6 +282,8 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                   ),
                 ),
                 SizedBox(height: 30),
+
+                //categories
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Text("Pilih Kategori Barang",

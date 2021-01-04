@@ -41,7 +41,6 @@ part 'ChooseRIScreen.dart';
 part 'DetailPantiScreen.dart';
 
 part 'RIHomeScreen.dart';
-part 'RIEditGoodsScreen.dart';
 part 'RIEditProfileScreen.dart';
 part 'LacakBarangScreen.dart';
 
@@ -49,4 +48,4 @@ part 'SignInScreen.dart';
 part 'SignUpChoose.dart';
 part 'SignUpScreen.dart';
 
-part 'EditGoodsNeeded.dart';
+part 'RIEditGoodsNeeded.dart';
