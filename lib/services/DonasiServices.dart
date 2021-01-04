@@ -41,4 +41,21 @@ class DonasiServices {
       return false;
     }
   }
+
+  static Future<Resi> fetchResi(String noResi) async {
+    final response = await http.get(
+        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jnt&awb=$noResi');
+    print(
+        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jnt&awb=$noResi');
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("200 BRUH");
+      return Resi.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
 }

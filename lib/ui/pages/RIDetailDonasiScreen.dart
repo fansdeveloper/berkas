@@ -9,6 +9,7 @@ class RIDetailDonasiScreen extends StatefulWidget {
 }
 
 class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
+  Future<Resi> futureResi;
   String name, img;
   void getData() async {
     await FirebaseFirestore.instance
@@ -22,6 +23,11 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
     if (mounted) {
       setState(() {});
     }
+  }
+
+  initState() {
+    super.initState();
+    futureResi = DonasiServices.fetchResi(this.widget.donasi.noResi);
   }
 
   @override
@@ -131,32 +137,64 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
                         color: HexColor("BEBEEA"),
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: FlatButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LacakBarangScreen()));
+                      child: FutureBuilder<Resi>(
+                        future: futureResi,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LacakBarangScreen(
+                                            resi: snapshot.data)));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    //Lacak Barang Text
+                                    Text(
+                                      "Lacak Barang",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      snapshot.data.data.history.first.desc,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+
+                          // By default, show a loading spinner.
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                //Lacak Barang Text
+                                Text(
+                                  "Lacak Barang",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ],
+                            ),
+                          );
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              //Lacak Barang Text
-                              Text(
-                                "Lacak Barang",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "[SURABAYA] Paket akan dikirim ke alamat penerima",
-                              )
-                            ],
-                          ),
-                        ),
                       ),
                     ),
                   ),
