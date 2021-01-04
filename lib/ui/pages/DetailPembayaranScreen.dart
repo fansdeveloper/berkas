@@ -9,10 +9,25 @@ class DetailPembayaranScreen extends StatefulWidget {
 }
 
 class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
+  TextEditingController ctrlLokasi, ctrlKeterangan, ctrlBerat;
+  List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
+  String _selectedLocation;
+  @override
+  void dispose() {
+    ctrlLokasi.dispose();
+    ctrlKeterangan.dispose();
+    ctrlBerat.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ctrlLokasi = TextEditingController(text: widget.origin);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // List kategori = ["Pakaian", "Mainan"];
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -57,7 +72,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
                     //Lokasi
                     TextFormField(
-                      initialValue: widget.origin,
+                      controller: ctrlLokasi,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.home, color: HexColor("7a7adc")),
                         enabledBorder: UnderlineInputBorder(
@@ -128,6 +143,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: TextField(
+                            controller: ctrlKeterangan,
                             maxLines: 4,
                             decoration: InputDecoration.collapsed(
                                 hintStyle: TextStyle(
@@ -141,6 +157,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     SizedBox(height: 10),
 
                     TextFormField(
+                      controller: ctrlBerat,
                       decoration: InputDecoration(
                         hintText: "Masukkan Berat Barang (kg)",
                         hintStyle: TextStyle(
@@ -166,11 +183,11 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Ongkos Kirim",
+                          "Ongkos Kirim via J&T",
                           style: TextStyle(
-                            color: HexColor("7a7adc"),
-                            fontSize: 18,
-                          ),
+                              color: HexColor("7a7adc"),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                           textAlign: TextAlign.left,
                         ),
                         Text(
@@ -226,11 +243,39 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
               height: 60,
               child: RaisedButton(
                 color: HexColor("7A7ADC"),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainTabBar(index: 0)));
+                onPressed: () async {
+                  print("HAI");
+                  if (ctrlBerat.text.isEmpty ||
+                      ctrlLokasi.text.isEmpty ||
+                      ctrlKeterangan.text.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: "Pastikan semua sudah terisi",
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG);
+                  } else {
+                    Donasi donasi = Donasi(
+                        "",
+                        "pantiID",
+                        "donaturID",
+                        ctrlKeterangan.text,
+                        ctrlLokasi.text,
+                        widget.destination,
+                        1000,
+                        double.parse(ctrlBerat.text),
+                        Timestamp.now(),
+                        widget.kategori,
+                        false);
+
+                    bool result = await DonasiServices.addDonasi(donasi);
+                    if (result == true) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainTabBar(index: 0)));
+                      setState(() {});
+                    }
+                  }
                 },
                 child: Text(
                   "Donasi Sekarang",

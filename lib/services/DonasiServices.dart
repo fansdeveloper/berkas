@@ -3,6 +3,7 @@ part of 'services.dart';
 class DonasiServices {
   static CollectionReference donasiReference =
       FirebaseFirestore.instance.collection("donations");
+  static DocumentReference donasiDoc;
 
   static Future<bool> konfirmasiDonasi(Donasi donasi) async {
     await Firebase.initializeApp();
@@ -13,5 +14,30 @@ class DonasiServices {
     } else {
       return false;
     }
+  }
+
+  static Future<bool> addDonasi(Donasi donasi) async {
+    await Firebase.initializeApp();
+
+    donasiDoc = await donasiReference.add({
+      'id': "",
+      'pantiID': donasi.pantiID,
+      'donaturID': donasi.donaturID,
+      'keterangan': donasi.keterangan,
+      'lokasi': donasi.lokasi,
+      'tujuan': donasi.tujuan,
+      'fee': donasi.fee,
+      'weight': donasi.weight,
+      'date': donasi.date,
+      'kategori': donasi.kategori,
+      'isConfirmed': donasi.isConfirmed
+    });
+
+    // if (donasiDoc.id != null) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
 }

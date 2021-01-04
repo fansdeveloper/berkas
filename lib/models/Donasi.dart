@@ -28,13 +28,13 @@ class Donasi extends Equatable {
         pantiID,
         donaturID,
         keterangan,
-        status,
         lokasi,
         tujuan,
         fee,
         weight,
         date,
         kategori,
-        isConfirmed
+        isConfirmed,
+        status,
       ];
 }
