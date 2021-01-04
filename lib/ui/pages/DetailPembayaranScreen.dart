@@ -12,8 +12,13 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   var ctrlLokasi = TextEditingController();
   var ctrlKeterangan = TextEditingController();
   var ctrlBerat = TextEditingController();
-  List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
-  String _selectedLocation;
+  List<String> _locations = [
+    'Jakarta',
+    'Mojokerto',
+    'Surabaya',
+    'Malang'
+  ]; // Option 2
+  String _selectedLocation; // Option 2
   @override
   void dispose() {
     ctrlLokasi.dispose();
@@ -25,7 +30,23 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   @override
   void initState() {
     super.initState();
+    this.getData();
     ctrlLokasi = TextEditingController(text: widget.origin);
+  }
+
+  final String url = 'https://api.banghasan.com/quran/format/json/surat';
+  List data;
+
+  Future<String> getData() async {
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {'accept': 'application/json'});
+
+    setState(() {
+      var content = json.decode(res.body);
+
+      data = content['hasil'];
+    });
+    return 'success!';
   }
 
   @override
@@ -98,31 +119,29 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
 
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 100,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: widget.kategori.length,
-                          itemBuilder: (context, index) {
-                            return Row(children: [
-                              Icon(
-                                Icons.circle,
-                                color: HexColor("7a7adc"),
-                                size: 12,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(widget.kategori[index],
-                                  style: TextStyle(
-                                    color: HexColor("7a7adc"),
-                                    fontSize: 16,
-                                  ))
-                            ]);
-                          },
-                        ),
+                    Container(
+                      height:
+                          double.parse(widget.kategori.length.toString()) * 22,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        itemCount: widget.kategori.length,
+                        itemBuilder: (context, index) {
+                          return Row(children: [
+                            Icon(
+                              Icons.circle,
+                              color: HexColor("7a7adc"),
+                              size: 12,
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(widget.kategori[index],
+                                style: TextStyle(
+                                  color: HexColor("7a7adc"),
+                                  fontSize: 16,
+                                ))
+                          ]);
+                        },
                       ),
                     ),
 
@@ -180,6 +199,61 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     ),
 
                     SizedBox(height: 20),
+
+                    //
+                    //API Cek Ongkir
+                    //
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Container(
+                          height: 25,
+                          width: double.infinity,
+                          child: ListView.builder(
+                            itemCount: data == null ? 0 : data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                title: Text(data[index]['nama']),
+                              );
+                            },
+                          )),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButton(
+                          hint: Text(
+                              'Pilih Provinsi'), // Not necessary for Option 1
+                          value: _selectedLocation,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedLocation = newValue;
+                            });
+                          },
+                          items: _locations.map((location) {
+                            return DropdownMenuItem(
+                              child: new Text(location),
+                              value: location,
+                            );
+                          }).toList(),
+                        ),
+                        DropdownButton(
+                          hint:
+                              Text('Pilih Kota'), // Not necessary for Option 1
+                          value: _selectedLocation,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedLocation = newValue;
+                            });
+                          },
+                          items: _locations.map((location) {
+                            return DropdownMenuItem(
+                              child: new Text(location),
+                              value: location,
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,7 +320,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
               child: RaisedButton(
                 color: HexColor("7A7ADC"),
                 onPressed: () async {
-                  print("HAI");
                   if (ctrlBerat.text.isEmpty ||
                       ctrlLokasi.text.isEmpty ||
                       ctrlKeterangan.text.isEmpty) {
