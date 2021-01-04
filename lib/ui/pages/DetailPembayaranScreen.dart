@@ -11,8 +11,7 @@ class DetailPembayaranScreen extends StatefulWidget {
 class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   @override
   Widget build(BuildContext context) {
-    List kategori = ["Pakaian", "Mainan"];
-    String _bayar;
+    // List kategori = ["Pakaian", "Mainan"];
 
     return Scaffold(
         appBar: AppBar(
@@ -72,7 +71,9 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ),
                     ),
+
                     SizedBox(height: 20),
+
                     //Kategori Barang
                     Text("Jenis Barang",
                         style: TextStyle(
@@ -81,13 +82,14 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                             fontWeight: FontWeight.bold)),
 
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(10.0),
                       child: Container(
-                        height: 90,
+                        height: 100,
                         width: double.infinity,
-                        child: ListView(
-                          children: [
-                            Row(children: [
+                        child: ListView.builder(
+                          itemCount: widget.kategori.length,
+                          itemBuilder: (context, index) {
+                            return Row(children: [
                               Icon(
                                 Icons.circle,
                                 color: HexColor("7a7adc"),
@@ -96,28 +98,13 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               SizedBox(
                                 width: 20,
                               ),
-                              Text(kategori[0],
+                              Text(widget.kategori[index],
                                   style: TextStyle(
                                     color: HexColor("7a7adc"),
                                     fontSize: 16,
                                   ))
-                            ]),
-                            Row(children: [
-                              Icon(
-                                Icons.circle,
-                                color: HexColor("7a7adc"),
-                                size: 12,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(kategori[1],
-                                  style: TextStyle(
-                                    color: HexColor("7a7adc"),
-                                    fontSize: 16,
-                                  ))
-                            ]),
-                          ],
+                            ]);
+                          },
                         ),
                       ),
                     ),
@@ -131,7 +118,9 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
+
                     SizedBox(height: 10),
+
                     Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -145,9 +134,10 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                                   color: Colors.grey,
                                 ),
                                 hintText:
-                                    "Pakaian anak - anak dan Mainan bayi"),
+                                    "Pakaian anak - anak dan mainan bayi"),
                           ),
                         )),
+
                     SizedBox(height: 10),
 
                     TextFormField(
@@ -169,7 +159,9 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ),
                     ),
+
                     SizedBox(height: 20),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -191,26 +183,10 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ],
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text(
-                    //       "Total : ",
-                    //       style: TextStyle(
-                    //         color: HexColor("7a7adc"),
-                    //       ),
-                    //       textAlign: TextAlign.left,
-                    //     ),
-                    //     Text(
-                    //       "Rp. 21.000",
-                    //       style: TextStyle(
-                    //         color: HexColor("7a7adc"),
-                    //       ),
-                    //       textAlign: TextAlign.left,
-                    //     ),
-                    //   ],
-                    // ),
+
                     SizedBox(height: 15),
+
+                    //Pembayaran
                     Text(
                       "Pembayaran dengan OVO",
                       style: TextStyle(
@@ -238,32 +214,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ),
                     ),
-                    //Keterangan Kategori Barang (Database)
-                    // DropdownButton<String>(
-                    //     style: TextStyle(
-                    //       color: HexColor("7a7adc"),
-                    //       fontSize: 16,
-                    //     ),
-                    //     isExpanded: true,
-                    //     iconEnabledColor: HexColor("7a7adc"),
-                    //     hint: Text(
-                    //       "Cara Bayar",
-                    //       style: TextStyle(
-                    //         color: HexColor("7a7adc"),
-                    //       ),
-                    //     ),
-                    //     value: _bayar,
-                    //     items: ["OVO", "COD"].map((e) {
-                    //       return DropdownMenuItem(
-                    //         child: Text(e),
-                    //         value: e,
-                    //       );
-                    //     }).toList(),
-                    //     onChanged: (e) {
-                    //       setState(() {
-                    //         _bayar = e;
-                    //       });
-                    //     })
                   ],
                 ),
               ),
