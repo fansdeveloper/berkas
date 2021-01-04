@@ -1,8 +1,9 @@
 part of 'pages.dart';
 
 class DetailPembayaranScreen extends StatefulWidget {
-  final String name, img;
-  DetailPembayaranScreen({this.name, this.img});
+  final String origin, destination;
+  final List<dynamic> kategori;
+  DetailPembayaranScreen({this.origin, this.destination, this.kategori});
   @override
   _DetailPembayaranScreenState createState() => _DetailPembayaranScreenState();
 }
@@ -41,27 +42,23 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //Lokasi
+                    //Tujuan
                     TextFormField(
-                      initialValue: "Babatan Pilang GG22",
+                      initialValue: widget.destination,
+                      enabled: false,
                       decoration: InputDecoration(
                         prefixIcon:
                             Icon(Icons.location_on, color: HexColor("7a7adc")),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        disabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
                         ),
                       ),
                     ),
                     SizedBox(height: 5),
-                    //Tujuan
+
+                    //Lokasi
                     TextFormField(
-                      initialValue: "Jl. Babatan Sari Apple no 89",
+                      initialValue: widget.origin,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.home, color: HexColor("7a7adc")),
                         enabledBorder: UnderlineInputBorder(
@@ -82,10 +79,11 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                             color: HexColor("7a7adc"),
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
+
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        height: 100,
+                        height: 90,
                         width: double.infinity,
                         child: ListView(
                           children: [
@@ -93,7 +91,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               Icon(
                                 Icons.circle,
                                 color: HexColor("7a7adc"),
-                                size: 10,
+                                size: 12,
                               ),
                               SizedBox(
                                 width: 20,
@@ -101,13 +99,14 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               Text(kategori[0],
                                   style: TextStyle(
                                     color: HexColor("7a7adc"),
+                                    fontSize: 16,
                                   ))
                             ]),
                             Row(children: [
                               Icon(
                                 Icons.circle,
                                 color: HexColor("7a7adc"),
-                                size: 10,
+                                size: 12,
                               ),
                               SizedBox(
                                 width: 20,
@@ -115,21 +114,9 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               Text(kategori[1],
                                   style: TextStyle(
                                     color: HexColor("7a7adc"),
+                                    fontSize: 16,
                                   ))
                             ]),
-                            FlatButton(
-                                onPressed: () {},
-                                child: Row(children: [
-                                  Icon(
-                                    Icons.add,
-                                    color: HexColor("7a7adc"),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text("Tambah Kategori Baru",
-                                      style: TextStyle(
-                                        color: HexColor("7a7adc"),
-                                      )),
-                                ]))
                           ],
                         ),
                       ),
@@ -154,30 +141,35 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           child: TextField(
                             maxLines: 4,
                             decoration: InputDecoration.collapsed(
-                                hintText: "Enter your text here"),
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                                hintText:
+                                    "Pakaian anak - anak dan Mainan bayi"),
                           ),
                         )),
                     SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Berat",
-                          style: TextStyle(
-                            color: HexColor("7a7adc"),
-                          ),
-                          textAlign: TextAlign.left,
+
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Masukkan Berat Barang (kg)",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        Text(
-                          "3 kg",
-                          style: TextStyle(
-                            color: HexColor("7a7adc"),
-                          ),
-                          textAlign: TextAlign.left,
+                        prefixIcon: Icon(Icons.fitness_center,
+                            color: HexColor("7a7adc")),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
                         ),
-                      ],
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -185,6 +177,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           "Ongkos Kirim",
                           style: TextStyle(
                             color: HexColor("7a7adc"),
+                            fontSize: 18,
                           ),
                           textAlign: TextAlign.left,
                         ),
@@ -192,66 +185,85 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           "Rp. 7000",
                           style: TextStyle(
                             color: HexColor("7a7adc"),
+                            fontSize: 18,
                           ),
                           textAlign: TextAlign.left,
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Total : ",
-                          style: TextStyle(
-                            color: HexColor("7a7adc"),
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          "Rp. 21000",
-                          style: TextStyle(
-                            color: HexColor("7a7adc"),
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text(
+                    //       "Total : ",
+                    //       style: TextStyle(
+                    //         color: HexColor("7a7adc"),
+                    //       ),
+                    //       textAlign: TextAlign.left,
+                    //     ),
+                    //     Text(
+                    //       "Rp. 21.000",
+                    //       style: TextStyle(
+                    //         color: HexColor("7a7adc"),
+                    //       ),
+                    //       textAlign: TextAlign.left,
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(height: 15),
                     Text(
-                      "Cara Bayar",
+                      "Pembayaran dengan OVO",
                       style: TextStyle(
                           color: HexColor("7a7adc"),
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "08123456789",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                        ),
+                        prefixIcon: Icon(Icons.phone_android,
+                            color: HexColor("7a7adc")),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: HexColor("7a7adc")),
+                        ),
+                      ),
+                    ),
                     //Keterangan Kategori Barang (Database)
-                    DropdownButton<String>(
-                        style: TextStyle(
-                          color: HexColor("7a7adc"),
-                          fontSize: 16,
-                        ),
-                        isExpanded: true,
-                        iconEnabledColor: HexColor("7a7adc"),
-                        hint: Text(
-                          "Cara Bayar",
-                          style: TextStyle(
-                            color: HexColor("7a7adc"),
-                          ),
-                        ),
-                        value: _bayar,
-                        items: ["OVO", "COD"].map((e) {
-                          return DropdownMenuItem(
-                            child: Text(e),
-                            value: e,
-                          );
-                        }).toList(),
-                        onChanged: (e) {
-                          setState(() {
-                            _bayar = e;
-                          });
-                        })
+                    // DropdownButton<String>(
+                    //     style: TextStyle(
+                    //       color: HexColor("7a7adc"),
+                    //       fontSize: 16,
+                    //     ),
+                    //     isExpanded: true,
+                    //     iconEnabledColor: HexColor("7a7adc"),
+                    //     hint: Text(
+                    //       "Cara Bayar",
+                    //       style: TextStyle(
+                    //         color: HexColor("7a7adc"),
+                    //       ),
+                    //     ),
+                    //     value: _bayar,
+                    //     items: ["OVO", "COD"].map((e) {
+                    //       return DropdownMenuItem(
+                    //         child: Text(e),
+                    //         value: e,
+                    //       );
+                    //     }).toList(),
+                    //     onChanged: (e) {
+                    //       setState(() {
+                    //         _bayar = e;
+                    //       });
+                    //     })
                   ],
                 ),
               ),
@@ -262,9 +274,14 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
             child: Container(
               width: double.infinity,
               height: 60,
-              color: HexColor("7A7ADC"),
               child: RaisedButton(
-                onPressed: null,
+                color: HexColor("7A7ADC"),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainTabBar(index: 0)));
+                },
                 child: Text(
                   "Donasi Sekarang",
                   style: TextStyle(color: Colors.white, fontSize: 18),

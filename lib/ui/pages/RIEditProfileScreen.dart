@@ -296,8 +296,8 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
             child: Container(
               width: double.infinity,
               height: 60,
-              color: HexColor("7A7ADC"),
               child: RaisedButton(
+                color: HexColor("7A7ADC"),
                 onPressed: () async {
                   setState(() {
                     isLoading = true;

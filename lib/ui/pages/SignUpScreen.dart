@@ -212,7 +212,7 @@ class _SignUpState extends State<SignUp> {
                         RaisedButton(
                           textColor: Colors.white,
                           color: primary,
-                          child: Text("Masuk"),
+                          child: Text("Daftar"),
                           onPressed: () async {
                             if (name.text == "" ||
                                 email.text == "" ||

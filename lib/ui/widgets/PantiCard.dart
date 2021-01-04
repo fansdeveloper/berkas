@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class PantiCard extends StatelessWidget {
   final String namaPanti, img;
   // final List category = ['Alat Tulis', 'Pakaian', 'Mainan'];
-  final List<String> category;
+  final List<dynamic> category;
   PantiCard({this.namaPanti, this.img, this.category});
   // PantiCard({this.namaPanti, this.img});
   @override
@@ -21,7 +21,9 @@ class PantiCard extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailPantiScreen()));
+                        builder: (context) => DetailPantiScreen(
+                              kategori: category,
+                            )));
               },
               leading: CircleAvatar(
                 radius: 30,

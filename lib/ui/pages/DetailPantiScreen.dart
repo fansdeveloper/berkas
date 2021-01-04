@@ -1,6 +1,8 @@
 part of 'pages.dart';
 
 class DetailPantiScreen extends StatefulWidget {
+  final List<dynamic> kategori;
+  DetailPantiScreen({Key key, this.kategori}) : super(key: key);
   @override
   _DetailPantiScreenState createState() => _DetailPantiScreenState();
 }
@@ -123,7 +125,10 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainTabBar(index: 0)));
+                          builder: (context) => DetailPembayaranScreen(
+                              destination: "alamat e panti",
+                              origin: "alamat e user",
+                              kategori: widget.kategori)));
                 },
                 child: Text(
                   "Donasi Sekarang",
