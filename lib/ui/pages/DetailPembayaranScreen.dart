@@ -1,10 +1,12 @@
 part of 'pages.dart';
 
 class DetailPembayaranScreen extends StatefulWidget {
-  final String alamatUser, alamatPanti, origin, destination;
+  final String donaturID, pantiID, alamatUser, alamatPanti, origin, destination;
   final List<dynamic> kategori;
   DetailPembayaranScreen(
       {this.origin,
+      this.donaturID,
+      this.pantiID,
       this.alamatUser,
       this.alamatPanti,
       this.destination,
@@ -371,8 +373,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     } else {
                       Donasi donasi = Donasi(
                           "",
-                          "pantiID",
-                          "donaturID",
+                          widget.pantiID,
+                          widget.donaturID,
                           ctrlKeterangan.text,
                           ctrlLokasi.text,
                           widget.destination,

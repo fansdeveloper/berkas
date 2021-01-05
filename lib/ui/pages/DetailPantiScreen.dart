@@ -126,6 +126,8 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DetailPembayaranScreen(
+                              donaturID: "Donatur ID",
+                              pantiID: "Panti ID",
                               alamatPanti: "alamat Panti",
                               alamatUser: "alamat User",
                               destination: "kota e panti",
