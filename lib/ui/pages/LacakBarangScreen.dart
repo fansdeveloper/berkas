@@ -99,7 +99,7 @@ class _LacakBarangScreenState extends State<LacakBarangScreen> {
                       contentsBuilder: (_, index) =>
                           _Contents(index, this.widget.resi),
                       itemExtentBuilder: (_, __) {
-                        return 50;
+                        return 100;
                       },
                       itemCount: data.length,
                     ),
