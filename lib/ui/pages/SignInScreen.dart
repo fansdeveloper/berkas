@@ -148,20 +148,20 @@ class _SignInState extends State<SignIn> {
                                 textColor: Colors.white,
                                 fontSize: 16.0,
                               );
-
+                              print(tipeUser);
                               // print(tipeUser);
                               if (tipeUser == "Donatur") {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return MainTabBar(index: 0);
+                                  return RIMainTabBar(index: 0);
                                 }));
                               } else {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return RIMainTabBar(index: 0);
+                                  return MainTabBar(index: 0);
                                 }));
                               }
-                              ;
+                              
 
                               setState(() {
                                 isLoading = false;

@@ -2,7 +2,7 @@ part of 'services.dart';
 
 class AuthServices {
   static FirebaseAuth auth = FirebaseAuth.instance;
-
+  Stream<User> get authState => auth.idTokenChanges();
   // <void> jika tidak mengembalikan nilai
   static Future<String> signUp(String email, String password, String name,
       String alamat, String kota, String tipeUser) async {
@@ -58,4 +58,6 @@ class AuthServices {
       String alamat, String kota, String tipeUser) async {
     await Firebase.initializeApp();
   }
+
+  
 }

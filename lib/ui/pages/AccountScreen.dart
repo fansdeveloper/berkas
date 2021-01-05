@@ -14,7 +14,7 @@ class _AccountScreenState extends State<AccountScreen> {
   void fetchUserData() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc("c0xiDGNeCmPeokd4HvWSDfSKNhI3")
+        .doc(FirebaseAuth.instance.currentUser.uid)
         .snapshots()
         .listen((event) {
       imgUrl = event.data()['profilePicture'];
@@ -26,7 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc("c0xiDGNeCmPeokd4HvWSDfSKNhI3")
+        .doc(FirebaseAuth.instance.currentUser.uid)
         .get()
         .then((value) {
       name = value.data()['name'];

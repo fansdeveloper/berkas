@@ -46,8 +46,9 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
           children: <Widget>[
             HomeScreenDonatur(),
             RiwayatDonaturScreen(),
-            AccountScreen()
+            AccountScreen(),
           ],
-        ));
+        )
+        );
   }
 }

@@ -10,6 +10,18 @@ class ChooseRIScreen extends StatefulWidget {
 }
 
 class _ChooseRIScreenState extends State<ChooseRIScreen> {
+
+  var id = FirebaseAuth.instance.currentUser.uid;
+  var rekomendasiPantiCollection;
+
+  initState() {
+    super.initState();
+
+    rekomendasiPantiCollection = FirebaseFirestore.instance
+        .collection("panti")
+        .where("neededGoods");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,40 +44,78 @@ class _ChooseRIScreenState extends State<ChooseRIScreen> {
           },
         ),
       ),
-      body: Container(
-        color: Colors.grey[200],
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
-          child: ListView(
-            children: [
-              PantiCard(
-                namaPanti: "Panti Jompo Sayang Emak",
-                img:
-                    "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                category: ["Mainan", "Alat Tulis", "Sembako"],
-              ),
-              PantiCard(
-                namaPanti: "Panti Asuhan Ibubunda",
-                img:
-                    "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
-              ),
-              PantiCard(
-                namaPanti: "Yayasan Sayap Ibu Peri",
-                img:
-                    "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
-              ),
-              PantiCard(
-                namaPanti: "Panti Sosial Baladingding",
-                img:
-                    "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
-              )
-            ],
-          ),
-        ),
+      body: StreamBuilder<QuerySnapshot>(
+      stream: rekomendasiPantiCollection.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Failed to get products data!");
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SpinKitFadingCircle(
+            size: 50,
+            color: Colors.red,
+          );
+        }
+
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data.docs.map((DocumentSnapshot doc) {
+              
+              return PantiCard(
+                namaPanti: doc.data()['name'],
+                img: doc.data()['profilePicture'],
+                category: [widget.kategori],
+              );
+            }).toList(),
+          );
+        } else {
+          return Container();
+        }
+      },
       ),
+    
+      
+      // Container(
+      //   color: Colors.grey[200],
+      //   child: Padding(
+      //     padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
+      //     child: ListView(
+      //       children: 
+      //       [
+      //         if (widget.kategori ==) {
+                
+      //         } else {
+
+      //         }
+      //         // PantiCard(
+      //         //   namaPanti: "Panti Jompo Sayang Emak",
+      //         //   img:
+      //         //       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+      //         //   category: ["Mainan", "Alat Tulis", "Sembako"],
+      //         // ),
+      //         // PantiCard(
+      //         //   namaPanti: "Panti Asuhan Ibubunda",
+      //         //   img:
+      //         //       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+      //         //   category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+      //         // ),
+      //         // PantiCard(
+      //         //   namaPanti: "Yayasan Sayap Ibu Peri",
+      //         //   img:
+      //         //       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+      //         //   category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+      //         // ),
+      //         // PantiCard(
+      //         //   namaPanti: "Panti Sosial Baladingding",
+      //         //   img:
+      //         //       "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
+      //         //   category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+      //         // )
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

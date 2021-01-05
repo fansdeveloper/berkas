@@ -1,6 +1,7 @@
 part of 'widgets.dart';
 
 class PantiCard extends StatelessWidget {
+  // final ResidentialInstitutions panti;
   final String namaPanti, img;
   // final List category = ['Alat Tulis', 'Pakaian', 'Mainan'];
   final List<dynamic> category;
