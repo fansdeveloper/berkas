@@ -126,8 +126,10 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DetailPembayaranScreen(
-                              destination: "alamat e panti",
-                              origin: "alamat e user",
+                              alamatPanti: "alamat Panti",
+                              alamatUser: "alamat User",
+                              destination: "kota e panti",
+                              origin: "kota e user",
                               kategori: widget.kategori)));
                 },
                 child: Text(

@@ -1,9 +1,14 @@
 part of 'pages.dart';
 
 class DetailPembayaranScreen extends StatefulWidget {
-  final String origin, destination;
+  final String alamatUser, alamatPanti, origin, destination;
   final List<dynamic> kategori;
-  DetailPembayaranScreen({this.origin, this.destination, this.kategori});
+  DetailPembayaranScreen(
+      {this.origin,
+      this.alamatUser,
+      this.alamatPanti,
+      this.destination,
+      this.kategori});
   @override
   _DetailPembayaranScreenState createState() => _DetailPembayaranScreenState();
 }
@@ -12,13 +17,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   var ctrlLokasi = TextEditingController();
   var ctrlKeterangan = TextEditingController();
   var ctrlBerat = TextEditingController();
-  List<String> _locations = [
-    'Jakarta',
-    'Mojokerto',
-    'Surabaya',
-    'Malang'
-  ]; // Option 2
-  String _selectedLocation; // Option 2
+  var ctrlTelp = TextEditingController();
+  String _selectedVendor; // Option 2
   @override
   void dispose() {
     ctrlLokasi.dispose();
@@ -27,26 +27,62 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     super.dispose();
   }
 
+  final String area =
+      'http://paket.id/apis/v2/area/full?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L';
+
+  final String vendor =
+      "http://paket.id/apis/v2/vendor?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L";
+
+  final String tarif =
+      "http://paket.id/apis/v2/tariff/jne/Jakarta/Surabaya/1?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L";
+
+  List data, vendors;
+
+  Future<String> getData() async {
+    var res = await http.get(
+        Uri.encodeFull(
+            "http://paket.id/apis/v2/area/list?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L"),
+        headers: {'accept': 'application/json'});
+
+    setState(() async {
+      var content = await json.decode(res.body);
+      data = content;
+    });
+    return 'success!';
+  }
+
+  Future<String> getVendor() async {
+    var ven = await http
+        .get(Uri.encodeFull(vendor), headers: {'accept': 'application/json'});
+
+    setState(() async {
+      var content = await json.decode(ven.body);
+      vendors = content['vendor'];
+    });
+    return 'success!';
+  }
+
+  Future<Area> fetchArea() async {
+    final response = await http.get(area);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final jsonresponse = jsonDecode(response.body);
+      return Area.fromJson(jsonresponse[0]);
+    } else {
+      throw Exception('Failed to load area');
+    }
+  }
+
+  Future<Area> futureArea;
   @override
   void initState() {
     super.initState();
     this.getData();
-    ctrlLokasi = TextEditingController(text: widget.origin);
-  }
-
-  final String url = 'https://api.banghasan.com/quran/format/json/surat';
-  List data;
-
-  Future<String> getData() async {
-    var res = await http
-        .get(Uri.encodeFull(url), headers: {'accept': 'application/json'});
-
-    setState(() {
-      var content = json.decode(res.body);
-
-      data = content['hasil'];
-    });
-    return 'success!';
+    this.getVendor();
+    futureArea = fetchArea();
+    ctrlLokasi = TextEditingController(text: widget.alamatUser);
   }
 
   @override
@@ -81,7 +117,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                   children: [
                     //Tujuan
                     TextFormField(
-                      initialValue: widget.destination,
+                      initialValue: widget.alamatPanti,
                       enabled: false,
                       decoration: InputDecoration(
                         prefixIcon:
@@ -91,7 +127,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
 
                     //Lokasi
                     TextFormField(
@@ -110,8 +145,24 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
 
+                    DropdownSearch<dynamic>(
+                      mode: Mode.BOTTOM_SHEET,
+                      items: data,
+                      label: "Pilih Kota Anda",
+                      onChanged: print,
+                      showClearButton: true,
+                      selectedItem: widget.origin,
+                      showSearchBox: true,
+                      popupBackgroundColor: HexColor("E7E7E7"),
+                      searchBoxDecoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: HexColor("7a7adc")))),
+                    ),
+
+                    SizedBox(height: 10),
                     //Kategori Barang
                     Text("Jenis Barang",
                         style: TextStyle(
@@ -155,8 +206,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                       textAlign: TextAlign.left,
                     ),
 
-                    SizedBox(height: 10),
-
                     Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -198,73 +247,56 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                       ),
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
 
                     //
                     //API Cek Ongkir
                     //
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Container(
-                          height: 25,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            itemCount: data == null ? 0 : data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                title: Text(data[index]['nama']),
-                              );
-                            },
-                          )),
+                    // Padding(
+                    //   padding: EdgeInsets.only(bottom: 10),
+                    //   child: Container(
+                    //       height: 40,
+                    //       width: double.infinity,
+                    //       child: SingleChildScrollView(
+                    //         child: FutureBuilder<Area>(
+                    //           future: futureArea,
+                    //           builder: (context, snapshot) {
+                    //             if (snapshot.hasData) {
+                    //               return Text(snapshot.data.area);
+                    //             } else if (snapshot.hasError) {
+                    //               return Text("${snapshot.error}");
+                    //             }
+                    //             return CircularProgressIndicator();
+                    //           },
+                    //         ),
+                    //       )),
+                    // ),
+                    Text(
+                      "Jasa Pengiriman",
+                      style: TextStyle(
+                          color: HexColor("7a7adc"),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        DropdownButton(
-                          hint: Text(
-                              'Pilih Provinsi'), // Not necessary for Option 1
-                          value: _selectedLocation,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedLocation = newValue;
-                            });
-                          },
-                          items: _locations.map((location) {
-                            return DropdownMenuItem(
-                              child: new Text(location),
-                              value: location,
-                            );
-                          }).toList(),
-                        ),
                         DropdownButton(
                           hint:
-                              Text('Pilih Kota'), // Not necessary for Option 1
-                          value: _selectedLocation,
+                              Text('Pilih Kurir'), // Not necessary for Option 1
+                          value: _selectedVendor,
                           onChanged: (newValue) {
                             setState(() {
-                              _selectedLocation = newValue;
+                              _selectedVendor = newValue;
                             });
                           },
-                          items: _locations.map((location) {
+                          items: vendors.map((v) {
                             return DropdownMenuItem(
-                              child: new Text(location),
-                              value: location,
+                              child: new Text(v),
+                              value: v,
                             );
                           }).toList(),
-                        ),
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Ongkos Kirim via J&T",
-                          style: TextStyle(
-                              color: HexColor("7a7adc"),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
                         ),
                         Text(
                           "Rp. 7000",
@@ -289,6 +321,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                       textAlign: TextAlign.left,
                     ),
                     TextFormField(
+                      controller: ctrlTelp,
                       decoration: InputDecoration(
                         hintText: "08123456789",
                         hintStyle: TextStyle(
@@ -329,27 +362,35 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         textColor: Colors.white,
                         toastLength: Toast.LENGTH_LONG);
                   } else {
-                    Donasi donasi = Donasi(
-                        "",
-                        "pantiID",
-                        "donaturID",
-                        ctrlKeterangan.text,
-                        ctrlLokasi.text,
-                        widget.destination,
-                        1000,
-                        double.parse(ctrlBerat.text),
-                        Timestamp.now(),
-                        widget.kategori,
-                        false,
-                        "JP1418934566");
+                    if (ctrlTelp.text == "081234567890") {
+                      Fluttertoast.showToast(
+                          msg: "Maaf, saldo Anda tidak mencukupi",
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          toastLength: Toast.LENGTH_LONG);
+                    } else {
+                      Donasi donasi = Donasi(
+                          "",
+                          "pantiID",
+                          "donaturID",
+                          ctrlKeterangan.text,
+                          ctrlLokasi.text,
+                          widget.destination,
+                          1000,
+                          double.parse(ctrlBerat.text),
+                          Timestamp.now(),
+                          widget.kategori,
+                          false,
+                          "JP1418934566");
 
-                    bool result = await DonasiServices.addDonasi(donasi);
-                    if (result == true) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainTabBar(index: 0)));
-                      setState(() {});
+                      bool result = await DonasiServices.addDonasi(donasi);
+                      if (result == true) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainTabBar(index: 0)));
+                        setState(() {});
+                      }
                     }
                   }
                 },

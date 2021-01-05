@@ -5,3 +5,4 @@ part 'Donasi.dart';
 part 'users.dart';
 part 'ResidentialInstitution.dart';
 part 'Resi.dart';
+part 'Area.dart';
