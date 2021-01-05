@@ -347,22 +347,13 @@ class _ChooseCategoryScreenState extends State<ChooseCategoryScreen> {
                         fontSize: 16.0,
                       );
                       setState(() {});
-                     
                     }
                   },
-                  child: RichText(
-                          text: TextSpan(
-                              text: 'Selanjutnya >',
-                              style: TextStyle(color: Colors.white, fontSize: 20, wordSpacing: 5,),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return ChooseRIScreen(kategori: kategori);
-                                  }));
-                                   print(kategori);
-                                }))
-                  
+                  child: Text(
+                    "Selanjutnya >",
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 20, wordSpacing: 5),
+                  ),
                 ),
               ),
             )
