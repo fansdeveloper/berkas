@@ -26,13 +26,15 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
       a = querySnapshot.docs[list[i]];
 
       pantiList.add(a.id);
-      print(a.id);
+      print("pantiList $pantiList");
+      // print(a.id);
     }
+
     p1 = await FirebaseFirestore.instance
         .collection("panti")
-        .where('id', isEqualTo: pantiList[0])
+        .doc(pantiList[0])
         .get();
-    snapshot1 = p1;
+    snapshot1 = await p1;
     kategori1 = await snapshot1.data()['neededGoods'];
 
     await FirebaseFirestore.instance
@@ -41,6 +43,36 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
         .get()
         .then((value) {
       name1 = value.data()['name'];
+    });
+
+    p2 = await FirebaseFirestore.instance
+        .collection("panti")
+        .doc(pantiList[1])
+        .get();
+    snapshot2 = await p2;
+    kategori2 = await snapshot2.data()['neededGoods'];
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(pantiList[1])
+        .get()
+        .then((value) {
+      name2 = value.data()['name'];
+    });
+
+    p3 = await FirebaseFirestore.instance
+        .collection("panti")
+        .doc(pantiList[2])
+        .get();
+    snapshot3 = await p3;
+    kategori3 = await snapshot3.data()['neededGoods'];
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(pantiList[2])
+        .get()
+        .then((value) {
+      name3 = value.data()['name'];
     });
 
     if (mounted) {
@@ -56,9 +88,13 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
 
   @override
   Widget build(BuildContext context) {
-    print(pantiList);
-    print(name1);
-    print(kategori1);
+    print('pantiList: $pantiList');
+    print('name1: $name1');
+    print('kategori1 : $kategori1');
+    print('name2: $name2');
+    print('kategori2 : $kategori2');
+    print('name3: $name3');
+    print('kategori3 : $kategori3');
 
     return Scaffold(
         appBar: AppBar(
@@ -257,27 +293,22 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       PantiCard(
-                        namaPanti: "Panti Asuhan Undaan",
+                        namaPanti: name1,
                         img:
-                            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                        category: ["Mainan", "Alat Tulis", "Sembako"],
+                            "https://assets.pikiran-rakyat.com/crop/0x0:0x0/750x500/photo/image/2018/12/PANTIASUHAN.jpg",
+                        category: kategori1,
                       ),
                       PantiCard(
-                        namaPanti: "Panti Asuhan Yatim Piatu",
+                        namaPanti: name2,
                         img:
                             "https://klikmu.co/wp-content/uploads/2012/07/panti-putri.jpg",
-                        category: ["Buku", "Perlengkapan Sekolah", "Pakaian"],
+                        category: kategori2,
                       ),
                       PantiCard(
-                        namaPanti: "Griya Yatim & Dhuafa Surabaya",
-                        img:
-                            "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg",
-                        category: [
-                          "Pakaian",
-                          "Perlengkapan Bayi",
-                          "Perlengkapan Kesehatan"
-                        ],
-                      ),
+                          namaPanti: name3,
+                          img:
+                              "https://img.okezone.com/content/2019/01/07/337/2001212/relawan-liliana-tanoesoedibjo-beri-sentuhan-kasih-ke-anak-panti-asuhan-vuYGbseEii.jpg",
+                          category: kategori3),
                     ],
                   ),
                 ),

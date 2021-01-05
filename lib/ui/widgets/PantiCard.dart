@@ -41,15 +41,10 @@ class PantiCard extends StatelessWidget {
                   children: [
                     Wrap(
                       children: [
-                        KategoriContainer(
-                          kategori: '${category[1]}',
-                        ),
-                        KategoriContainer(
-                          kategori: '${category[2]}',
-                        ),
-                        KategoriContainer(
-                          kategori: '${category[0]}',
-                        ),
+                        for (var i in category)
+                          KategoriContainer(
+                            kategori: i.toString(),
+                          )
                       ],
                     ),
                   ],
