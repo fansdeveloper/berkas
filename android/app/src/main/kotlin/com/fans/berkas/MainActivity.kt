@@ -1,4 +1,4 @@
-package com.example.berkas
+package com.fans.berkas
 
 import io.flutter.embedding.android.FlutterActivity
 

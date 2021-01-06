@@ -16,6 +16,7 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
     super.initState();
     _tabController =
         MotionTabController(initialIndex: widget.index, vsync: this);
+    _tabController.index = widget.index;
   }
 
   @override
@@ -26,10 +27,11 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var labels = ["Donasi", "Riwayat", "Akun"];
     return Scaffold(
         bottomNavigationBar: MotionTabBar(
-          labels: ["Donasi", "Riwayat", "Akun"],
-          initialSelectedTab: "Donasi",
+          labels: labels,
+          initialSelectedTab: labels[widget.index],
           tabIconColor: Colors.deepPurple[100],
           tabSelectedColor: HexColor("7A7ADC"),
           onTabItemSelected: (int value) {
@@ -48,7 +50,6 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
             RiwayatDonaturScreen(),
             AccountScreen(),
           ],
-        )
-        );
+        ));
   }
 }

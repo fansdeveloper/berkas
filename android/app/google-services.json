@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "685293359148",
-    "project_id": "berkas-app",
-    "storage_bucket": "berkas-app.appspot.com"
+    "project_number": "377231336600",
+    "project_id": "berkas-fans",
+    "storage_bucket": "berkas-fans.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685293359148:android:5130722fe33bdf61c40189",
+        "mobilesdk_app_id": "1:377231336600:android:4b88fd54414a92f75c1ced",
         "android_client_info": {
-          "package_name": "com.example.berkas"
+          "package_name": "com.fans.berkas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "685293359148-khmto7ia9k3vchi6m827eqm66ckc7h15.apps.googleusercontent.com",
+          "client_id": "377231336600-agoiucaclbm4iuih1o1cr546vokclut5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAr_hkcMR6RJH7_FVmmj5TdVpGv-PdG-3s"
+          "current_key": "AIzaSyCyVvb-hhADnVhBM3I7H02TBmAVwwk7CzI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "685293359148-khmto7ia9k3vchi6m827eqm66ckc7h15.apps.googleusercontent.com",
+              "client_id": "377231336600-agoiucaclbm4iuih1o1cr546vokclut5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

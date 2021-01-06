@@ -17,6 +17,23 @@ class _SignInState extends State<SignIn> {
 
   String tipeUser;
 
+  void fetchUserData() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((value) {
+      tipeUser = value.data()['tipeUser'];
+    });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    fetchUserData();
+    super.initState();
+  }
+
   bool isLoading = false;
 
   @override
@@ -150,18 +167,17 @@ class _SignInState extends State<SignIn> {
                               );
                               print(tipeUser);
                               // print(tipeUser);
-                              if (tipeUser == "Donatur") {
+                              if (tipeUser == "Panti") {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return RIMainTabBar(index: 0);
                                 }));
-                              } else {
+                              } else if (tipeUser == "Donatur") {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return MainTabBar(index: 0);
                                 }));
                               }
-                              
 
                               setState(() {
                                 isLoading = false;

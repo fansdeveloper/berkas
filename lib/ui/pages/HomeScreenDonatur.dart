@@ -293,22 +293,22 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       PantiCard(
-                        namaPanti: name1,
+                        namaPanti: name1 ?? "Panti",
                         img:
                             "https://assets.pikiran-rakyat.com/crop/0x0:0x0/750x500/photo/image/2018/12/PANTIASUHAN.jpg",
-                        category: kategori1,
+                        category: kategori1 ?? ["Category"],
                       ),
                       PantiCard(
-                        namaPanti: name2,
+                        namaPanti: name2 ?? "Panti",
                         img:
                             "https://klikmu.co/wp-content/uploads/2012/07/panti-putri.jpg",
-                        category: kategori2,
+                        category: kategori2 ?? ["Category"],
                       ),
                       PantiCard(
-                          namaPanti: name3,
+                          namaPanti: name3 ?? "Panti",
                           img:
                               "https://img.okezone.com/content/2019/01/07/337/2001212/relawan-liliana-tanoesoedibjo-beri-sentuhan-kasih-ke-anak-panti-asuhan-vuYGbseEii.jpg",
-                          category: kategori3),
+                          category: kategori3 ?? ["Category"]),
                     ],
                   ),
                 ),
