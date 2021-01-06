@@ -51,6 +51,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     setState(() async {
       var content = await json.decode(res.body);
       data = content;
+      print(content);
+      print(data);
     });
     return 'success!';
   }
@@ -99,7 +101,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
   @override
   Widget build(BuildContext context) {
-    fetchOngkir();
+    //fetchOngkir();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,

@@ -12,53 +12,34 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  String tipeUser;
-
-  // void fetchUserData() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(FirebaseAuth.instance.currentUser.uid)
-  //       .get()
-  //       .then((value) {
-  //     tipeUser = value.data()['tipeUser'];
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   fetchUserData();
-  //   this.initState();
-  // }
+  void main() {
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      return Container(
+        color: Colors.green,
+        child: Text(
+          details.toString(),
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
-    /*
     if (FirebaseAuth.instance.currentUser != null) {
-      if (tipeUser == "Panti") {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return RIMainTabBar(
-            index: 0,
-          );
-        }));
-      } else if (tipeUser == "Donatur") {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return MainTabBar(index: 0);
-        }));
-      }
-      //get tipeUser
-      //if tipeuser == donatur
-      //else
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: CheckTipeUser(),
+      );
     } else {
-      */
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //home: MainTabBar(index: 0),
-
-      home: SignIn(),
-    );
-    //}
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignIn(),
+      );
+    }
   }
 
   // ini ceritanya masih nyoba" biat keep logged it
