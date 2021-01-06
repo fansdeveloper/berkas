@@ -39,6 +39,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
       "http://paket.id/apis/v2/tariff/jne/Jakarta/Surabaya/1?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L";
 
   List data, vendors;
+  Future<Ongkir> futureOngkir;
+  List<OngkirDropdown> dataOngkir;
 
   Future<String> getData() async {
     var res = await http.get(
@@ -77,6 +79,14 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     }
   }
 
+  void fetchOngkir() {
+    futureOngkir = DonasiServices.fetchOngkir("444", " 290", ctrlBerat.text);
+
+    // futureOngkir.then((value) => value.rajaongkir.results[0].costs.map((e) =>
+    //     dataOngkir
+    //         .add(OngkirDropdown(value: e.cost[0].value, name: e.service))));
+  }
+
   Future<Area> futureArea;
   @override
   void initState() {
@@ -89,6 +99,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
   @override
   Widget build(BuildContext context) {
+    fetchOngkir();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -299,6 +310,12 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               value: v,
                             );
                           }).toList(),
+                          // items: dataOngkir.map((e) {
+                          //   return DropdownMenuItem(
+                          //     child: Text("$e.name - $e.value"),
+                          //     value: e.value.toString(),
+                          //   );
+                          // }),
                         ),
                         Text(
                           "Rp. 7000",
@@ -383,7 +400,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           Timestamp.now(),
                           widget.kategori,
                           false,
-                          "JP1418934566");
+                          "400010041369520");
 
                       bool result = await DonasiServices.addDonasi(donasi);
                       if (result == true) {

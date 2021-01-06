@@ -44,9 +44,9 @@ class DonasiServices {
 
   static Future<Resi> fetchResi(String noResi) async {
     final response = await http.get(
-        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jnt&awb=$noResi');
+        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jne&awb=$noResi');
     print(
-        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jnt&awb=$noResi');
+        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jne&awb=$noResi');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -55,6 +55,33 @@ class DonasiServices {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
+  static Future<Ongkir> fetchOngkir(
+      String origin, String destination, String weight) async {
+    String client = "https://api.rajaongkir.com/starter/cost";
+    Map<String, String> header = {
+      "content-type": "application/x-www-form-urlencoded",
+      "key": "b9f5d86e3f93058d2ae6dabf53641d34",
+    };
+    String body =
+        "origin=$origin&destination=$destination&weight=$weight&courier=jne";
+
+    http.Response responses = await http.post(Uri.parse(client),
+        headers: header, body: body, encoding: Encoding.getByName("utf-8"));
+
+    print(responses.body);
+    if (responses.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("200 BRUH");
+      return Ongkir.fromJson(jsonDecode(responses.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      print(Ongkir.fromJson(jsonDecode(responses.body)));
       throw Exception('Failed to load album');
     }
   }
