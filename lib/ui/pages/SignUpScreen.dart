@@ -248,6 +248,11 @@ class _SignUpState extends State<SignUp> {
                                   textColor: Colors.white,
                                   fontSize: 16.0,
                                 );
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return SignIn();
+                                    }));
+                                /*
                                 if (widget.tipeUser == 'Panti') {
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
@@ -260,7 +265,7 @@ class _SignUpState extends State<SignUp> {
                                       MaterialPageRoute(builder: (context) {
                                     return MainTabBar(index: 0);
                                   }));
-                                }
+                                }*/
 
                                 setState(() {
                                   isLoading = false;
