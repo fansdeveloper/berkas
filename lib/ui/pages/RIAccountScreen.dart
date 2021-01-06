@@ -12,6 +12,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   Color secondary = const Color(0xffBEBEEA);
   Color primary = const Color(0xff7A7ADC);
   bool isLoading = false;
+  String uid = FirebaseAuth.instance.currentUser.uid;
 
   PickedFile imageFile;
   final ImagePicker imagePicker = ImagePicker();
@@ -19,7 +20,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
   void fetchUserData() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .get()
         .then((value) {
       name = value.data()['name'];
@@ -34,7 +35,7 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .snapshots()
         .listen((event) {
       imgUrl = event.data()['profilePicture'];

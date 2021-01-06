@@ -7,8 +7,7 @@ class EditAccountScreen extends StatefulWidget {
 
 class _EditAccountScreenState extends State<EditAccountScreen> {
   Users users;
-//  String uid = FirebaseAuth.instance.currentUser.uid;
-  String uid = "c0xiDGNeCmPeokd4HvWSDfSKNhI3";
+  String uid = FirebaseAuth.instance.currentUser.uid;
   String nama, email, kota, alamat, imgUrl;
   TextEditingController ctrlName, ctrlAlamat, ctrlKota;
   bool isLoading = false;

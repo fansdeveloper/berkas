@@ -10,11 +10,12 @@ class _AccountScreenState extends State<AccountScreen> {
   Color primary = const Color(0xff7A7ADC);
   bool isLoading = false;
   String name, alamat, kota, imgUrl;
+  String uid = FirebaseAuth.instance.currentUser.uid;
 
   void fetchUserData() async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .snapshots()
         .listen((event) {
       imgUrl = event.data()['profilePicture'];
@@ -26,7 +27,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(uid)
         .get()
         .then((value) {
       name = value.data()['name'];
