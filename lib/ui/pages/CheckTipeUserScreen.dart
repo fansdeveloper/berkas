@@ -54,8 +54,12 @@ class _CheckTipeUserState extends State<CheckTipeUser> {
       color: HexColor("7a7adc"),
       child: Center(
         child: Container(
-          child: Text("Loading",
-              style: TextStyle(color: Colors.white, fontSize: 10)),
+          child: Text("Jangan Lupa Berbagi 😇",
+              style: TextStyle(
+                  decoration: TextDecoration.none,
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
         ),
       ),
     );

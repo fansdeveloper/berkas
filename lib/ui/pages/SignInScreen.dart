@@ -15,25 +15,6 @@ class _SignInState extends State<SignIn> {
   final email = TextEditingController();
   final password = TextEditingController();
 
-  String tipeUser;
-
-  void fetchUserData() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser.uid)
-        .get()
-        .then((value) {
-      tipeUser = value.data()['tipeUser'];
-    });
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    fetchUserData();
-    super.initState();
-  }
-
   bool isLoading = false;
 
   @override
@@ -157,6 +138,10 @@ class _SignInState extends State<SignIn> {
                               password.text,
                             );
                             if (result == "success") {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CheckTipeUser();
+                              }));
                               Fluttertoast.showToast(
                                 msg: "Sukses",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -165,20 +150,6 @@ class _SignInState extends State<SignIn> {
                                 textColor: Colors.white,
                                 fontSize: 16.0,
                               );
-                              print(tipeUser);
-                              // print(tipeUser);
-                              if (tipeUser == "Panti") {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return RIMainTabBar(index: 0);
-                                }));
-                              } else if (tipeUser == "Donatur") {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return MainTabBar(index: 0);
-                                }));
-                              }
-
                               setState(() {
                                 isLoading = false;
                                 clearForm();

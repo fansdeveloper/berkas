@@ -9,7 +9,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
   List<String> pantiList = [];
   var list;
   var a, p1, p2, p3;
-  String name1, name2, name3;
+  String name1, name2, name3, profile1, profile2, profile3;
   List<dynamic> kategori1, kategori2, kategori3;
 
   DocumentSnapshot snapshot1, snapshot2, snapshot3;
@@ -43,6 +43,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
         .get()
         .then((value) {
       name1 = value.data()['name'];
+      profile1 = value.data()['profilePicture'];
     });
 
     p2 = await FirebaseFirestore.instance
@@ -58,6 +59,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
         .get()
         .then((value) {
       name2 = value.data()['name'];
+      profile2 = value.data()['profilePicture'];
     });
 
     p3 = await FirebaseFirestore.instance
@@ -73,6 +75,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
         .get()
         .then((value) {
       name3 = value.data()['name'];
+      profile3 = value.data()['profilePicture'];
     });
 
     if (mounted) {
@@ -294,20 +297,23 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     children: [
                       PantiCard(
                         namaPanti: name1 ?? "Panti",
-                        img:
-                            "https://assets.pikiran-rakyat.com/crop/0x0:0x0/750x500/photo/image/2018/12/PANTIASUHAN.jpg",
+                        img: profile1 == ""
+                            ? "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png"
+                            : profile1,
                         category: kategori1 ?? ["Category"],
                       ),
                       PantiCard(
                         namaPanti: name2 ?? "Panti",
-                        img:
-                            "https://klikmu.co/wp-content/uploads/2012/07/panti-putri.jpg",
+                        img: profile2 == ""
+                            ? "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png"
+                            : profile2,
                         category: kategori2 ?? ["Category"],
                       ),
                       PantiCard(
                           namaPanti: name3 ?? "Panti",
-                          img:
-                              "https://img.okezone.com/content/2019/01/07/337/2001212/relawan-liliana-tanoesoedibjo-beri-sentuhan-kasih-ke-anak-panti-asuhan-vuYGbseEii.jpg",
+                          img: profile3 == ""
+                              ? "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png"
+                              : profile3,
                           category: kategori3 ?? ["Category"]),
                     ],
                   ),
