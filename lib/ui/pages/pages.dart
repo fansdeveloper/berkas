@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:berkas/models/City.dart';
 import 'package:berkas/services/services.dart';
 import 'package:berkas/shared/shared.dart';
 import 'package:berkas/ui/widgets/widgets.dart';

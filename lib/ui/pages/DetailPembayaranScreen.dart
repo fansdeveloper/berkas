@@ -21,6 +21,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   var ctrlBerat = TextEditingController();
   var ctrlTelp = TextEditingController();
   String _selectedVendor; // Option 2
+  String _selectedCity; // Option 2
   @override
   void dispose() {
     ctrlLokasi.dispose();
@@ -40,7 +41,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
   List data, vendors;
   Future<Ongkir> futureOngkir;
-  List<OngkirDropdown> dataOngkir;
+  Future<City> futureCity;
 
   Future<String> getData() async {
     var res = await http.get(
@@ -81,13 +82,29 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     }
   }
 
-  void fetchOngkir() {
-    futureOngkir = DonasiServices.fetchOngkir("444", " 290", ctrlBerat.text);
+  // void fetchOngkir() {
+  //   futureOngkir =
+  //       DonasiServices.fetchOngkir("444", "299", ctrlBerat.text ?? 0);
+  // }
 
-    // futureOngkir.then((value) => value.rajaongkir.results[0].costs.map((e) =>
-    //     dataOngkir
-    //         .add(OngkirDropdown(value: e.cost[0].value, name: e.service))));
-  }
+  // Future<City> fetchCity() async {
+  //   String url = "https://api.rajaongkir.com/starter/city?province=11";
+  //   Map<String, String> headers = {
+  //     "key": "b9f5d86e3f93058d2ae6dabf53641d34",
+  //   };
+  //   http.Response response = await http.get(url, headers: headers);
+
+  //   print(response.body);
+
+  //   if (response.statusCode == 200) {
+  //     return City.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     print(City.fromJson(jsonDecode(response.body)));
+  //     throw Exception('Failed to load album');
+  //   }
+  // }
 
   Future<Area> futureArea;
   @override
@@ -96,12 +113,13 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     this.getData();
     this.getVendor();
     futureArea = fetchArea();
+    // futureCity = fetchCity();
+    // fetchOngkir();
     ctrlLokasi = TextEditingController(text: widget.alamatUser);
   }
 
   @override
   Widget build(BuildContext context) {
-    //fetchOngkir();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -176,6 +194,67 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               borderSide:
                                   BorderSide(color: HexColor("7a7adc")))),
                     ),
+
+                    // //Punya feli
+                    // FutureBuilder<City>(
+                    //   future: futureCity,
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.hasData) {
+                    //       return Container(
+                    //         width: 300,
+                    //         height: 300,
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //           children: [
+                    //             TextFormField(
+                    //               controller: ctrlLokasi,
+                    //               decoration: InputDecoration(
+                    //                 prefixIcon: Icon(Icons.home,
+                    //                     color: HexColor("7a7adc")),
+                    //                 enabledBorder: UnderlineInputBorder(
+                    //                   borderSide:
+                    //                       BorderSide(color: HexColor("7a7adc")),
+                    //                 ),
+                    //                 focusedBorder: UnderlineInputBorder(
+                    //                   borderSide:
+                    //                       BorderSide(color: HexColor("7a7adc")),
+                    //                 ),
+                    //                 border: UnderlineInputBorder(
+                    //                   borderSide:
+                    //                       BorderSide(color: HexColor("7a7adc")),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(height: 10),
+                    //             DropdownSearch<dynamic>(
+                    //               mode: Mode.BOTTOM_SHEET,
+                    //               items: snapshot.data.rajaongkir.results
+                    //                   .map((e) => "${e.cityName} - ${e.cityId}")
+                    //                   .toList(),
+                    //               label: "Pilih Kota Anda",
+                    //               onChanged: print,
+                    //               showClearButton: true,
+                    //               selectedItem: _selectedCity,
+                    //               showSearchBox: true,
+                    //               popupBackgroundColor: HexColor("E7E7E7"),
+                    //               searchBoxDecoration: InputDecoration(
+                    //                   border: OutlineInputBorder(
+                    //                       borderSide: BorderSide(
+                    //                           color: HexColor("7a7adc")))),
+                    //             ),
+                    //             SizedBox(height: 10),
+                    //           ],
+                    //         ),
+                    //       );
+                    //     } else if (snapshot.hasError) {
+                    //       // print(snapshot.error);
+                    //       return Text("${snapshot.error}");
+                    //     }
+
+                    //     // By default, show a loading spinner.
+                    //     return CircularProgressIndicator();
+                    //   },
+                    // ),
 
                     SizedBox(height: 10),
                     //Kategori Barang
@@ -286,6 +365,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     //         ),
                     //       )),
                     // ),
+
+                    // Angle Punya
                     Text(
                       "Jasa Pengiriman",
                       style: TextStyle(
@@ -312,12 +393,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                               value: v,
                             );
                           }).toList(),
-                          // items: dataOngkir.map((e) {
-                          //   return DropdownMenuItem(
-                          //     child: Text("$e.name - $e.value"),
-                          //     value: e.value.toString(),
-                          //   );
-                          // }),
                         ),
                         Text(
                           "Rp. 7000",
@@ -329,6 +404,51 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         ),
                       ],
                     ),
+
+                    // // Feli punya
+                    // FutureBuilder<Ongkir>(
+                    //   future: futureOngkir,
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.hasData) {
+                    //       return Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //         children: [
+                    //           DropdownButton(
+                    //             hint: Text(
+                    //                 'Pilih Service JNE'), // Not necessary for Option 1
+                    //             value: _selectedVendor,
+                    //             onChanged: (newValue) {
+                    //               setState(() {
+                    //                 _selectedVendor = newValue;
+                    //               });
+                    //             },
+                    //             items: snapshot.data.rajaongkir.results[0].costs
+                    //                 .map((e) {
+                    //               return DropdownMenuItem(
+                    //                 child: new Text(
+                    //                     "${e.service} - ${e.cost[0].value}"),
+                    //                 value: e.cost[0].value.toString(),
+                    //               );
+                    //             }).toList(),
+                    //           ),
+                    //           Text(
+                    //             "Rp. ${_selectedVendor ?? 0}",
+                    //             style: TextStyle(
+                    //               color: HexColor("7a7adc"),
+                    //               fontSize: 18,
+                    //             ),
+                    //             textAlign: TextAlign.left,
+                    //           ),
+                    //         ],
+                    //       );
+                    //     } else if (snapshot.hasError) {
+                    //       return Text("${snapshot.error}");
+                    //     }
+
+                    //     // By default, show a loading spinner.
+                    //     return CircularProgressIndicator();
+                    //   },
+                    // ),
 
                     SizedBox(height: 15),
 
