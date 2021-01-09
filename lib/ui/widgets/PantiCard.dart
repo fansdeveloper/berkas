@@ -1,11 +1,10 @@
 part of 'widgets.dart';
 
 class PantiCard extends StatelessWidget {
-  // final ResidentialInstitutions panti;
   final String namaPanti, img;
-  // final List category = ['Alat Tulis', 'Pakaian', 'Mainan'];
+  final bool onClick;
   final List<dynamic> category;
-  PantiCard({this.namaPanti, this.img, this.category});
+  PantiCard({this.namaPanti, this.img, this.category, this.onClick});
   // PantiCard({this.namaPanti, this.img});
   @override
   Widget build(BuildContext context) {
@@ -19,12 +18,17 @@ class PantiCard extends StatelessWidget {
           child: ListTile(
               contentPadding: EdgeInsets.all(8),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailPantiScreen(
-                              kategori: category,
-                            )));
+                onClick
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailPantiScreen(
+                                  kategori: category,
+                                )))
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChooseCategoryScreen()));
               },
               leading: CircleAvatar(
                 radius: 30,

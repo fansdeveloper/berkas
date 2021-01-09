@@ -20,8 +20,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   var ctrlKeterangan = TextEditingController();
   var ctrlBerat = TextEditingController();
   var ctrlTelp = TextEditingController();
-  String _selectedVendor; // Option 2
-  String _selectedCity; // Option 2
+  String _selectedVendor;
+  String _selectedCity;
   @override
   void dispose() {
     ctrlLokasi.dispose();
@@ -29,12 +29,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     ctrlBerat.dispose();
     super.dispose();
   }
-
-  final String area =
-      'http://paket.id/apis/v2/area/full?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L';
-
-  final String vendor =
-      "http://paket.id/apis/v2/vendor?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L";
 
   final String tarif =
       "http://paket.id/apis/v2/tariff/jne/Jakarta/Surabaya/1?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L";
@@ -53,33 +47,23 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
       var content = await json.decode(res.body);
       data = content;
       print(content);
-      print(data);
     });
     return 'success!';
   }
 
   Future<String> getVendor() async {
-    var ven = await http
-        .get(Uri.encodeFull(vendor), headers: {'accept': 'application/json'});
+    var ven = await http.get(
+        Uri.encodeFull(
+            "http://paket.id/apis/v2/vendor?auth-user-email=thefansdeveloper@gmail.com&auth-api-key=8atYTEH8EhjYaHFNnkwe6udDw5MHyr4L"),
+        headers: {'accept': 'application/json'});
 
     setState(() async {
       var content = await json.decode(ven.body);
       vendors = content['vendor'];
+
+      print(vendors);
     });
     return 'success!';
-  }
-
-  Future<Area> fetchArea() async {
-    final response = await http.get(area);
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      final jsonresponse = jsonDecode(response.body);
-      return Area.fromJson(jsonresponse[0]);
-    } else {
-      throw Exception('Failed to load area');
-    }
   }
 
   // void fetchOngkir() {
@@ -109,13 +93,13 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
   Future<Area> futureArea;
   @override
   void initState() {
-    super.initState();
     this.getData();
     this.getVendor();
-    futureArea = fetchArea();
     // futureCity = fetchCity();
     // fetchOngkir();
     ctrlLokasi = TextEditingController(text: widget.alamatUser);
+
+    super.initState();
   }
 
   @override
@@ -343,29 +327,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
                     SizedBox(height: 10),
 
-                    //
-                    //API Cek Ongkir
-                    //
-                    // Padding(
-                    //   padding: EdgeInsets.only(bottom: 10),
-                    //   child: Container(
-                    //       height: 40,
-                    //       width: double.infinity,
-                    //       child: SingleChildScrollView(
-                    //         child: FutureBuilder<Area>(
-                    //           future: futureArea,
-                    //           builder: (context, snapshot) {
-                    //             if (snapshot.hasData) {
-                    //               return Text(snapshot.data.area);
-                    //             } else if (snapshot.hasError) {
-                    //               return Text("${snapshot.error}");
-                    //             }
-                    //             return CircularProgressIndicator();
-                    //           },
-                    //         ),
-                    //       )),
-                    // ),
-
                     // Angle Punya
                     Text(
                       "Jasa Pengiriman",
@@ -378,21 +339,31 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        DropdownButton(
-                          hint:
-                              Text('Pilih Kurir'), // Not necessary for Option 1
-                          value: _selectedVendor,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _selectedVendor = newValue;
-                            });
+                        FutureBuilder(
+                          future: getVendor(),
+                          builder: (context, snapshot) {
+                            return vendors != null
+                                ? DropdownButton(
+                                    hint: Text('Pilih Kurir'),
+                                    value: _selectedVendor,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedVendor = newValue;
+                                      });
+                                    },
+                                    items: vendors.map((v) {
+                                      return DropdownMenuItem(
+                                        child: new Text(v),
+                                        value: v,
+                                      );
+                                    }).toList(),
+                                  )
+                                : CircularProgressIndicator(
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            HexColor("7a7adc")),
+                                  );
                           },
-                          items: vendors.map((v) {
-                            return DropdownMenuItem(
-                              child: new Text(v),
-                              value: v,
-                            );
-                          }).toList(),
                         ),
                         Text(
                           "Rp. 7000",
