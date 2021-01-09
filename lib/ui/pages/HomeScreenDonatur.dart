@@ -85,13 +85,11 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
 
   void initState() {
     super.initState();
-    //Ambil data
     getDocs();
   }
 
   @override
   Widget build(BuildContext context) {
-    bool pressing = false;
     print('pantiList: $pantiList');
     print('name1: $name1');
     print('kategori1 : $kategori1');
@@ -123,6 +121,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
             ListView(
               children: <Widget>[
                 SizedBox(height: 20),
+
                 //main slider
                 CarouselSlider(
                   options: CarouselOptions(
@@ -298,41 +297,34 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                 ),
 
                 //random 3 panti
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      pressing = false;
-                    });
-                  },
-                  child: Container(
-                    height: 135,
-                    padding: EdgeInsets.only(left: 8, right: 8),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        PantiCard(
-                          namaPanti: name1 ?? "Panti",
-                          img: profile1 ??
-                              "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
-                          category: kategori1 ?? ["Category"],
-                          onClick: false,
-                        ),
-                        PantiCard(
-                          namaPanti: name2 ?? "Panti",
-                          img: profile2 ??
-                              "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
-                          category: kategori2 ?? ["Category"],
-                          onClick: false,
-                        ),
-                        PantiCard(
-                          namaPanti: name3 ?? "Panti",
-                          img: profile3 ??
-                              "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
-                          category: kategori3 ?? ["Category"],
-                          onClick: false,
-                        ),
-                      ],
-                    ),
+                Container(
+                  height: 135,
+                  padding: EdgeInsets.only(left: 8, right: 8),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      PantiCard(
+                        namaPanti: name1 ?? "Panti",
+                        img: profile1 ??
+                            "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
+                        category: kategori1 ?? ["Category"],
+                        onClick: false,
+                      ),
+                      PantiCard(
+                        namaPanti: name2 ?? "Panti",
+                        img: profile2 ??
+                            "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
+                        category: kategori2 ?? ["Category"],
+                        onClick: false,
+                      ),
+                      PantiCard(
+                        namaPanti: name3 ?? "Panti",
+                        img: profile3 ??
+                            "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png",
+                        category: kategori3 ?? ["Category"],
+                        onClick: false,
+                      ),
+                    ],
                   ),
                 ),
 

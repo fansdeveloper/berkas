@@ -20,6 +20,7 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       s7 = false,
       s8 = false,
       s9 = false;
+
   //Ambil data buat Statistik
   void getData() async {
     var donationCollection = FirebaseFirestore.instance
@@ -43,7 +44,6 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
   DocumentSnapshot snapshot;
 
   void getPanti() async {
-    //use a Async-await function to get the data
     final data = await FirebaseFirestore.instance
         .collection("panti")
         .doc(id)
