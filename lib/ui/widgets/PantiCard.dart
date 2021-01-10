@@ -1,10 +1,11 @@
 part of 'widgets.dart';
 
 class PantiCard extends StatelessWidget {
+  final ResidentialInstitutions panti;
   final String namaPanti, img;
   final bool onClick;
   final List<dynamic> category;
-  PantiCard({this.namaPanti, this.img, this.category, this.onClick});
+  PantiCard({this.namaPanti, this.panti, this.img, this.category, this.onClick});
   // PantiCard({this.namaPanti, this.img});
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class PantiCard extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetailPantiScreen(
+                                  panti: panti,
                                   kategori: category,
                                 )))
                     : Navigator.push(

@@ -99,6 +99,7 @@ class PantiData extends StatelessWidget {
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 return PantiCard(
                     onClick: true,
+                   // panti: ResidentialInstitutions(document['id'], document['keterangan'], document['laki'], document['perempuan'], document['neededGoods']),
                     category: kategoriPanti,
                     namaPanti: document['name'],
                     img: document['profilePicture'] == ""

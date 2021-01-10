@@ -1,17 +1,45 @@
 part of 'pages.dart';
 
 class DetailPantiScreen extends StatefulWidget {
+  final ResidentialInstitutions panti;
   final List<dynamic> kategori;
-  DetailPantiScreen({Key key, this.kategori}) : super(key: key);
+  DetailPantiScreen({Key key, this.panti, this.kategori}) : super(key: key);
   @override
   _DetailPantiScreenState createState() => _DetailPantiScreenState();
 }
 
 class _DetailPantiScreenState extends State<DetailPantiScreen> {
+  ResidentialInstitutions panti;
+  Future<ResidentialInstitutions> futureResidentialInstitutions;
+  String name, id, kota, alamat, deskripsi, laki, perempuan, keterangan, img;
+  List<dynamic> kategorip;
   TextStyle judul = TextStyle(
       fontSize: 22, fontWeight: FontWeight.bold, color: HexColor("7A7ADC"));
   TextStyle desc = TextStyle(
       fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black);
+
+  void getData() async {
+    await FirebaseFirestore.instance
+        .collection("Panti")
+        .doc(this.widget.panti.id)
+        .get()
+        .then((value) {
+      name = value.data()['name'];
+      id = value.data()['id'];
+      alamat = value.data()['alamat'];
+      kota = value.data()['kota'];
+      deskripsi = value.data()['deskripsi'];
+      laki = value.data()['laki'];
+      perempuan = value.data()['perempuan'];
+      kategorip = value.data()['neededGoods'];
+      keterangan = value.data()['keterangan'];
+      img = value.data()['imgUrl'];
+    });
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +84,7 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Panti Asuhan Ibubunda", style: judul),
+                Text(name ?? 'name', style: judul),
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -64,7 +92,7 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       Icons.place,
                       color: HexColor("7A7ADC"),
                     ),
-                    Text("Jl. Babatan Sari Apple no. 89", style: desc),
+                    Text(alamat ?? 'alamat', style: desc),
                   ],
                 ),
                 SizedBox(height: 8),
@@ -79,36 +107,30 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                 Text("Populasi", style: judul),
                 SizedBox(height: 8),
                 Text(
-                  "Total Penghuni : 40",
+                  "Total Penghuni : " +
+                      (int.parse(perempuan ?? '0') + int.parse(laki ?? '0')).toString(),
                   style: desc,
                   textAlign: TextAlign.left,
                 ),
                 Text(
-                  "Perempuan : 16",
+                  "Perempuan : " + (perempuan ?? '0'),
                   style: desc,
                   textAlign: TextAlign.left,
                 ),
-                Text("Laki - Laki : 14", style: desc),
+                Text("Laki - Laki : " + (laki ?? '0'), style: desc),
                 SizedBox(height: 8),
                 Text("Kebutuhan", style: judul),
                 Container(
                   height: 50,
                   child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      KategoriContainer(
-                        kategori: "Pakaian",
-                      ),
-                      KategoriContainer(
-                        kategori: "Alat Tulis",
-                      ),
-                      KategoriContainer(
-                        kategori: "Lainnya",
-                      ),
-                    ],
-                  ),
+                      scrollDirection: Axis.horizontal,
+                      children: (kategorip ?? ['kategori'])
+                          .map((e) => KategoriContainer(
+                                kategori: e ?? 'kategori',
+                              ))
+                          .toList()),
                 ),
-                Text("Pakaian anak, buku tulis kosong, panci dan kompor",
+                Text(keterangan ?? 'keterangan',
                     style: desc),
                 SizedBox(height: 20)
               ],
@@ -127,11 +149,12 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       MaterialPageRoute(
                           builder: (context) => DetailPembayaranScreen(
                               donaturID: "Donatur ID",
-                              pantiID: "Panti ID",
-                              alamatPanti: "alamat Panti",
+                              pantiID: id,
+                              alamatPanti: alamat,
                               alamatUser: "alamat User",
-                              destination: "kota e panti",
+                              destination: kota,
                               origin: "kota e user",
+                              panti: widget.panti,
                               kategori: widget.kategori)));
                 },
                 child: Text(
