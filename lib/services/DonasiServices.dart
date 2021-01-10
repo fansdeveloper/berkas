@@ -48,13 +48,8 @@ class DonasiServices {
     print(
         'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jne&awb=$noResi');
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print("200 BRUH");
       return Resi.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
@@ -74,15 +69,11 @@ class DonasiServices {
 
     print(responses.body);
     if (responses.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       print("200 BRUH");
       return Ongkir.fromJson(jsonDecode(responses.body));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       print(Ongkir.fromJson(jsonDecode(responses.body)));
-      throw Exception('Failed to load album');
+      throw Exception('Gagal Memuat Ongkos Kirim');
     }
   }
 }
