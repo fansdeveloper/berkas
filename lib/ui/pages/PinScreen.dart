@@ -37,15 +37,21 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   void _handleSubmit() {
-    if (_otp.length == digit)
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Pin Anda $_otp'),
-      ));
-    else
+    if (_otp.length == digit) {
+      Fluttertoast.showToast(
+          msg: "Pembayaran Berhasil",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG);
+      _scaffoldKey.currentState
+          .showSnackBar(SnackBar(content: Text('Pembayaran Berhasil')));
+      Navigator.pop(context);
+    } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Pin harus 6 digit'),
         backgroundColor: Colors.red,
       ));
+    }
   }
 
   @override

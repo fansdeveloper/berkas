@@ -52,6 +52,7 @@ class _ChooseRIScreenState extends State<ChooseRIScreen> {
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
                 ),
               );
+
             default:
               return ListView.builder(
                   itemCount: snapshot.data.docs.length,

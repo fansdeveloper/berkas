@@ -343,6 +343,22 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           borderSide: BorderSide(color: HexColor("7a7adc")),
                         ),
                       ),
+                      onEditingComplete: () {
+                        setState(() {
+                          if (ctrlTelp.text.length != 12) {
+                            Fluttertoast.showToast(
+                                msg: "Nomor Telepon Tidak Valid",
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                toastLength: Toast.LENGTH_LONG);
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PinScreen()));
+                          }
+                        });
+                      },
                     ),
                   ],
                 ),
