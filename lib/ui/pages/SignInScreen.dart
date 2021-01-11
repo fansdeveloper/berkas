@@ -80,9 +80,15 @@ class _SignInState extends State<SignIn> {
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: Colors.white,
-
                                 //width: 2.0,
                               ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(50.0),
+                              ),
+                            ),
+                            //Ini Mungkin buat ganti warna Fokus text field
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: HexColor("7A7ADC")),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),
@@ -97,6 +103,7 @@ class _SignInState extends State<SignIn> {
                           //style: TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: InputDecoration(
+                            focusColor: HexColor("7A7ADC"),
                             prefixText: '     ',
                             fillColor: secondary,
                             labelText: '     Kata kunci',
@@ -108,6 +115,13 @@ class _SignInState extends State<SignIn> {
                                 color: Colors.white,
                                 //width: 2.0,
                               ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(50.0),
+                              ),
+                            ),
+                            //Ini Mungkin buat ganti warna Fokus text field
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: HexColor("7A7ADC")),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),

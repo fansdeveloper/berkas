@@ -21,7 +21,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
         textUser = "Pengirim";
       });
       if (mounted) {
@@ -35,7 +35,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
         textUser = "Penerima";
       });
       if (mounted) {
@@ -97,7 +97,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
                       leading: CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(img ??
-                            "https://miro.medium.com/max/6144/1*SN4G3KhX_foP7Yci023DJg.jpeg"),
+                            "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png"),
                       ),
                       title: Text(name ?? "User"),
                       subtitle: Text(this.widget.donasi.lokasi ?? "Alamat"),

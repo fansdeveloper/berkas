@@ -14,7 +14,7 @@ class _RiwayatDonaturScreenState extends State<RiwayatDonaturScreen> {
 
     riwayatDonasiCollection = FirebaseFirestore.instance
         .collection("donations")
-        .where('isConfirmed', isEqualTo: false)
+        .where('isConfirmed', isEqualTo: true)
         .where('donaturID', isEqualTo: id);
   }
 
