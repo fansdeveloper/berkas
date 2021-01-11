@@ -18,7 +18,7 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
         .get()
         .then((value) {
       name = value.data()['name'];
-      img = value.data()['imgUrl'];
+      img = value.data()['profilePicture'];
     });
     if (mounted) {
       setState(() {});

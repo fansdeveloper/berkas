@@ -21,7 +21,7 @@ class _DonasiCardState extends State<DonasiCard> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
       });
       if (mounted) {
         setState(() {});
@@ -33,7 +33,7 @@ class _DonasiCardState extends State<DonasiCard> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
       });
       if (mounted) {
         setState(() {});

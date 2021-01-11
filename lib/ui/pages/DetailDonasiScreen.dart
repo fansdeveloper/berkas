@@ -21,7 +21,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
         textUser = "Pengirim";
       });
       if (mounted) {
@@ -35,7 +35,7 @@ class _DetailDonasiScreenState extends State<DetailDonasiScreen> {
           .get()
           .then((value) {
         name = value.data()['name'];
-        img = value.data()['imgUrl'];
+        img = value.data()['profilePicture'];
         textUser = "Penerima";
       });
       if (mounted) {
