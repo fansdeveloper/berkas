@@ -56,3 +56,5 @@ part 'SignUpScreen.dart';
 part 'RIEditGoodsNeeded.dart';
 
 part 'CheckTipeUserScreen.dart';
+
+part 'PinScreen.dart';
