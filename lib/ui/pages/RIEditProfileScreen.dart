@@ -120,7 +120,7 @@ class _RIEditProfileScreenState extends State<RIEditProfileScreen> {
                         fit: BoxFit.cover,
                         child: imageFile == null
                             ? Image.network(imgUrl ??
-                                "https://wallpaperaccess.com/full/259715.jpg")
+                                "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters:format(jpg)/https://specials-images.forbesimg.com/imageserve/1026205392/0x0.jpg")
                             : Image.file(
                                 File(imageFile.path),
                               ),
