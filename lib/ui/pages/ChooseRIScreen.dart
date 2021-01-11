@@ -61,6 +61,9 @@ class _ChooseRIScreenState extends State<ChooseRIScreen> {
                     return PantiData(
                       panti: panti,
                       kategoriPanti: pantiKategori.data()['neededGoods'],
+                      perempuan: pantiKategori.data()['perempuan'],
+                      laki: pantiKategori.data()['laki'],
+                      kategoriDonatur: widget.kategori,
                       index: index,
                     );
                   });
@@ -73,10 +76,18 @@ class _ChooseRIScreenState extends State<ChooseRIScreen> {
 
 class PantiData extends StatelessWidget {
   final List<DocumentSnapshot> panti;
-  final List<dynamic> kategoriPanti;
-  final int index;
+  final List<dynamic> kategoriPanti, kategoriDonatur;
 
-  const PantiData({Key key, this.panti, this.kategoriPanti, this.index})
+  final int index, perempuan, laki;
+
+  const PantiData(
+      {Key key,
+      this.panti,
+      this.kategoriPanti,
+      this.kategoriDonatur,
+      this.perempuan,
+      this.laki,
+      this.index})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -99,9 +110,14 @@ class PantiData extends StatelessWidget {
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 return PantiCard(
                     onClick: true,
-                   // panti: ResidentialInstitutions(document['id'], document['keterangan'], document['laki'], document['perempuan'], document['neededGoods']),
+                    pantiID: panti[index]['id'].toString(),
                     category: kategoriPanti,
+                    selectedCategory: kategoriDonatur,
                     namaPanti: document['name'],
+                    alamatPanti: document['alamat'],
+                    perempuan: perempuan,
+                    laki: laki,
+                    kotaPanti: document['kota'],
                     img: document['profilePicture'] == ""
                         ? "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png"
                         : document['profilePicture']);

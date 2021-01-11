@@ -1,47 +1,93 @@
 part of 'pages.dart';
 
 class DetailPantiScreen extends StatefulWidget {
-  final ResidentialInstitutions panti;
-  final List<dynamic> kategori;
-  DetailPantiScreen({Key key, this.panti, this.kategori}) : super(key: key);
+  final String pantiID, alamatPanti, kotaPanti, namaPanti;
+  final int perempuan, laki;
+  final List<dynamic> kategoriPanti, kategoriDonatur;
+
+  DetailPantiScreen(
+      {Key key,
+      this.pantiID,
+      this.namaPanti,
+      this.alamatPanti,
+      this.kotaPanti,
+      this.kategoriPanti,
+      this.perempuan,
+      this.laki,
+      this.kategoriDonatur})
+      : super(key: key);
   @override
   _DetailPantiScreenState createState() => _DetailPantiScreenState();
 }
 
 class _DetailPantiScreenState extends State<DetailPantiScreen> {
-  ResidentialInstitutions panti;
-  Future<ResidentialInstitutions> futureResidentialInstitutions;
-  String name, id, kota, alamat, deskripsi, laki, perempuan, keterangan, img;
-  List<dynamic> kategorip;
+  var panti, donatur;
+  DocumentSnapshot snapshot, snapshotDonatur;
+
+  //donatur
+  String donaturID, kotaDonatur, alamatDonatur;
+
+  //panti
+  String namaPanti, kotaPanti, alamatPanti, keterangan, img;
+
   TextStyle judul = TextStyle(
       fontSize: 22, fontWeight: FontWeight.bold, color: HexColor("7A7ADC"));
   TextStyle desc = TextStyle(
       fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black);
 
-  void getData() async {
+  void getDataPanti() async {
+    panti = await FirebaseFirestore.instance
+        .collection("panti")
+        .doc(widget.pantiID)
+        .get();
+    snapshot = await panti;
+    keterangan = await snapshot.data()['keterangan'];
+
     await FirebaseFirestore.instance
-        .collection("Panti")
-        .doc(this.widget.panti.id)
+        .collection("users")
+        .doc(widget.pantiID)
         .get()
         .then((value) {
-      name = value.data()['name'];
-      id = value.data()['id'];
-      alamat = value.data()['alamat'];
-      kota = value.data()['kota'];
-      deskripsi = value.data()['deskripsi'];
-      laki = value.data()['laki'];
-      perempuan = value.data()['perempuan'];
-      kategorip = value.data()['neededGoods'];
-      keterangan = value.data()['keterangan'];
-      img = value.data()['imgUrl'];
+      namaPanti = value.data()['name'];
+      alamatPanti = value.data()['alamat'];
+      kotaPanti = value.data()['kota'];
+      img = value.data()['profilePicture'];
     });
+    if (mounted) {
+      setState(() {
+        if (img == "") {
+          img = "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png";
+        }
+      });
+    }
+  }
+
+  void getDataDonatur() async {
+    donaturID = FirebaseAuth.instance.currentUser.uid;
+    donatur = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(donaturID)
+        .get();
+    snapshotDonatur = await donatur;
+    kotaDonatur = await snapshotDonatur.data()['kota'];
+    alamatDonatur = await snapshotDonatur.data()['alamat'];
+
     if (mounted) {
       setState(() {});
     }
   }
 
+  void initState() {
+    getDataPanti();
+    getDataDonatur();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    int total = widget.laki + widget.perempuan;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -72,10 +118,9 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        'https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1026205392%2F0x0.jpg')),
+                    image: NetworkImage(img ??
+                        "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png")),
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                color: Colors.redAccent,
               ),
             ),
           ),
@@ -84,7 +129,7 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name ?? 'name', style: judul),
+                Text(widget.namaPanti ?? 'Nama Panti', style: judul),
                 SizedBox(height: 8),
                 Row(
                   children: [
@@ -92,47 +137,44 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       Icons.place,
                       color: HexColor("7A7ADC"),
                     ),
-                    Text(alamat ?? 'alamat', style: desc),
+                    Text(widget.alamatPanti ?? 'Alamat Panti', style: desc),
                   ],
-                ),
-                SizedBox(height: 8),
-                Text("Deskripsi", style: judul),
-                SizedBox(height: 8),
-                Text(
-                  "Lorem ipsum dolor sit amet, cum ea aeque molestiae. Ad quidam invidunt recteque quo, suavitate repudiandae an est. Eius affert posidonium nec ut, ei mel prima ridens appetere, malis admodum usu ad. Et vim nemore tacimates. Enim appetere pro ne, quo et assum choro deserunt.",
-                  style: desc,
-                  textAlign: TextAlign.justify,
                 ),
                 SizedBox(height: 8),
                 Text("Populasi", style: judul),
                 SizedBox(height: 8),
                 Text(
-                  "Total Penghuni : " +
-                      (int.parse(perempuan ?? '0') + int.parse(laki ?? '0')).toString(),
+                  "Total Penghuni : " + total.toString(),
                   style: desc,
                   textAlign: TextAlign.left,
                 ),
                 Text(
-                  "Perempuan : " + (perempuan ?? '0'),
+                  "Perempuan : " + (widget.perempuan.toString() ?? '0'),
                   style: desc,
                   textAlign: TextAlign.left,
                 ),
-                Text("Laki - Laki : " + (laki ?? '0'), style: desc),
+                Text("Laki - Laki : " + (widget.laki.toString() ?? '0'),
+                    style: desc),
                 SizedBox(height: 8),
                 Text("Kebutuhan", style: judul),
                 Container(
                   height: 50,
                   child: ListView(
                       scrollDirection: Axis.horizontal,
-                      children: (kategorip ?? ['kategori'])
+                      children: (widget.kategoriPanti ?? ['kategori'])
                           .map((e) => KategoriContainer(
                                 kategori: e ?? 'kategori',
                               ))
                           .toList()),
                 ),
-                Text(keterangan ?? 'keterangan',
-                    style: desc),
-                SizedBox(height: 20)
+                SizedBox(height: 8),
+                Text("Keterangan", style: judul),
+                Text(
+                  keterangan ?? 'keterangan',
+                  style: desc,
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(height: 50)
               ],
             ),
           ),
@@ -148,14 +190,13 @@ class _DetailPantiScreenState extends State<DetailPantiScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DetailPembayaranScreen(
-                              donaturID: "Donatur ID",
-                              pantiID: id,
-                              alamatPanti: alamat,
-                              alamatUser: "alamat User",
-                              destination: kota,
-                              origin: "kota e user",
-                              panti: widget.panti,
-                              kategori: widget.kategori)));
+                              donaturID: donaturID,
+                              pantiID: widget.pantiID,
+                              alamatPanti: alamatPanti,
+                              alamatUser: alamatDonatur,
+                              kategori: widget.kategoriDonatur,
+                              destination: kotaPanti,
+                              origin: kotaDonatur)));
                 },
                 child: Text(
                   "Donasi Sekarang",

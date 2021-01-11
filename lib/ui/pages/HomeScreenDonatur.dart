@@ -90,13 +90,6 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
 
   @override
   Widget build(BuildContext context) {
-    print('pantiList: $pantiList');
-    print('name1: $name1');
-    print('kategori1 : $kategori1');
-    print('name2: $name2');
-    print('kategori2 : $kategori2');
-    print('name3: $name3');
-    print('kategori3 : $kategori3');
     if (profile1 == "") {
       profile1 = "https://miro.medium.com/max/540/1*W35QUSvGpcLuxPo3SRTH4w.png";
     }

@@ -3,7 +3,6 @@ part of 'pages.dart';
 class DetailPembayaranScreen extends StatefulWidget {
   final String donaturID, pantiID, alamatUser, alamatPanti, origin, destination;
   final List<dynamic> kategori;
-  final ResidentialInstitutions panti;
 
   DetailPembayaranScreen({
     this.origin,
@@ -13,7 +12,6 @@ class DetailPembayaranScreen extends StatefulWidget {
     this.alamatPanti,
     this.destination,
     this.kategori,
-    this.panti,
   });
   @override
   _DetailPembayaranScreenState createState() => _DetailPembayaranScreenState();
@@ -173,12 +171,11 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                             fontWeight: FontWeight.bold)),
 
                     Container(
-                      height: double.parse(
-                              widget.panti.neededGoods.length.toString()) *
-                          22,
+                      height:
+                          double.parse(widget.kategori.length.toString()) * 22,
                       width: double.infinity,
                       child: ListView.builder(
-                        itemCount: widget.panti.neededGoods.length,
+                        itemCount: widget.kategori.length,
                         itemBuilder: (context, index) {
                           return Row(children: [
                             Icon(
@@ -189,7 +186,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                             SizedBox(
                               width: 20,
                             ),
-                            Text(widget.panti.neededGoods[index],
+                            Text(widget.kategori[index],
                                 style: TextStyle(
                                   color: HexColor("7a7adc"),
                                   fontSize: 16,
