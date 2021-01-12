@@ -58,7 +58,21 @@ class _PinScreenState extends State<PinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(title: Text("PIN"), backgroundColor: HexColor("7a7adc")),
+      appBar: AppBar(
+        title: Text("PIN"),
+        backgroundColor: HexColor("7a7adc"),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

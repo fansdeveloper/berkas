@@ -12,6 +12,17 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
       appBar: AppBar(
         backgroundColor: HexColor("7a7adc"),
         title: Text("Pengaturan"),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
       ),
       body: Container(
         child: Column(

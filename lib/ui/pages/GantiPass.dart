@@ -16,6 +16,17 @@ class _GantiPassState extends State<GantiPass> {
       appBar: AppBar(
         backgroundColor: HexColor("7a7adc"),
         title: Text("Ganti Password"),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
       ),
       body: Container(
         child: Padding(
