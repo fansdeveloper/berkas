@@ -360,6 +360,8 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         });
                       },
                     ),
+
+                    SizedBox(height: 50),
                   ],
                 ),
               ),

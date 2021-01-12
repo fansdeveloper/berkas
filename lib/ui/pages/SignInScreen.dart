@@ -68,27 +68,27 @@ class _SignInState extends State<SignIn> {
                         margin: EdgeInsets.fromLTRB(40, 10, 40, 5),
                         child: TextFormField(
                           controller: email,
-                          //style: TextStyle(color: Colors.white),
+                          cursorColor: HexColor("7A7ADC"),
                           decoration: InputDecoration(
-                            prefixText: '     ',
-                            fillColor: secondary,
-
-                            labelText: '     Email',
-                            labelStyle:
-                                TextStyle(color: Colors.white), //spasi 5 kali
                             filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.white,
-                                //width: 2.0,
+                            focusColor: HexColor("7A7ADC"),
+                            fillColor: secondary,
+                            prefixText: '     ',
+                            hintText: 'E-mail',
+                            hintStyle: TextStyle(color: Colors.white),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: HexColor("7A7ADC"),
+                                width: 2.0,
                               ),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),
                             ),
-                            //Ini Mungkin buat ganti warna Fokus text field
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: HexColor("7A7ADC")),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.white,
+                              ),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),
@@ -100,28 +100,28 @@ class _SignInState extends State<SignIn> {
                         margin: EdgeInsets.fromLTRB(40, 5, 40, 5),
                         child: TextFormField(
                           controller: password,
-                          //style: TextStyle(color: Colors.white),
+                          cursorColor: HexColor("7A7ADC"),
                           obscureText: true,
                           decoration: InputDecoration(
-                            focusColor: HexColor("7A7ADC"),
-                            prefixText: '     ',
-                            fillColor: secondary,
-                            labelText: '     Kata kunci',
-                            labelStyle:
-                                TextStyle(color: Colors.white), //spasi 5 kali
                             filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.white,
-                                //width: 2.0,
+                            focusColor: HexColor("7A7ADC"),
+                            fillColor: secondary,
+                            prefixText: '     ',
+                            hintText: 'Kata Kunci',
+                            hintStyle: TextStyle(color: Colors.white),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: HexColor("7A7ADC"),
+                                width: 2.0,
                               ),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),
                             ),
-                            //Ini Mungkin buat ganti warna Fokus text field
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: HexColor("7A7ADC")),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.white,
+                              ),
                               borderRadius: BorderRadius.all(
                                 const Radius.circular(50.0),
                               ),
