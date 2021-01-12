@@ -21,6 +21,12 @@ class _RIHomeScreenState extends State<RIHomeScreen> {
       s8 = false,
       s9 = false;
 
+  FirebaseMessaging fm = FirebaseMessaging();
+  _RIHomeScreenState() {
+    fm.getToken().then((value) => print('token: $value'));
+    fm.configure();
+  }
+
   //Ambil data buat Statistik
   void getData() async {
     var donationCollection = FirebaseFirestore.instance

@@ -377,13 +377,21 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                 onPressed: () async {
                   if (ctrlBerat.text.isEmpty ||
                       ctrlLokasi.text.isEmpty ||
-                      ctrlKeterangan.text.isEmpty) {
+                      ctrlKeterangan.text.isEmpty ||
+                      ctrlTelp.text.isEmpty) {
                     Fluttertoast.showToast(
                         msg: "Pastikan semua sudah terisi",
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                         toastLength: Toast.LENGTH_LONG);
                   } else {
+                    if (ctrlTelp.text.length != 12) {
+                      Fluttertoast.showToast(
+                          msg: "Nomor Telepon Tidak Valid",
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          toastLength: Toast.LENGTH_LONG);
+                    }
                     if (ctrlTelp.text == "081234567890") {
                       Fluttertoast.showToast(
                           msg: "Maaf, saldo Anda tidak mencukupi",

@@ -11,6 +11,7 @@ class RIDetailDonasiScreen extends StatefulWidget {
 class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
   Future<Resi> futureResi;
   String name, img;
+
   void getData() async {
     await FirebaseFirestore.instance
         .collection("users")
@@ -219,6 +220,7 @@ class _RIDetailDonasiScreenState extends State<RIDetailDonasiScreen> {
                             // setState(() {
                             //   isLoading = false;
                             // });
+
                             Navigator.pop(context);
                           } else {
                             Fluttertoast.showToast(

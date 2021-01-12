@@ -13,6 +13,13 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
   List<dynamic> kategori1, kategori2, kategori3;
 
   DocumentSnapshot snapshot1, snapshot2, snapshot3;
+
+  FirebaseMessaging fm = FirebaseMessaging();
+  _HomeScreenDonaturState() {
+    fm.getToken().then((value) => print('token: $value'));
+    fm.configure();
+  }
+
   Future getDocs() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection("panti").get();
