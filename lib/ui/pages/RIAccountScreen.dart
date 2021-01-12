@@ -165,7 +165,12 @@ class _RIAccountScreenState extends State<RIAccountScreen> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return PengaturanScreen();
+                              }));
+                            },
                             child: SizedBox(
                               width: double.infinity,
                               child: Text(

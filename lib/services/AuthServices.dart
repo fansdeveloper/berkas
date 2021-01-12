@@ -54,10 +54,35 @@ class AuthServices {
     return result;
   }
 
+  static Future<bool> checkCredential(String email, String password) async {
+    bool result = false;
+    await auth.currentUser
+        .reauthenticateWithCredential(
+          EmailAuthProvider.credential(
+            email: email,
+            password: password,
+          ),
+        )
+        .then((value) => result = true);
+    return result;
+  }
+
+  static Future<bool> UpdateEmail(String email) async {
+    bool result = false;
+    await auth.currentUser.updateEmail(email).then((value) => result = true);
+    return result;
+  }
+
+  static Future<bool> UpdatePassword(String password) async {
+    bool result = false;
+    await auth.currentUser
+        .updatePassword(password)
+        .then((value) => result = true);
+    return result;
+  }
+
   static Future<String> currentUser(String email, String password, String name,
       String alamat, String kota, String tipeUser) async {
     await Firebase.initializeApp();
   }
-
-  
 }

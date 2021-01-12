@@ -164,7 +164,12 @@ class _AccountScreenState extends State<AccountScreen> {
                             color: HexColor("7A7ADC"),
                           ),
                           FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return PengaturanScreen();
+                              }));
+                            },
                             child: SizedBox(
                               width: double.infinity,
                               child: Text(

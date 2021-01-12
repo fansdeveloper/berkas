@@ -58,3 +58,6 @@ part 'RIEditGoodsNeeded.dart';
 part 'CheckTipeUserScreen.dart';
 
 part 'PinScreen.dart';
+part 'PengaturanScreen.dart';
+part 'GantiEmail.dart';
+part 'GantiPass.dart';

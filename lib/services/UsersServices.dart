@@ -56,4 +56,11 @@ class UserServices {
     );
     return true;
   }
+
+  static Future<bool> updateEmail(String email) async {
+    await userCollection.doc(FirebaseAuth.instance.currentUser.uid).update(
+      {'email': email},
+    );
+    return true;
+  }
 }
