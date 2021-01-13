@@ -13,11 +13,48 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
   List<dynamic> kategori1, kategori2, kategori3;
 
   DocumentSnapshot snapshot1, snapshot2, snapshot3;
-
   FirebaseMessaging fm = FirebaseMessaging();
   _HomeScreenDonaturState() {
     fm.getToken().then((value) => print('token: $value'));
-    fm.configure();
+    fm.configure(
+      onMessage: //app is bein used (foreground)
+          (Map<String, dynamic> msg) async {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                    content: Container(
+                  width: 160.0,
+                  height: 130.0,
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: const Color(0xFFFFFF),
+                    borderRadius:
+                        new BorderRadius.all(new Radius.circular(32.0)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(msg['notification']['title'],
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: HexColor("7A7ADC"))),
+                      Text(msg['notification']['body'],
+                          style: TextStyle(
+                              fontSize: 18, color: HexColor("7A7ADC"))),
+                    ],
+                  ),
+                )));
+      },
+      onResume: //app is in background
+          (Map<String, dynamic> msg) async {
+        print('Notification : $msg');
+      },
+      onLaunch: //app isnt used at all
+          (Map<String, dynamic> msg) async {
+        print('Notification : $msg');
+      }, //
+    );
   }
 
   Future getDocs() async {
