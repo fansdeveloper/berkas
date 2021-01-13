@@ -1,6 +1,9 @@
 part of 'pages.dart';
 
 class PinScreen extends StatefulWidget {
+  final int deliveryFee;
+
+  PinScreen({this.deliveryFee});
   @override
   _PinScreenState createState() => _PinScreenState();
 }
@@ -45,7 +48,8 @@ class _PinScreenState extends State<PinScreen> {
           toastLength: Toast.LENGTH_LONG);
       _scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text('Pembayaran Berhasil')));
-      Navigator.pop(context);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => MainTabBar(index: 0)));
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Pin harus 6 digit'),
@@ -54,6 +58,7 @@ class _PinScreenState extends State<PinScreen> {
     }
   }
 
+  final formatter = new NumberFormat("#,###");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,18 +85,40 @@ class _PinScreenState extends State<PinScreen> {
             Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(20),
+                      child: Text(
+                        'Anda akan melakukan pembayaran biaya ongkir sebesar',
+                        style:
+                            TextStyle(fontSize: 20, color: HexColor("7a7adc")),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Text(
+                        "Rp ${formatter.format(widget.deliveryFee)}",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor("7a7adc")),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 50),
                     child: Text(
-                      'Masukkan Pin Anda',
+                      'Masukkan Pin OVO Anda',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                           color: HexColor("7a7adc")),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

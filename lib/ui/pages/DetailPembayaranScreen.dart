@@ -351,11 +351,6 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                                 backgroundColor: Colors.red,
                                 textColor: Colors.white,
                                 toastLength: Toast.LENGTH_LONG);
-                          } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PinScreen()));
                           }
                         });
                       },
@@ -415,10 +410,12 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
                       bool result = await DonasiServices.addDonasi(donasi);
                       if (result == true) {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MainTabBar(index: 0)));
+                                builder: (context) =>
+                                    PinScreen(deliveryFee: deliveryFee)));
+
                         setState(() {});
                       }
                     }
