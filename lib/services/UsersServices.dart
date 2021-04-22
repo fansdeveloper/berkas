@@ -19,7 +19,8 @@ class UserServices {
       'kota': users.kota,
       'alamat': users.alamat,
       'tipeUser': users.tipeUser,
-      'profilePicture': users.imgUrl ?? ""
+      'profilePicture': users.imgUrl ?? "",
+      'token': users.token
     });
   }
 

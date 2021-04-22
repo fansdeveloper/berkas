@@ -10,6 +10,7 @@ class DonasiServices {
 
     if (donasi.id != null) {
       donasiReference.doc(donasi.id).update({'isConfirmed': true});
+
       return true;
     } else {
       return false;

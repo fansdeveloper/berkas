@@ -13,6 +13,8 @@ class _RiwayatDonasiSharedState extends State<RiwayatDonasiShared> {
 
   var id = FirebaseAuth.instance.currentUser.uid;
   var donasiBaruCollection;
+  var serverKey =
+      "AAAAV9S9ZJg:APA91bFmlJRs3xCikbG2MvApedgmrKaVTnTjpmiasgi-bgcIpJi5nQ3Iw2YK7w3mmvtr9vJUaoUYlnwwBVvHJjX6yJ9uq5G_Mj30H3eYCjQMGTL73N990NeHjVtKtgL65GvtD_PBfccQ";
 
   initState() {
     super.initState();

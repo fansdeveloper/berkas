@@ -2,12 +2,15 @@ part of 'services.dart';
 
 class AuthServices {
   static FirebaseAuth auth = FirebaseAuth.instance;
+  static CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("users");
   Stream<User> get authState => auth.idTokenChanges();
   // <void> jika tidak mengembalikan nilai
   static Future<String> signUp(String email, String password, String name,
-      String alamat, String kota, String tipeUser) async {
+      String alamat, String kota, String tipeUser, String token) async {
     await Firebase.initializeApp();
     String msg = "";
+    String tok = await FirebaseMessaging().getToken();
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -16,7 +19,8 @@ class AuthServices {
           alamat: alamat,
           kota: kota,
           tipeUser: tipeUser,
-          imgUrl: "");
+          imgUrl: "",
+          token: tok);
       ResidentialInstitutions panti = ResidentialInstitutions(
           FirebaseAuth.instance.currentUser.uid, "", 0, 0, null);
       auth.signOut();
@@ -35,13 +39,15 @@ class AuthServices {
 
   static Future<String> signIn(String email, String password) async {
     await Firebase.initializeApp();
+    String token = await FirebaseMessaging().getToken();
     String msg = "";
     try {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .whenComplete(
-            () => msg = "success",
-          );
+          .then((value) {
+        msg = "success";
+        userCollection.doc(value.user.uid).update({'token': token});
+      });
     } catch (e) {
       msg = e.toString();
     }

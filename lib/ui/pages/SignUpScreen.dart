@@ -277,7 +277,8 @@ class _SignUpState extends State<SignUp> {
                                   name.text,
                                   alamat.text,
                                   kota.text,
-                                  widget.tipeUser);
+                                  widget.tipeUser,
+                                  "");
                               if (result == "success") {
                                 print(">>>>>>>>>>>>>>>>> " + widget.tipeUser);
                                 Fluttertoast.showToast(

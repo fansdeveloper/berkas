@@ -19,6 +19,7 @@ class _RIEditGoodsNeededState extends State<RIEditGoodsNeeded> {
       s7 = false,
       s8 = false,
       s9 = false;
+
   var id;
   DocumentReference documentReference;
 
