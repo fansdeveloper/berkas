@@ -3,18 +3,55 @@ part of 'services.dart';
 class DonasiServices {
   static CollectionReference donasiReference =
       FirebaseFirestore.instance.collection("donations");
+
+  static CollectionReference userReference =
+      FirebaseFirestore.instance.collection("users");
+
   static DocumentReference donasiDoc;
 
   static Future<bool> konfirmasiDonasi(Donasi donasi) async {
     await Firebase.initializeApp();
 
     if (donasi.id != null) {
+      sendNotif();
+
       donasiReference.doc(donasi.id).update({'isConfirmed': true});
 
       return true;
     } else {
       return false;
     }
+  }
+
+  static Future<http.Response> sendNotif() {
+    //token penerima pada table user
+    // var token = userReference
+    //     .doc(uid)
+    //     .get()
+    //     .then((value) => value.data()['token']);
+
+    String token =
+        "e7NMKHLbT-WTMy3aJgwAzS:APA91bF5hn7JaO7I4r-EeBsHAI8mLwymGnIvUYsVStvJ8YeYOTe12iVPpYygImX-S7DzXAGygzLASZBnNxXhrvEYJJO8laSGJOzcJUuKe-rRJ7Cx80NsPvQwrfIiKWz_43IZJD3LqvAD";
+    //fix url: endpoint hit API
+    String url = "fcm.googleapis.com";
+    //server key yg dilihat Project Overview > Tombol Setting > Tab Cloud Messaging
+    String key =
+        "AAAAV9S9ZJg:APA91bFmlJRs3xCikbG2MvApedgmrKaVTnTjpmiasgi-bgcIpJi5nQ3Iw2YK7w3mmvtr9vJUaoUYlnwwBVvHJjX6yJ9uq5G_Mj30H3eYCjQMGTL73N990NeHjVtKtgL65GvtD_PBfccQ";
+
+    return http.post(
+      Uri.https(url, "/fcm/send"),
+      headers: <String, String>{
+        'content-type': 'application/json; charset=UTF-8',
+        'authorization': 'key=' + key,
+      },
+      body: jsonEncode(<String, String>{
+        'to': token,
+        'notification': jsonEncode(<String, String>{
+          'title': 'Coba FCM',
+          'body': 'Halooo',
+        }),
+      }),
+    );
   }
 
   static Future<bool> addDonasi(Donasi donasi) async {
