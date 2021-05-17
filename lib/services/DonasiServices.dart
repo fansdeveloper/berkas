@@ -82,9 +82,8 @@ class DonasiServices {
 
   static Future<Resi> fetchResi(String noResi) async {
     final response = await http.get(
-        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jne&awb=$noResi');
-    print(
-        'https://api.binderbyte.com/v1/track?api_key=8163e4c7c9cd3c6941ca0b2f518d2bee3680073e35e3c0d487663e8e3afb75ad&courier=jne&awb=$noResi');
+        'https://api.binderbyte.com/v1/track?api_key=6e3f9afe1884fd24204d0fce16cdf88c5e8b11b1fa4d3840e36242f636533cd3&courier=jne&awb=$noResi');
+    print(response);
     if (response.statusCode == 200) {
       return Resi.fromJson(jsonDecode(response.body));
     } else {
