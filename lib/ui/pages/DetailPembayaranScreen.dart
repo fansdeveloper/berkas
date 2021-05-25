@@ -379,45 +379,48 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                         toastLength: Toast.LENGTH_LONG);
+                  } else if (ctrlTelp.text.length != 12) {
+                    Fluttertoast.showToast(
+                        msg: "Nomor Telepon Tidak Valid",
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG);
+                  } else if (ctrlTelp.text.length != 12) {
+                    Fluttertoast.showToast(
+                        msg: "Nomor Telepon Tidak Valid",
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG);
+                  } else if (ctrlTelp.text == "081234567890") {
+                    Fluttertoast.showToast(
+                        msg: "Maaf, saldo Anda tidak mencukupi",
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        toastLength: Toast.LENGTH_LONG);
                   } else {
-                    if (ctrlTelp.text.length != 12) {
-                      Fluttertoast.showToast(
-                          msg: "Nomor Telepon Tidak Valid",
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          toastLength: Toast.LENGTH_LONG);
-                    }
-                    if (ctrlTelp.text == "081234567890") {
-                      Fluttertoast.showToast(
-                          msg: "Maaf, saldo Anda tidak mencukupi",
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          toastLength: Toast.LENGTH_LONG);
-                    } else {
-                      Donasi donasi = Donasi(
-                          "",
-                          widget.pantiID,
-                          widget.donaturID,
-                          ctrlKeterangan.text,
-                          ctrlLokasi.text,
-                          widget.destination,
-                          deliveryFee,
-                          double.parse(ctrlBerat.text),
-                          Timestamp.now(),
-                          widget.kategori,
-                          false,
-                          "400010041369520");
+                    Donasi donasi = Donasi(
+                        "",
+                        widget.pantiID,
+                        widget.donaturID,
+                        ctrlKeterangan.text,
+                        ctrlLokasi.text,
+                        widget.destination,
+                        deliveryFee,
+                        double.parse(ctrlBerat.text),
+                        Timestamp.now(),
+                        widget.kategori,
+                        false,
+                        "400010041369520");
 
-                      bool result = await DonasiServices.addDonasi(donasi);
-                      if (result == true) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    PinScreen(deliveryFee: deliveryFee)));
+                    bool result = await DonasiServices.addDonasi(donasi);
+                    if (result == true) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PinScreen(deliveryFee: deliveryFee)));
 
-                        setState(() {});
-                      }
+                      setState(() {});
                     }
                   }
                 },

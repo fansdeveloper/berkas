@@ -11,10 +11,21 @@ class DonasiServices {
 
   static Future<bool> konfirmasiDonasi(Donasi donasi) async {
     await Firebase.initializeApp();
+    var token = await userReference
+        .doc(donasi.donaturID)
+        .get()
+        .then((value) => value.data()['token']);
+    var panti = await userReference
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((value) => value.data()['name']);
 
+    var donatur = await userReference
+        .doc(donasi.donaturID)
+        .get()
+        .then((value) => value.data()['name']);
     if (donasi.id != null) {
-      sendNotif();
-
+      callOnFcmApiSendPushNotifications(token, panti, donatur);
       donasiReference.doc(donasi.id).update({'isConfirmed': true});
 
       return true;
@@ -23,35 +34,47 @@ class DonasiServices {
     }
   }
 
-  static Future<http.Response> sendNotif() {
-    //token penerima pada table user
-    // var token = userReference
-    //     .doc(uid)
-    //     .get()
-    //     .then((value) => value.data()['token']);
+  // static String token =
+  //     "fbMfktZcRHmouBocAM2bdf:APA91bHl0yVrO83q9tNwlaRb0Eoyqx7GgY0zy3sjAZWBftBW4-DjkUt82NhX7I4ae6uakdcGR9yt64Gf6kZfIszoHBPj_Jm-UKIKO4-o3aQGoOFvPvdxetZGgSykPVG1_XzHJ3ljsacH";
 
-    String token =
-        "e7NMKHLbT-WTMy3aJgwAzS:APA91bF5hn7JaO7I4r-EeBsHAI8mLwymGnIvUYsVStvJ8YeYOTe12iVPpYygImX-S7DzXAGygzLASZBnNxXhrvEYJJO8laSGJOzcJUuKe-rRJ7Cx80NsPvQwrfIiKWz_43IZJD3LqvAD";
-    //fix url: endpoint hit API
-    String url = "fcm.googleapis.com";
-    //server key yg dilihat Project Overview > Tombol Setting > Tab Cloud Messaging
-    String key =
-        "AAAAV9S9ZJg:APA91bFmlJRs3xCikbG2MvApedgmrKaVTnTjpmiasgi-bgcIpJi5nQ3Iw2YK7w3mmvtr9vJUaoUYlnwwBVvHJjX6yJ9uq5G_Mj30H3eYCjQMGTL73N990NeHjVtKtgL65GvtD_PBfccQ";
+  //fix url: endpoint hit API
+  String url = "fcm.googleapis.com";
 
-    return http.post(
-      Uri.https(url, "/fcm/send"),
-      headers: <String, String>{
-        'content-type': 'application/json; charset=UTF-8',
-        'authorization': 'key=' + key,
-      },
-      body: jsonEncode(<String, String>{
-        'to': token,
-        'notification': jsonEncode(<String, String>{
-          'title': 'Coba FCM',
-          'body': 'Halooo',
-        }),
-      }),
-    );
+  //server key yg dilihat Project Overview > Tombol Setting > Tab Cloud Messaging
+  static String key =
+      "AAAAV9S9ZJg:APA91bFmlJRs3xCikbG2MvApedgmrKaVTnTjpmiasgi-bgcIpJi5nQ3Iw2YK7w3mmvtr9vJUaoUYlnwwBVvHJjX6yJ9uq5G_Mj30H3eYCjQMGTL73N990NeHjVtKtgL65GvtD_PBfccQ";
+
+  static Future<bool> callOnFcmApiSendPushNotifications(
+      String token, String panti, String donatur) async {
+    final postUrl = 'https://fcm.googleapis.com/fcm/send';
+    final data = {
+      "to": token,
+      "collapse_key": "type_a",
+      "notification": {
+        "title": 'Hai ' + donatur + ' 😊 Kabar baik nih!',
+        "body": 'Donasimu sudah diterima oleh ' + panti + ' 💕!',
+      }
+    };
+
+    final headers = {
+      'content-type': 'application/json',
+      'Authorization': 'key=' + key // 'key=YOUR_SERVER_KEY'
+    };
+
+    final response = await http.post(postUrl,
+        body: json.encode(data),
+        encoding: Encoding.getByName('utf-8'),
+        headers: headers);
+
+    if (response.statusCode == 200) {
+      // on success do sth
+      print('test ok push CFM');
+      return true;
+    } else {
+      print(' CFM error');
+      // on failure do sth
+      return false;
+    }
   }
 
   static Future<bool> addDonasi(Donasi donasi) async {
