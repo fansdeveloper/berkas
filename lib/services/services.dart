@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:berkas/models/City.dart';
 import 'package:berkas/models/models.dart';
 import 'package:berkas/extensions/extensions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

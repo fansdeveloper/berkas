@@ -31,12 +31,13 @@ class Rajaongkir {
 
 class Query {
   String province;
+  String id;
 
-  Query({this.province});
+  Query({this.province, this.id});
 
   factory Query.fromJson(Map<String, dynamic> json) {
     print("Query");
-    return Query(province: json['province']);
+    return Query(province: json['province'], id: json['id']);
   }
 }
 
