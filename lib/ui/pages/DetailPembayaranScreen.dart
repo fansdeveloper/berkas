@@ -71,6 +71,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     //444 = Surabaya
     //501 = Yogyakarta
     futureOngkir = DonasiServices.fetchOngkir("444", "501", berat ?? "1000");
+    futureCity = DonasiServices.fetchKota();
   }
 
   Future<Area> futureArea;
@@ -79,6 +80,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
     this.getData();
     this.getVendor();
     fetchOngkir();
+
     ctrlLokasi = TextEditingController(text: widget.alamatUser);
 
     super.initState();
@@ -129,38 +131,81 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                     ),
 
                     //Lokasi
-                    TextFormField(
-                      controller: ctrlLokasi,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.home, color: HexColor("7a7adc")),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: HexColor("7a7adc")),
-                        ),
-                      ),
-                    ),
+                    // TextFormField(
+                    //   controller: ctrlLokasi,
+                    //   decoration: InputDecoration(
+                    //     prefixIcon: Icon(Icons.home, color: HexColor("7a7adc")),
+                    //     enabledBorder: UnderlineInputBorder(
+                    //       borderSide: BorderSide(color: HexColor("7a7adc")),
+                    //     ),
+                    //     focusedBorder: UnderlineInputBorder(
+                    //       borderSide: BorderSide(color: HexColor("7a7adc")),
+                    //     ),
+                    //     border: UnderlineInputBorder(
+                    //       borderSide: BorderSide(color: HexColor("7a7adc")),
+                    //     ),
+                    //   ),
+                    // ),
 
                     SizedBox(height: 10),
 
-                    DropdownSearch<dynamic>(
-                      mode: Mode.BOTTOM_SHEET,
-                      items: data,
-                      label: "Pilih Kota Anda",
-                      onChanged: print,
-                      showClearButton: true,
-                      selectedItem: widget.origin,
-                      showSearchBox: true,
-                      popupBackgroundColor: HexColor("E7E7E7"),
-                      searchBoxDecoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: HexColor("7a7adc")))),
+                    FutureBuilder<City>(
+                      future: futureCity,
+                      builder: (context, snapshot) {
+                        print("Masok sini");
+                        if (snapshot.hasData) {
+                          print("Masok");
+                          List data = snapshot.data.rajaongkir.results
+                              .map((e) => "${e.cityName}")
+                              .toList();
+                          print(data);
+                          return Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                DropdownSearch<dynamic>(
+                                  mode: Mode.BOTTOM_SHEET,
+                                  items: data,
+                                  label: "Pilih Kota Anda",
+                                  showClearButton: true,
+                                  selectedItem: widget.origin,
+                                  showSearchBox: true,
+                                  popupBackgroundColor: HexColor("E7E7E7"),
+                                  onChanged: (newValue) {
+                                    setState(() {});
+                                  },
+                                  searchBoxDecoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: HexColor("7a7adc")))),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          // print(snapshot.error);
+                          return Text("${snapshot.error}");
+                        }
+
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      },
                     ),
+
+                    // DropdownSearch<dynamic>(
+                    //   mode: Mode.BOTTOM_SHEET,
+                    //   items: data,
+                    //   label: "Pilih Kota Anda",
+                    //   onChanged: print,
+                    //   showClearButton: true,
+                    //   selectedItem: widget.origin,
+                    //   showSearchBox: true,
+                    //   popupBackgroundColor: HexColor("E7E7E7"),
+                    //   searchBoxDecoration: InputDecoration(
+                    //       border: OutlineInputBorder(
+                    //           borderSide:
+                    //               BorderSide(color: HexColor("7a7adc")))),
+                    // ),
 
                     SizedBox(height: 10),
                     //Kategori Barang

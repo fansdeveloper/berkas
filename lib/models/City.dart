@@ -9,7 +9,7 @@ class City {
 }
 
 class Rajaongkir {
-  Query query;
+  List<Query> query;
   Status status;
   List<Results> results;
 
@@ -17,13 +17,16 @@ class Rajaongkir {
 
   factory Rajaongkir.fromJson(Map<String, dynamic> json) {
     print("Raja Ongkir");
+    var queryJson = json['query'] as List;
     var resultJson = json['results'] as List;
     print(resultJson);
     List<Results> _results =
         resultJson.map((e) => Results.fromJson(e)).toList();
 
+    List<Query> _query = queryJson.map((e) => Query.fromJson(e)).toList();
+
     return Rajaongkir(
-        query: Query.fromJson(json['query']),
+        query: _query,
         status: Status.fromJson(json['status']),
         results: _results);
   }
@@ -32,7 +35,6 @@ class Rajaongkir {
 class Query {
   String province;
   String id;
-
   Query({this.province, this.id});
 
   factory Query.fromJson(Map<String, dynamic> json) {

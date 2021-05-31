@@ -138,23 +138,24 @@ class DonasiServices {
   }
 
   static Future<City> fetchKota() async {
-    String client = "https://api.rajaongkir.com/starter/city";
-
-    Map<String, String> header = {
-      "content-type": "application/x-www-form-urlencoded",
+    String url = "https://api.rajaongkir.com/starter/city";
+    Map<String, String> headers = {
       "key": "b9f5d86e3f93058d2ae6dabf53641d34",
     };
+    http.Response response = await http.get(url, headers: headers);
 
-    http.Response responses = await http.post(Uri.parse(client),
-        headers: header, encoding: Encoding.getByName("utf-8"));
+    print(response.body);
 
-    print(responses.body);
-    if (responses.statusCode == 200) {
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
       print("200 BRUH");
-      return City.fromJson(jsonDecode(responses.body));
+      return City.fromJson(jsonDecode(response.body));
     } else {
-      print(City.fromJson(jsonDecode(responses.body)));
-      throw Exception('Gagal Memuat Ongkos Kirim');
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      print(City.fromJson(jsonDecode(response.body)));
+      throw Exception('Failed to load album');
     }
   }
 }
