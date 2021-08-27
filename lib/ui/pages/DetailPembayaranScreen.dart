@@ -362,7 +362,26 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
 
                     //Pembayaran
                     Text(
-                      "Pembayaran dengan OVO",
+                      "Biaya Admin",
+                      style: TextStyle(
+                          color: HexColor("7a7adc"),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      "Rp. ${6000 ?? 0}",
+                      style: TextStyle(
+                        color: HexColor("7a7adc"),
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "Masukkan Nomor Telepon",
                       style: TextStyle(
                           color: HexColor("7a7adc"),
                           fontSize: 18,
@@ -463,7 +482,7 @@ class _DetailPembayaranScreenState extends State<DetailPembayaranScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  PinScreen(deliveryFee: deliveryFee)));
+                                  PinScreen(deliveryFee: deliveryFee + 6000)));
 
                       setState(() {});
                     }

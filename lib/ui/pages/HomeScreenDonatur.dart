@@ -166,12 +166,46 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
           children: <Widget>[
             ListView(
               children: <Widget>[
-                SizedBox(height: 20),
+                Container(
+                  height: 60,
+                  margin: EdgeInsets.fromLTRB(50, 0, 50, 5),
+                  decoration: new BoxDecoration(
+                      color: HexColor(
+                          "BEBEEA"), //new Color.fromRGBO(255, 0, 0, 0.0),
+                      borderRadius: new BorderRadius.only(
+                        bottomLeft: const Radius.circular(40.0),
+                        bottomRight: const Radius.circular(40.0),
+                      )),
+                  child: Row(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.fromLTRB(65, 0, 20, 5),
+                          child: Row(
+                            children: [
+                              Text("Rp 150,000",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold)),
+                              RawMaterialButton(
+                                onPressed: () {},
+                                fillColor: HexColor("7A7ADC"),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                                shape: CircleBorder(),
+                              )
+                            ],
+                          )),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
 
                 //main slider
                 CarouselSlider(
                   options: CarouselOptions(
-                    height: 200,
+                    height: 170,
                     enlargeCenterPage: true,
                     autoPlay: true,
                     aspectRatio: 16 / 9,
@@ -331,7 +365,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Text("Saudara yang baru tergabung",
@@ -374,7 +408,7 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
                   ),
                 ),
 
-                SizedBox(height: 30),
+                SizedBox(height: 10),
 
                 //categories
                 Padding(

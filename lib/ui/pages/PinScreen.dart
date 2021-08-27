@@ -113,7 +113,7 @@ class _PinScreenState extends State<PinScreen> {
                   Container(
                     margin: const EdgeInsets.only(top: 50),
                     child: Text(
-                      'Masukkan Pin OVO Anda',
+                      'Masukkan Pin Anda',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
