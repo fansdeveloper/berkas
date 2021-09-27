@@ -166,40 +166,40 @@ class _HomeScreenDonaturState extends State<HomeScreenDonatur> {
           children: <Widget>[
             ListView(
               children: <Widget>[
-                Container(
-                  height: 60,
-                  margin: EdgeInsets.fromLTRB(50, 0, 50, 5),
-                  decoration: new BoxDecoration(
-                      color: HexColor(
-                          "BEBEEA"), //new Color.fromRGBO(255, 0, 0, 0.0),
-                      borderRadius: new BorderRadius.only(
-                        bottomLeft: const Radius.circular(40.0),
-                        bottomRight: const Radius.circular(40.0),
-                      )),
-                  child: Row(
-                    children: [
-                      Container(
-                          margin: EdgeInsets.fromLTRB(65, 0, 20, 5),
-                          child: Row(
-                            children: [
-                              Text("Rp 150,000",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold)),
-                              RawMaterialButton(
-                                onPressed: () {},
-                                fillColor: HexColor("7A7ADC"),
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                                shape: CircleBorder(),
-                              )
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   height: 60,
+                //   margin: EdgeInsets.fromLTRB(45, 0, 40, 5),
+                //   decoration: new BoxDecoration(
+                //       color: HexColor(
+                //           "BEBEEA"), //new Color.fromRGBO(255, 0, 0, 0.0),
+                //       borderRadius: new BorderRadius.only(
+                //         bottomLeft: const Radius.circular(40.0),
+                //         bottomRight: const Radius.circular(40.0),
+                //       )),
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //           margin: EdgeInsets.fromLTRB(55, 0, 10, 5),
+                //           child: Row(
+                //             children: [
+                //               Text("Rp 150,000",
+                //                   style: TextStyle(
+                //                       fontSize: 22,
+                //                       fontWeight: FontWeight.bold)),
+                //               RawMaterialButton(
+                //                 onPressed: () {},
+                //                 fillColor: HexColor("7A7ADC"),
+                //                 child: Icon(
+                //                   Icons.add,
+                //                   color: Colors.white,
+                //                 ),
+                //                 shape: CircleBorder(),
+                //               )
+                //             ],
+                //           )),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: 5),
 
                 //main slider
